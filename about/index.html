@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <header class="container">
+    <nav class="nav">
+      <a class="brand" href="/">Site Title</a>
+      <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="container">
+    <h1>About</h1>
+    <p>Write a clear, concise description of who you are and what this site does.</p>
+  </main>
+  <footer class="container">
+    <p>&copy; <span id="year"></span> Your Name. All rights reserved.</p>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
