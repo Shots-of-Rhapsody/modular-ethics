@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tai Song</title>
+  <title>Tai Song — Strategy, Ethics, Worldbuilding</title>
   <meta name="description" content="Bridging economies, ethics, and imagination through words and strategy.">
-  <!-- Starter base styles -->
+
+  <!-- Base starter fonts and styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -14,14 +15,61 @@
   <!-- Tai Song fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
 
-  <!-- Minimal overrides so your intro looks correct on a dark canvas -->
+  <!-- Page-specific styling -->
   <style>
-    body { background:#0b0f0e; color:#ffffff; }
-    .nav a { color:#e6f4ea; }
-    .brand { color:#e6f4ea; }
-    .menu a { color:#e6f4ea; }
-    .btn { background:#00A36C; }
-    .intro-wrap { text-align:center; padding:60px 20px; background-color:transparent; }
+    :root {
+      --jade: #00A36C;
+      --ink: #0b0f0e;
+      --mist: #e6f4ea;
+      --grid: #1b2220;
+      --muted: #94a3b8;
+      --maxw: 980px;
+    }
+    body { background: var(--ink); color: #ffffff; }
+    .container { max-width: var(--maxw); }
+    .nav a, .brand, .menu a { color: var(--mist); }
+    .brand { font-weight: 700; }
+    .btn { background: var(--jade); }
+    .intro-wrap { text-align: center; padding: 64px 20px 24px; }
+    .intro-wrap h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 3.2rem);
+      margin: 0 0 0.5rem 0;
+      color: var(--jade);
+    }
+    .intro-wrap h2 {
+      font-family: 'Roboto Mono', monospace;
+      font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+      font-weight: 400;
+      margin: 0 0 1.2rem 0;
+      color: #ffffff;
+    }
+    .intro-wrap p {
+      font-size: 1.1rem; line-height: 1.6; max-width: 60ch; margin: 0 auto;
+      color: #ffffff;
+    }
+    /* Consulting sections */
+    .section {
+      padding: 28px 0;
+      border-top: 1px solid var(--grid);
+    }
+    .section h2, .section h3 { margin: 0 0 10px 0; }
+    .section h2 { font-size: 1.6rem; color: var(--mist); }
+    .section h3 { font-size: 1.2rem; color: var(--mist); }
+    .section p { color: #e2e8f0; }
+    .section ul { padding-left: 1.1rem; }
+    .section li { margin: 6px 0; }
+    .pill {
+      display: inline-block; padding: 0.6rem 1rem; border-radius: 999px;
+      background: var(--jade); color: #0b0f0e; font-weight: 700;
+    }
+    blockquote {
+      margin: 18px 0 0 0; padding: 14px 16px; border-left: 3px solid var(--jade);
+      background: #0f1412; color: #e2e8f0; font-style: italic;
+    }
+    footer { color: var(--muted); }
+    a { color: var(--mist); }
+    a:hover { color: #ffffff; }
   </style>
 </head>
 <body>
@@ -31,6 +79,7 @@
       <ul class="menu">
         <li><a href="/">Home</a></li>
         <li><a href="/about/">About</a></li>
+        <li><a href="/contact/">Contact</a></li>
       </ul>
     </nav>
   </header>
@@ -38,21 +87,74 @@
   <main class="container">
     <!-- Tai Song Homepage Intro -->
     <div class="intro-wrap">
-      <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 0.5rem; color: #00A36C;">
-        Tai Song
-      </h1>
-      <h2 style="font-size: 1.5rem; font-weight: normal; margin-bottom: 1.2rem; font-family: 'Roboto Mono', monospace; color: #FFFFFF;">
+      <h1>Tai Song</h1>
+      <h2>
         Asia-Pacific Trade Strategist<br>
         AI Ethicist &amp; Fantasy Author
       </h2>
-      <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; color: #FFFFFF;">
-        Bridging economies, ethics &amp; imagination through words &amp; strategy.
-      </p>
+      <p>Bridging economies, ethics &amp; imagination through words &amp; strategy.</p>
     </div>
 
-    <!-- Optional CTA section; keep or remove -->
-    <section class="hero" style="padding-top:0;">
-      <a class="btn" href="taisong:hello@shotsofrhapsody.com">Contact</a>
+    <!-- Consulting -->
+    <section class="section" id="consulting">
+      <h2>Consulting</h2>
+      <p>Whether you're building ESG infrastructure, shaping digital governance, or crafting mythic worlds, I offer strategic support at the intersection of risk systems and speculative design.</p>
+
+      <h3>💼 For Institutions &amp; Strategic Partners</h3>
+      <ul>
+        <li><strong>ESG Risk &amp; Trade Advisory</strong>: Carbon, LNG, and metals contract structuring</li>
+        <li><strong>AI Forecasting Systems</strong>: NeuralProphet, Monte Carlo overlays, multilingual sentiment analysis</li>
+        <li><strong>Cross-Border Compliance</strong>: CBAM, OFAC, MAS, FATF, IMO-aligned frameworks</li>
+        <li><strong>Smart Clauses &amp; Blockchain-Cleared Audit Triggers</strong>: Secure, transparent contract infrastructure</li>
+        <li><strong>Scenario Modeling &amp; Logistics</strong>: Digital infrastructure for anticipatory systems</li>
+      </ul>
+      <p><em>Ideal for: Energy and finance firms, multilateral institutions, ESG teams, legal and compliance units</em></p>
+
+      <h3>🧭 For Public Sector &amp; Policy Leaders</h3>
+      <ul>
+        <li><strong>AI Ethics Governance</strong>: Designing accountable systems for autonomous technologies</li>
+        <li><strong>Zero Trust Infrastructure Strategy</strong>: Secure frameworks for state or municipal deployment</li>
+        <li><strong>Epistemic Risk &amp; Algorithmic Transparency</strong>: Analytical methods for regulatory alignment</li>
+        <li><strong>Strategic Foresight</strong>: Futureproofing for climate, cyber, and humanitarian volatility</li>
+      </ul>
+      <p><em>Ideal for: Ministries, regulatory bodies, intergovernmental units, civic tech leaders</em></p>
+
+      <h3>🐉 For Creative Studios &amp; Publishers</h3>
+      <ul>
+        <li><strong>Speculative Worldbuilding</strong>: Systems-level narrative design (Xianxia, near-future, mythic IP)</li>
+        <li><strong>Story Architecture</strong>: Integrating political, economic, and ethical models</li>
+        <li><strong>Editorial Diagnostics &amp; Tone Development</strong>: For books, games, audio, screen, serialized fiction</li>
+        <li><strong>Cultural Authenticity Reviews</strong>: Advising on narrative integrity across cultural lines</li>
+      </ul>
+      <p><em>Ideal for: Fiction publishers, game studios, screenwriters, immersive media producers</em></p>
+
+      <h3>📆 Booking Options</h3>
+      <ul>
+        <li><strong>Discovery Call (30 mins)</strong>: <em>Free</em> – Clarify project scope and determine fit</li>
+        <li><strong>Core Strategy Session (1 hr)</strong>: <em>SGD 680</em> – Deep dive into one challenge with actionable strategic insights</li>
+        <li><strong>Executive Advisory Session (75–90 mins)</strong>: <em>SGD 1,280</em> – High-level strategic synthesis for institutions, boards, or C-suite teams</li>
+        <li><strong>Retainers &amp; Custom Engagements</strong>: <em>Custom</em> – Includes multi-session retainers, workshops, or long-form advisory</li>
+      </ul>
+      <p><em>Pricing is aligned with Asia-Pacific consulting standards for advanced strategic work across regulatory, technological, and narrative systems. Flexible options are available for mission-driven or public-sector clients.</em></p>
+
+      <h3>💡 Public Interest &amp; Humanitarian Access</h3>
+      <p>Discounted or pro bono sessions are available for:</p>
+      <ul>
+        <li>Educational institutions</li>
+        <li>Public-interest technology initiatives</li>
+        <li>Nonprofits or NGOs operating in climate, cyber risk, or humanitarian response</li>
+      </ul>
+      <p>If your work aligns with these goals, feel free to reach out with context. I prioritize work that contributes to broader systems change.</p>
+
+      <p><strong>&rarr; <a href="/contact">Request a Consultation</a></strong></p>
+
+      <blockquote><em>“You don't just need insight. You need synthesis.”</em><br>Let’s build resilient systems, compelling stories, or both.</blockquote>
+
+      <p style="margin-top:18px;">
+        <a class="pill" href="mailto:taisong@shotsofrhapsody.com?subject=Consulting%20Inquiry%20—%20Tai%20Song">Email</a>
+        &nbsp; &nbsp;
+        <a class="pill" href="/contact">Request a Consultation</a>
+      </p>
     </section>
   </main>
 
