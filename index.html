@@ -3,17 +3,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Site Title</title>
-  <meta name="description" content="A concise description of this site.">
+  <title>Tai Song</title>
+  <meta name="description" content="Bridging economies, ethics, and imagination through words and strategy.">
+  <!-- Starter base styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
+
+  <!-- Tai Song fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
+
+  <!-- Minimal overrides so your intro looks correct on a dark canvas -->
+  <style>
+    body { background:#0b0f0e; color:#ffffff; }
+    .nav a { color:#e6f4ea; }
+    .brand { color:#e6f4ea; }
+    .menu a { color:#e6f4ea; }
+    .btn { background:#00A36C; }
+    .intro-wrap { text-align:center; padding:60px 20px; background-color:transparent; }
+  </style>
 </head>
 <body>
   <header class="container">
     <nav class="nav">
-      <a class="brand" href="/">Site Title</a>
+      <a class="brand" href="/">Tai Song</a>
       <ul class="menu">
         <li><a href="/">Home</a></li>
         <li><a href="/about/">About</a></li>
@@ -22,15 +36,28 @@
   </header>
 
   <main class="container">
-    <section class="hero">
-      <h1>Elegant, fast, simple.</h1>
-      <p>This is a minimal starter for a GitHub Pages site hosted from a repository. Replace this text with your content.</p>
-      <a class="btn" href="mailto:hello@example.com">Contact</a>
+    <!-- Tai Song Homepage Intro -->
+    <div class="intro-wrap">
+      <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 0.5rem; color: #00A36C;">
+        Tai Song
+      </h1>
+      <h2 style="font-size: 1.5rem; font-weight: normal; margin-bottom: 1.2rem; font-family: 'Roboto Mono', monospace; color: #FFFFFF;">
+        Asia-Pacific Trade Strategist<br>
+        AI Ethicist &amp; Fantasy Author
+      </h2>
+      <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; color: #FFFFFF;">
+        Bridging economies, ethics &amp; imagination through words &amp; strategy.
+      </p>
+    </div>
+
+    <!-- Optional CTA section; keep or remove -->
+    <section class="hero" style="padding-top:0;">
+      <a class="btn" href="taisong:hello@shotsofrhapsody.com">Contact</a>
     </section>
   </main>
 
   <footer class="container">
-    <p>&copy; <span id="year"></span> Your Name. All rights reserved.</p>
+    <p>&copy; <span id="year"></span> Tai Song. All rights reserved.</p>
   </footer>
 
   <script src="assets/js/main.js"></script>
