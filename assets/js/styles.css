@@ -1,0 +1,15 @@
+/* Minimal, clean styling */
+:root { --maxw: 900px; --pad: 1rem; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; color: #0f172a; background: #fafafa; }
+a { color: #0f62fe; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: var(--maxw); padding: 0 var(--pad); margin: 0 auto; }
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; }
+.brand { font-weight: 700; color: inherit; }
+.menu { list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0; }
+.hero { padding: 10vh 0; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 0.5rem 0; }
+.hero p { font-size: 1.1rem; max-width: 60ch; }
+.btn { display: inline-block; padding: 0.6rem 1rem; border-radius: 999px; background: #0f62fe; color: white; font-weight: 600; }
+footer { padding: 3rem 0; font-size: 0.9rem; color: #475569; }
