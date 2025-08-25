@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stories — Tai Song</title>
+  <meta name="description" content="Stories by Tai Song — fiction and non-fiction exploring systems, memory, and change.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <style>
+    :root {
+      --jade: #00A36C;
+      --ink: #0b0f0e;
+      --mist: #e6f4ea;
+      --grid: #1b2220;
+      --muted: #94a3b8;
+      --maxw: 980px;
+    }
+    body { background: var(--ink); color: #ffffff; }
+    .container { max-width: var(--maxw); }
+    .nav a, .brand, .menu a { color: var(--mist); }
+    .brand { font-weight: 700; }
+    a { color: var(--mist); }
+    a:hover { color: #ffffff; }
+    .page-title { text-align:center; padding: 56px 20px 8px; }
+    .page-title h1 {
+      font-family: 'Playfair Display', serif;
+      color: var(--jade);
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      margin: 0;
+    }
+    .lede {
+      text-align:center; color:#e2e8f0; margin: 8px auto 28px; max-width: 70ch;
+      font-family: 'Roboto Mono', monospace; font-size: 1rem;
+    }
+    .section { padding: 28px 0; border-top: 1px solid var(--grid); }
+    .section:first-of-type { border-top: 0; }
+    .section h2 {
+      font-size: 1.6rem; margin: 0 0 14px 0; color: var(--mist);
+    }
+    .section p {
+      color:#e2e8f0; line-height: 1.65; max-width: 70ch;
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <nav class="nav">
+      <a class="brand" href="/">Tai Song</a>
+      <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/stories/">Stories</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="page-title">
+      <h1>Stories</h1>
+      <p class="lede">Fiction and non-fiction, both tracing the lines where systems meet human lives.</p>
+    </div>
+
+    <section class="section" id="fiction">
+      <h2>Fiction</h2>
+      <p>Science meets sorrow, memory fades &amp; futures fracture. The edge between invention &amp; consequence, searching for what we lose in what we make. Quiet apocalypses, slow transformations &amp; fragile things we try to hold onto before they disappear.</p>
+    </section>
+
+    <section class="section" id="non-fiction">
+      <h2>Non-Fiction</h2>
+      <p>Power hums beneath policy, inequality bleeds through markets. Systems shape us, quietly, as empires shift and vanish. Watching what breaks, what endures, and what slips through the cracks when the world decides who gets what and why.</p>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p>&copy; <span id="year"></span> Tai Song. All rights reserved.</p>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
