@@ -94,43 +94,49 @@
     }
 
     /* Navigation */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 40px;
-      background-color: rgba(0, 0, 0, 0.6);
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 100;
-    }
+nav {
+  display: flex;
+  justify-content: space-between; /* Ensures even spacing between items */
+  align-items: center;
+  padding: 20px 40px;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  box-sizing: border-box; /* Ensures the padding is accounted for in the width calculation */
+}
 
-    nav .brand {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      color: var(--jade);
-      font-weight: 600;
-    }
+nav .brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--jade);
+  font-weight: 600;
+}
 
-    nav .menu {
-      display: flex;
-      gap: 30px;
-    }
+nav .menu {
+  display: flex;
+  gap: 30px;
+}
 
-    nav .menu a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      text-transform: uppercase;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
-    }
+nav .menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
 
-    nav .menu a:hover {
-      color: var(--electric-purple);
-    }
+nav .menu a:hover {
+  color: var(--electric-purple);
+}
+
+/* Ensure that the last navigation link (Contact) does not overflow */
+nav .menu a:last-child {
+  margin-right: 0;
+}
 
     /* Content Sections */
     .section {
