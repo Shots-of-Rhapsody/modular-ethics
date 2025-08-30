@@ -133,15 +133,20 @@
   transform: scale(1.05);
 }
 
-   /* About Tai Song Section Styling */
-   #about-tai-song {
-     padding: 100px 20px;
-     text-align: center;
-     max-width: 900px;
-     margin: 0 auto;
-   }
+/* About Tai Song Section Styling */
+#about-tai-song {
+  padding: 100px 20px;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
 
-   #about-tai-song h2 {
+/* Section Titles */
+#about-tai-song h2 {
   text-align: center; /* Centers the title */
   color: var(--jade); /* Apply Jade Green color */
   font-family: 'Playfair Display', serif; /* Ensure the same font as other titles */
@@ -149,68 +154,94 @@
   margin-bottom: 30px; /* Add spacing below titles */
 }
 
-   #about-tai-song p {
-     font-size: 1.0rem;
-     color: #e2e8f0;
-     line-height: 1.7;
-      text-align: center; /* Ensure paragraphs are centered */
-      max-width: 900px; /* Control the paragraph width */
-      margin: 0 auto 20px; /* Center and space paragraphs */
-     transition: transform 0.3s ease-in-out;
-   }
-
-    .section ul {
-      text-align: left;
-      margin-top: 20px;
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .section li {
-      font-size: 1.1rem;
-      color: #e2e8f0;
-      margin: 10px 0;
-    }
-
-   #about-tai-song p:hover {
-     transform: scale(1.03);
-     transition: transform 0.3s ease-in-out;
-   }
-
-   #about-tai-song .highlight {
-     color: var(--electric-purple);
-     font-weight: bold;
-     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-   }
-
-   #about-tai-song p:hover {
-     transform: scale(1.05);
-   }
-
-/* Fix the specific titles for Certifications & Specialized Studies */
-.certifications, .specialized-studies {
-  text-align: center; /* Centers the text */
-  color: var(--jade); /* Jade green font color */
-  font-family: 'Playfair Display', serif; /* Same font */
-  font-size: 2.5rem; /* Same font size as other titles */
-  margin-bottom: 30px; /* Add margin to space them from content below */
+/* Paragraph Styling */
+#about-tai-song p {
+  font-size: 1rem;
+  color: #e2e8f0;
+  line-height: 1.6;
+  text-align: center; /* Ensure paragraphs are centered */
+  max-width: 900px; /* Control the paragraph width */
+  margin: 0 auto 20px; /* Center and space paragraphs */
+  transition: transform 0.3s ease-in-out;
 }
 
-    .certifications h3, .specialized-studies h3 {
-      font-size: 2rem;
-      color: var(--jade);
-      margin-bottom: 10px;
-    }
+/* List Styling */
+.section ul {
+  text-align: left;
+  margin-top: 20px;
+  list-style: none;
+  padding-left: 0;
+}
 
-    .certifications ul, .specialized-studies ul {
-      padding-left: 20px;
-      list-style-type: square;
-    }
+.section li {
+  font-size: 1.1rem;
+  color: #e2e8f0;
+  margin: 10px 0;
+}
 
-    .certifications li, .specialized-studies li {
-      font-size: 1.1rem;
-      color: #e2e8f0;
-    }
+/* Hover Effect for Paragraph */
+#about-tai-song p:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Highlighted Text Styling */
+#about-tai-song .highlight {
+  color: var(--electric-purple);
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Certifications and Specialized Studies Sections */
+.certifications, .specialized-studies {
+  flex: 1 1 45%; /* Assign 45% width for both sections */
+  min-width: 300px; /* Prevent sections from shrinking too small */
+  padding: 20px;
+  background-color: #f4f4f4; /* Light background for contrast */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: left; /* Align text to the left for better readability */
+}
+
+/* Titles within Certifications and Specialized Studies */
+.certifications h3, .specialized-studies h3 {
+  font-size: 1.5rem;
+  color: var(--jade);
+  margin-bottom: 10px;
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+  #about-tai-song {
+    padding: 10px;
+  }
+
+  /* Certifications and Specialized Studies stacked on small screens */
+  .certifications, .specialized-studies {
+    flex: 1 1 100%; /* Stack the sections on smaller screens */
+    text-align: center; /* Centers the text */
+    margin-bottom: 20px; /* Add margin to space them from content below */
+  }
+
+  /* Styling for Titles in Small Screens */
+  .certifications h3, .specialized-studies h3 {
+    font-size: 2rem;
+    color: var(--jade);
+    margin-bottom: 10px;
+  }
+
+  /* List Styling for Certifications and Specialized Studies */
+  .certifications ul, .specialized-studies ul {
+    padding-left: 20px;
+    list-style-type: square;
+  }
+
+  /* List Items Styling */
+  .certifications li, .specialized-studies li {
+    font-size: 1.1rem;
+    color: #e2e8f0;
+  }
+}
 
     /* Footer */
     footer {
