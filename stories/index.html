@@ -296,7 +296,8 @@
     <p>&copy; <span id="year"></span> Tai Song. All rights reserved. | <a href="/contact/">Contact</a></p>
   </footer>
 
-  <!-- Reader Counter Script (added) -->
+
+  <!-- Reader Counter Script -->
   <script>
     const baseCount = 2000;
     const startDate = new Date("2024-05-01");
@@ -347,7 +348,7 @@
         if (!startTime) startTime = timestamp;
         const progress = Math.min((timestamp - startTime) / duration, 1);
         const current = Math.floor(progress * (end - start) + start);
-        el.textContent = current.toLocaleString() + " followers reading";
+        el.textContent = current.toLocaleString() + " readers have read this story";
         if (progress < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
