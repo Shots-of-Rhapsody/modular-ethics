@@ -5,135 +5,235 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tai Song — Shots of Rhapsody</title>
   <meta name="description" content="Tai Song's personal site, bridging strategy, fiction, and creative innovation.">
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/styles.css">
-  
+
   <style>
     :root {
       --jade: #00A36C;
-      --ink: #0b0f0e;
-      --mist: #e6f4ea;
-      --grid: #1b2220;
-      --muted: #94a3b8;
-      --maxw: 980px;
+      --deep-blue: #1C1C2B;
+      --light-gray: #F4F4F9;
+      --muted-gray: #B1B1B6;
+      --vibrant-yellow: #FFC107;
+      --gradient-bg: linear-gradient(120deg, #00A36C, #1C1C2B);
     }
-    body { background: var(--ink); font-family: 'Roboto Mono', sans-serif; margin: 0; }
-    .container { max-width: var(--maxw); margin: 0 auto; padding: 20px; color: #ffffff; }
-    .header { text-align: center; background-color: #2d2a2b; padding: 20px 0; border-radius: 10px; margin-bottom: 20px; }
-    .header h1 {
-      font-family: 'Playfair Display', serif;
-      color: var(--jade);
-      font-size: 3rem;
+    
+    body {
       margin: 0;
-    }
-    .header h2 {
-      font-family: 'Roboto Mono', monospace;
-      font-size: 1.5rem;
+      padding: 0;
+      font-family: 'Roboto Mono', sans-serif;
+      background: var(--deep-blue);
       color: #ffffff;
-      margin: 10px 0;
     }
-    .hero { display: flex; flex-direction: column; align-items: center; text-align: center; }
-    .hero p {
-      max-width: 80%;
-      line-height: 1.6;
-      font-size: 1.2rem;
-      color: #e2e8f0;
+
+    /* Full-screen Hero Section */
+    .hero {
+      height: 100vh;
+      background: url('https://w0.peakpx.com/wallpaper/342/700/HD-wallpaper-ken-kaneki-anime-ken-kaneki-tokyo-ghoul.jpg') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
     }
-    .profile-img { border-radius: 50%; width: 150px; height: 150px; margin-top: 20px; }
-    .nav { text-align: center; margin: 20px 0; }
-    .nav a {
-      color: var(--jade);
-      text-decoration: none;
-      padding: 10px 20px;
-      margin: 5px;
-      font-weight: bold;
-      border-radius: 5px;
-      border: 2px solid var(--jade);
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: -1;
     }
-    .nav a:hover {
-      background-color: var(--jade);
-      color: #0b0f0e;
-    }
-    .sections { display: grid; grid-template-columns: 1fr; gap: 30px; }
-    .section { padding: 20px; border-radius: 8px; background-color: #1b2220; }
-    .section h3 {
+
+    .hero h1 {
       font-family: 'Playfair Display', serif;
-      color: var(--jade);
+      font-size: 4rem;
+      color: #ffffff;
+      margin: 0;
+      text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero h2 {
+      font-size: 1.8rem;
+      color: var(--vibrant-yellow);
+      font-weight: 500;
+      margin-top: 20px;
+    }
+
+    /* Call to Action Button */
+    .cta-button {
+      padding: 15px 30px;
+      background-color: var(--vibrant-yellow);
+      color: #0b0f0e;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      margin-top: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: var(--jade);
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+
+    /* Navigation Bar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(0, 0, 0, 0.3);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+    }
+
+    nav .brand {
+      font-family: 'Playfair Display', serif;
       font-size: 2rem;
-      margin-bottom: 10px;
+      color: #ffffff;
     }
-    .section p {
-      font-size: 1rem;
-      color: #e2e8f0;
-      line-height: 1.6;
+
+    nav .menu {
+      display: flex;
+      gap: 20px;
     }
-    footer { text-align: center; padding: 20px; background-color: #2d2a2b; color: #e2e8f0; margin-top: 20px; }
-    footer a {
-      color: var(--jade);
+
+    nav .menu a {
+      color: #ffffff;
       text-decoration: none;
+      font-size: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    nav .menu a:hover {
+      color: var(--vibrant-yellow);
+    }
+
+    /* Sections Styling */
+    section {
+      padding: 60px 20px;
+      margin-top: 100px;
+    }
+
+    section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--jade);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    .content p {
+      color: var(--light-gray);
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 20px;
+      text-align: center;
+      background-color: var(--deep-blue);
+      color: #ffffff;
+    }
+
+    footer a {
+      color: var(--vibrant-yellow);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      color: var(--jade);
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="header">
-      <h1>Tai Song</h1>
-      <h2>Asia-Pacific Trade Strategist &amp; Fantasy Author</h2>
-    </header>
-
-    <div class="hero">
-      <img src="https://w0.peakpx.com/wallpaper/342/700/HD-wallpaper-ken-kaneki-anime-ken-kaneki-tokyo-ghoul.jpg" alt="Tai Song" class="profile-img">
-      <p>Bridging economies, ethics, and imagination through words and strategy.</p>
-    </div>
-
-    <nav class="nav">
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="brand">Shots of Rhapsody</div>
+    <div class="menu">
       <a href="/">Home</a>
       <a href="/about/">About</a>
       <a href="/stories/">Stories</a>
       <a href="/contact/">Contact</a>
-    </nav>
-
-    <div class="sections">
-      <section class="section" id="who-i-am">
-        <h3>Who I Am</h3>
-        <p>My name’s Tai Song. I build systems. In trade and tech, I set up the structures behind how things move: products, information, decisions. I work on global markets, AI ethics, ESG contracts, and long-term planning. I rely on models, mental frameworks, and spotting patterns. I try to make things clear without locking them down.</p>
-        <p>But I’ve always had two tracks going at once. There’s the outside world I work in, and the internal one I’ve explored through stories. They’re usually grounded in dynasties, cultivation, and old myths. My writing digs into power, change, and how hard it is to evolve without coming apart.</p>
-        <p>Different tools, same mission. Figure out how things work, and shift them deliberately.
-One path helps me handle the world I’m in. The other keeps pushing me to ask what kind of world we should actually build.</p>
-      </section>
-
-      <section class="section" id="what-i-build">
-        <h3>What I Build</h3>
-        <p>My work is about risk and design. It's about how to face what we don’t see coming and plan for what comes next.</p>
-        <p>I build systems that scan for early signals, track weird patterns, and flag potential threats before they show up at the front door. I work on ethics in AI, trying to keep automation tied to real accountability. I write contracts that translate ESG goals into actions people can actually track. I help shape digital infrastructure that can take a hit, follow the rules, and still move fast.</p>
-        <p>None of this is static. These systems are built to learn and adjust as the world changes.
-I pull from a lot of fields: geopolitics, climate shifts, behavioral science, data law. When you line them up right, they don’t just reduce risk. They create alignment. They help people move. They make resilience something you can actually build into the system. Every project is a custom setup. It’s not just about structure. It’s about intent. And making sure it holds when pressure hits.</p>
-      </section>
-            <section class="section" id="what-i-write">
-        <h3>What I Write</h3>
-        <p>Alongside my strategy work, I write speculative fiction influenced by Xianxia, dynastic systems, and philosophy. It’s not a break from what I do. It’s another way of studying how systems shift, hold together, or fall apart. The stories look at the tension between personal drive and inherited structure. They ask what power costs, how people change, and what legacy really means. The worlds I build treat belief like architecture and culture like the ground it stands on.</p>
-        <p>Every story is an experiment. A sealed system. A world with its own rules, with characters trying to bend or break them. Fiction gives me room to explore what data can’t reach: moral consequences, long memory, and the inner logic that shapes how civilizations grow or collapse.</p>
-      </section>
-             <section class="section" id="what-i-work">
-        <h3>How I Work</h3>
-        <p>I work with people who operate where systems are stressed or shifting. That might be where AI and ethics collide, where trade runs into climate limits, or where governance has to meet the power of narrative.</p>
-        <p>Whether the job is navigating regulation, setting up accountability, or building fictional worlds that actually make sense, I bring a mix of structure and imagination. I move between domains, but I stay grounded in the details. Every project adapts to its environment. But the core goals don’t change. Make things align. Make them hold up under pressure. And do it at scale.</p>
-      </section>
-             <section class="section" id="work-with-me">
-        <h3>Work With Me</h3>
-        <p>This site opens two directions. One is focused on strategy: consulting in AI ethics, foresight, ESG systems, and digital policy. The other dives into storytelling: speculative fiction, worldbuilding, and myth-driven narratives.</p>
-        <p>Both tracks are about building and change. Start from wherever you are. Work the structure. Shape what comes next.</p>
-      </section>
     </div>
+  </nav>
 
-    <footer>
-      <p>&copy; <span id="year"></span> Tai Song. All rights reserved. <br>Visit the <a href="/contact/">contact page</a> for inquiries.</p>
-    </footer>
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Tai Song</h1>
+    <h2>Bridging Strategy, Fiction, and Innovation</h2>
+    <button class="cta-button" onclick="window.location.href='/contact/'">Get in Touch</button>
   </div>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- About Section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="content">
+      <p>My name’s Tai Song. I build systems. I work on global markets, AI ethics, ESG contracts, and long-term planning. I rely on models, mental frameworks, and spotting patterns.</p>
+      <img src="your-image.jpg" alt="Tai Song">
+      <p>I'm also a writer with a passion for storytelling, where I explore power, change, and the evolution of societies through speculative fiction. Welcome to my world of strategy and stories.</p>
+    </div>
+  </section>
+
+  <!-- Stories Section -->
+  <section id="stories">
+    <h2>Stories</h2>
+    <div class="content">
+      <div class="story-card">
+        <h3><a href="/stories/story1/">Story One</a></h3>
+        <p>Explore politics, trade, and personal identity in a world on the brink of collapse.</p>
+      </div>
+      <div class="story-card">
+        <h3><a href="/stories/story2/">Story Two</a></h3>
+        <p>A tale of two worlds, one digital and one organic. The clash of technological advancement and natural preservation.</p>
+      </div>
+      <div class="story-card">
+        <h3><a href="/stories/story3/">Story Three</a></h3>
+        <p>In a world where beliefs shape reality, a young hero must challenge the established order to make way for a new future.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="year"></span> Tai Song. All rights reserved. | <a href="/contact/">Contact</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
