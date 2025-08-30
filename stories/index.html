@@ -6,137 +6,281 @@
   <title>Stories — Tai Song</title>
   <meta name="description" content="Explore the fiction and non-fiction works of Tai Song, where systems meet stories and imagination.">
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/styles.css">
+
   <style>
+    /* Global Styles */
     :root {
       --jade: #00A36C;
-      --ink: #0b0f0e;
-      --mist: #e6f4ea;
-      --grid: #1b2220;
-      --muted: #94a3b8;
-      --maxw: 980px;
+      --deep-blue: #1C1C2B;
+      --electric-purple: #8A2BE2;
+      --light-gray: #F4F4F9;
+      --muted-gray: #B1B1B6;
+      --maxw: 1200px;
+      --gradient-bg: linear-gradient(135deg, #00A36C, #8A2BE2);
+      --shadow-light: 0px 20px 40px rgba(0, 0, 0, 0.1);
     }
-    body { background: var(--ink); font-family: 'Roboto Mono', sans-serif; margin: 0; }
-    .container { max-width: var(--maxw); margin: 0 auto; padding: 20px; color: #ffffff; }
-    .header { text-align: center; background-color: #2d2a2b; padding: 20px 0; border-radius: 10px; margin-bottom: 20px; }
-    .header h1 {
-      font-family: 'Playfair Display', serif;
-      color: var(--jade);
-      font-size: 3rem;
+
+    body {
       margin: 0;
-    }
-    .header h2 {
-      font-family: 'Roboto Mono', monospace;
-      font-size: 1.5rem;
+      padding: 0;
+      font-family: 'Roboto Mono', sans-serif;
+      background: #0f0f10;
       color: #ffffff;
-      margin: 10px 0;
     }
-    .bio { margin-top: 40px; text-align: center; }
-    .bio p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      max-width: 80%;
-      margin: 0 auto;
-      color: #e2e8f0;
+
+    /* Navigation Bar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
     }
-    .stories-section {
-      margin-top: 50px;
-    }
-    .story-card {
-      background-color: #1b2220;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      color: #ffffff;
-      transition: background-color 0.3s ease;
-    }
-    .story-card:hover {
-      background-color: var(--jade);
-    }
-    .story-card h3 {
-      margin: 0 0 10px;
-      color: var(--jade);
-      font-size: 1.8rem;
+
+    nav .brand {
       font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--jade);
+      font-weight: 600;
     }
-    .story-card p {
-      color: #e2e8f0;
-      font-size: 1.1rem;
-      line-height: 1.6;
+
+    nav .menu {
+      display: flex;
+      gap: 30px;
     }
-    .story-card a {
+
+    nav .menu a {
+      color: #fff;
       text-decoration: none;
       font-weight: bold;
-      color: var(--jade);
+      text-transform: uppercase;
       font-size: 1.1rem;
+      transition: color 0.3s ease;
     }
-    .story-card a:hover {
-      text-decoration: underline;
+
+    nav .menu a:hover {
+      color: var(--electric-purple);
     }
-    footer { text-align: center; padding: 20px; background-color: #2d2a2b; color: #e2e8f0; margin-top: 20px; }
-    footer a {
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: url('https://cdn.asp.events/CLIENT_TNetwor__0FD31200_A544_3CE1_7728C96E8E4C313F/sites/Thought-Networks/media/hero/Home-page-background1.png') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .hero-content {
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 600;
       color: var(--jade);
-      text-decoration: none;
+      margin: 0;
+      text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
     }
+
+    .hero h2 {
+      font-size: 1.8rem;
+      color: var(--electric-purple);
+      font-weight: 500;
+      margin-top: 20px;
+    }
+
+    /* Call to Action Button */
+    .cta-button {
+      padding: 15px 30px;
+      background-color: var(--electric-purple);
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      margin-top: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: var(--jade);
+      transform: scale(1.05);
+    }
+
+    /* Content Sections */
+    .section {
+      padding: 100px 20px;
+      margin-top: 100px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 2.5rem;
+      font-family: 'Playfair Display', serif;
+      color: var(--jade);
+      margin-bottom: 30px;
+    }
+
+    .section p {
+      font-size: 1.1rem;
+      color: #e2e8f0;
+      line-height: 1.7;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .reader-counter {
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .reader-delta {
+      font-size: 1.2rem;
+      color: var(--electric-purple);
+      font-style: italic;
+      margin-top: 5px;
+      text-align: center;
+    }
+
+    /* Split Layout: Fiction and Non-Fiction */
+    .stories-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .fiction, .non-fiction {
+      padding: 20px;
+      background: var(--deep-blue);
+      border-radius: 12px;
+      box-shadow: var(--shadow-light);
+    }
+
+    .fiction h3, .non-fiction h3 {
+      font-size: 2rem;
+      color: var(--jade);
+      margin-bottom: 20px;
+    }
+
+    .fiction p, .non-fiction p {
+      color: #e2e8f0;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 20px;
+      text-align: center;
+      background-color: #1C1C2B;
+      color: var(--light-gray);
+      margin-top: 50px;
+    }
+
+    footer a {
+      color: var(--electric-purple);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      color: var(--jade);
+    }
+
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="header">
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="brand">Shots of Rhapsody</div>
+    <div class="menu">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/stories/">Stories</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-content">
       <h1>Tai Song</h1>
-      <h2>Fiction</h2>
-    </header>
-
-    <section class="bio">
-      <p>Science meets sorrow, memory fades & futures fracture. The edge between invention & consequence, searching for what we lose in what we make. Quiet apocalypses, slow transformations & fragile things we try to hold onto before they disappear.</p>
-    </section>
-
-        <!-- Reader Counter (added) -->
-    <div id="reader-counter" style="
-      font-size: 24px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-weight: bold;
-      color: #00ffcc;
-      text-shadow: 0 0 4px #00ffcc, 0 0 8px #00A86B;
-      text-align: center;
-    ">
-      Loading readers...
+      <h2>Commodity Strategist &amp; Visionary</h2>
+      <button class="cta-button" onclick="window.location.href='/contact/'">Get in Touch</button>
     </div>
-    <div id="reader-delta" style="
-      font-size: 14px;
-      color: #aaffdd;
-      text-shadow: 0 0 3px #00A86B;
-      font-style: italic;
-      margin-top: 4px;
-      text-align: center;
-    ">
+  </div>
+
+  <!-- Reader Counter -->
+  <div class="reader-counter" id="reader-counter">
+    Loading readers...
+  </div>
+  <div class="reader-delta" id="reader-delta"></div>
+
+  <!-- Stories Section -->
+  <section class="section" id="stories">
+    <h2>My Stories</h2>
+
+    <div class="stories-section">
+      <!-- Fiction Section -->
+      <div class="fiction">
+        <h3>Fiction</h3>
+        <p>Explore my speculative fiction stories where I weave complex worlds, testing the boundaries of belief and reality.</p>
+        <!-- List of Fiction Stories -->
+        <ul>
+          <li><a href="/stories/fiction1/">Story One: The Broken Empire</a></li>
+          <li><a href="/stories/fiction2/">Story Two: The Last Lotus</a></li>
+          <li><a href="/stories/fiction3/">Story Three: The Sky's Silence</a></li>
+        </ul>
+      </div>
+
+      <!-- Non-Fiction Section -->
+      <div class="non-fiction">
+        <h3>Non-Fiction</h3>
+        <p>In my non-fiction, I explore the intersection of global trade, AI ethics, and the future of commodity markets.</p>
+        <!-- List of Non-Fiction Stories -->
+        <ul>
+          <li><a href="/stories/nonfiction1/">Article One: The Future of Commodities</a></li>
+          <li><a href="/stories/nonfiction2/">Article Two: Navigating AI Ethics</a></li>
+          <li><a href="/stories/nonfiction3/">Article Three: The Geopolitics of Trade</a></li>
+        </ul>
+      </div>
     </div>
+  </section>
 
-    <section class="stories-section">
-      <h2>My Stories</h2>
-      <div class="story-card">
-        <h3><a href="/stories/story1/">The Seventh Skin</a></h3>
-        <p>A biotech miracle grants eternal youth & rewrites the meaning of life.</p>
-      </div>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="year"></span> Tai Song. All rights reserved. | <a href="/contact/">Contact</a></p>
+  </footer>
 
-      <div class="story-card">
-        <h3><a href="/stories/story2/">Poetic Biography</a></h3>
-        <p>The story behind the breath you didn’t know you were holding.</p>
-      </div>
-
-      <div class="story-card">
-        <h3><a href="/stories/story3/">The Guild: A Chronicle of Pretty Souls</a></h3>
-        <p>A myth-bent memory of digital devotion, told in glitch-forged rhyme & frosting-slick fire.</p>
-      </div>
-
-      <!-- Add more stories here following the same structure -->
-    </section>
-
-      <script src="assets/js/main.js"></script>
-    
   <!-- Reader Counter Script (added) -->
   <script>
     const baseCount = 2000;
@@ -205,12 +349,10 @@
     const sign = todayChange > 0 ? "+" : "";
     deltaEl.textContent = `(${sign}${todayChange} today)`;
   </script>
-    
-    <footer>
-      <p>&copy; <span id="year"></span> Tai Song. All rights reserved. | <a href="/contact/">Contact</a></p>
-    </footer>
-  </div>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
 </body>
 </html>
