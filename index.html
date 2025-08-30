@@ -3,43 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tai Song — Shots of Rhapsody</title>
-  <meta name="description" content="Tai Song's personal site, bridging strategy, fiction, and creative innovation.">
+  <title>Shots of Rhapsody — Tai Song</title>
+  <meta name="description" content="Shots of Rhapsody - Tai Song's creative portfolio and commodity strategist expertise. Bridging strategy, innovation, and trading insights.">
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/styles.css">
 
   <style>
+    /* Global Styles */
     :root {
       --jade: #00A36C;
       --deep-blue: #1C1C2B;
+      --electric-purple: #8A2BE2;
       --light-gray: #F4F4F9;
       --muted-gray: #B1B1B6;
-      --vibrant-yellow: #FFC107;
-      --gradient-bg: linear-gradient(120deg, #00A36C, #1C1C2B);
+      --maxw: 1200px;
+      --gradient-bg: linear-gradient(135deg, #00A36C, #8A2BE2);
+      --shadow-light: 0px 20px 40px rgba(0, 0, 0, 0.1);
     }
-    
+
     body {
       margin: 0;
       padding: 0;
       font-family: 'Roboto Mono', sans-serif;
-      background: var(--deep-blue);
+      background: #0f0f10;
       color: #ffffff;
     }
 
-    /* Full-screen Hero Section */
+    /* Hero Section */
     .hero {
       height: 100vh;
-      background: url('https://w0.peakpx.com/wallpaper/342/700/HD-wallpaper-ken-kaneki-anime-ken-kaneki-tokyo-ghoul.jpg') center/cover no-repeat;
+      background: url('https://cdn.asp.events/CLIENT_TNetwor__0FD31200_A544_3CE1_7728C96E8E4C313F/sites/Thought-Networks/media/hero/Home-page-background1.png') center/cover no-repeat;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
+      color: white;
       position: relative;
-      z-index: 1;
     }
 
     .hero::after {
@@ -49,30 +51,34 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: -1;
+      background: rgba(0, 0, 0, 0.4); /* dark overlay */
+      z-index: 1;
+    }
+
+    .hero-content {
+      z-index: 2;
     }
 
     .hero h1 {
       font-family: 'Playfair Display', serif;
       font-size: 4rem;
-      color: #ffffff;
+      font-weight: 600;
+      color: var(--jade);
       margin: 0;
-      text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+      text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
     }
 
     .hero h2 {
       font-size: 1.8rem;
-      color: var(--vibrant-yellow);
+      color: var(--electric-purple);
       font-weight: 500;
       margin-top: 20px;
     }
 
-    /* Call to Action Button */
     .cta-button {
       padding: 15px 30px;
-      background-color: var(--vibrant-yellow);
-      color: #0b0f0e;
+      background-color: var(--electric-purple);
+      color: #fff;
       font-size: 1.2rem;
       font-weight: bold;
       border: none;
@@ -84,17 +90,16 @@
 
     .cta-button:hover {
       background-color: var(--jade);
-      color: #ffffff;
       transform: scale(1.05);
     }
 
-    /* Navigation Bar */
+    /* Navigation */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 20px 40px;
-      background: rgba(0, 0, 0, 0.3);
+      background-color: rgba(0, 0, 0, 0.6);
       position: fixed;
       top: 0;
       left: 0;
@@ -105,71 +110,92 @@
     nav .brand {
       font-family: 'Playfair Display', serif;
       font-size: 2rem;
-      color: #ffffff;
+      color: var(--jade);
+      font-weight: 600;
     }
 
     nav .menu {
       display: flex;
-      gap: 20px;
+      gap: 30px;
     }
 
     nav .menu a {
-      color: #ffffff;
+      color: #fff;
       text-decoration: none;
-      font-size: 1rem;
       font-weight: bold;
       text-transform: uppercase;
+      font-size: 1.1rem;
       transition: color 0.3s ease;
     }
 
     nav .menu a:hover {
-      color: var(--vibrant-yellow);
+      color: var(--electric-purple);
     }
 
-    /* Sections Styling */
-    section {
-      padding: 60px 20px;
+    /* Content Sections */
+    .section {
+      padding: 100px 20px;
       margin-top: 100px;
-    }
-
-    section h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
-      color: var(--jade);
       text-align: center;
-      margin-bottom: 40px;
     }
 
-    .content {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 40px;
-      max-width: 1200px;
+    .section h2 {
+      font-size: 2.5rem;
+      font-family: 'Playfair Display', serif;
+      color: var(--jade);
+      margin-bottom: 30px;
+    }
+
+    .section p {
+      font-size: 1.1rem;
+      color: #e2e8f0;
+      line-height: 1.7;
+      max-width: 900px;
       margin: 0 auto;
     }
 
-    .content img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 12px;
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
     }
 
-    .content p {
-      color: var(--light-gray);
-      font-size: 1.2rem;
-      line-height: 1.8;
+    .project-card {
+      background: var(--deep-blue);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: var(--shadow-light);
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: scale(1.05);
+    }
+
+    .project-card h3 {
+      font-size: 1.8rem;
+      color: var(--jade);
+      margin-bottom: 15px;
+    }
+
+    .project-card p {
+      font-size: 1.1rem;
+      color: #fff;
+      line-height: 1.6;
     }
 
     /* Footer */
     footer {
       padding: 40px 20px;
       text-align: center;
-      background-color: var(--deep-blue);
-      color: #ffffff;
+      background-color: #1C1C2B;
+      color: var(--light-gray);
+      margin-top: 50px;
     }
 
     footer a {
-      color: var(--vibrant-yellow);
+      color: var(--electric-purple);
       text-decoration: none;
       font-weight: bold;
     }
@@ -177,6 +203,7 @@
     footer a:hover {
       color: var(--jade);
     }
+
   </style>
 </head>
 <body>
@@ -193,39 +220,43 @@
 
   <!-- Hero Section -->
   <div class="hero">
-    <h1>Tai Song</h1>
-    <h2>Bridging Strategy, Fiction, and Innovation</h2>
-    <button class="cta-button" onclick="window.location.href='/contact/'">Get in Touch</button>
+    <div class="hero-content">
+      <h1>Tai Song</h1>
+      <h2>Commodity Strategist &amp; Visionary</h2>
+      <button class="cta-button" onclick="window.location.href='/contact/'">Connect with Tai</button>
+    </div>
   </div>
 
   <!-- About Section -->
-  <section id="about">
-    <h2>About Me</h2>
-    <div class="content">
-      <p>My name’s Tai Song. I build systems. I work on global markets, AI ethics, ESG contracts, and long-term planning. I rely on models, mental frameworks, and spotting patterns.</p>
-      <img src="your-image.jpg" alt="Tai Song">
-      <p>I'm also a writer with a passion for storytelling, where I explore power, change, and the evolution of societies through speculative fiction. Welcome to my world of strategy and stories.</p>
+  <section class="section" id="about">
+    <h2>About Tai Song</h2>
+    <p>Tai Song is a renowned commodity strategist known for his insights into global markets, risk management, and the evolving landscape of trade. With expertise in AI ethics, ESG compliance, and data-driven strategy, Tai is shaping the future of global trade.</p>
+  </section>
+
+  <!-- Featured Projects Section -->
+  <section class="section" id="projects">
+    <h2>Featured Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3>AI-Driven Risk Modeling</h3>
+        <p>Developing AI-powered risk prediction models to anticipate commodity price fluctuations and geopolitical risks in the market.</p>
+      </div>
+      <div class="project-card">
+        <h3>Global Trade Strategy</h3>
+        <p>Crafting advanced global trade strategies, focusing on cross-border compliance, trade finance, and digital supply chain solutions.</p>
+      </div>
+      <div class="project-card">
+        <h3>ESG Compliance &amp; Innovation</h3>
+        <p>Building transparent, ESG-aligned financial structures, integrating sustainability with strategic commodity trading models.</p>
+      </div>
     </div>
   </section>
 
-  <!-- Stories Section -->
-  <section id="stories">
-    <h2>Stories</h2>
-    <div class="content">
-      <div class="story-card">
-        <h3><a href="/stories/story1/">Story One</a></h3>
-        <p>Explore politics, trade, and personal identity in a world on the brink of collapse.</p>
-      </div>
-      <div class="story-card">
-        <h3><a href="/stories/story2/">Story Two</a></h3>
-        <p>A tale of two worlds, one digital and one organic. The clash of technological advancement and natural preservation.</p>
-      </div>
-      <div class="story-card">
-        <h3><a href="/stories/story3/">Story Three</a></h3>
-        <p>In a world where beliefs shape reality, a young hero must challenge the established order to make way for a new future.</p>
-      </div>
-    </div>
-  </section>
+  <!-- Testimonials Section (Optional) -->
+  <!-- <section class="section" id="testimonials">
+    <h2>What People Are Saying</h2>
+    <p>"Tai Song is the future of global trade strategy. His insights are unparalleled." - Industry Leader</p>
+  </section> -->
 
   <!-- Footer -->
   <footer>
