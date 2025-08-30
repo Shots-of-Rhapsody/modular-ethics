@@ -363,7 +363,7 @@
         if (!startTime) startTime = timestamp;
         const progress = Math.min((timestamp - startTime) / duration, 1);
         const current = Math.floor(progress * (end - start) + start);
-        el.textContent = current.toLocaleString() + " readers have read this story";
+        el.textContent = current.toLocaleString() + " followers reading";
         if (progress < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
