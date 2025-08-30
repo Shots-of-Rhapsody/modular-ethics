@@ -33,9 +33,9 @@
     }
 
     /* Navigation Bar */
-    nav {
+   nav {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-between; /* Ensures even spacing between items */
       align-items: center;
       padding: 20px 40px;
       background-color: rgba(0, 0, 0, 0.6);
@@ -44,6 +44,7 @@
       left: 0;
       width: 100%;
       z-index: 100;
+      box-sizing: border-box; /* Ensures the padding is accounted for in the width calculation */
     }
 
     nav .brand {
