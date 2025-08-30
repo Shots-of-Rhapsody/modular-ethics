@@ -3,258 +3,275 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tai Song — Strategy, Ethics, Worldbuilding</title>
-  <meta name="description" content="Bridging economies, ethics, and imagination through words and strategy.">
-
-  <!-- Base starter fonts and styles -->
+  <title>Tai Song — Shots of Rhapsody</title>
+  <meta name="description" content="Tai Song's personal site, bridging strategy, fiction, and creative innovation.">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
-
-  <!-- Tai Song fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/styles.css">
 
-  <!-- Page-specific styling -->
   <style>
     :root {
       --jade: #00A36C;
+      --vibrant-yellow: #FFC107;
+      --vibrant-blue: #007BFF;
+      --deep-purple: #6A1B9A;
       --ink: #0b0f0e;
       --mist: #e6f4ea;
-      --grid: #1b2220;
       --muted: #94a3b8;
       --maxw: 980px;
+      --gradient-bg: linear-gradient(120deg, #00A36C, #FFC107, #007BFF);
     }
-    body { background: var(--ink); color: #ffffff; }
-    .container { max-width: var(--maxw); }
-    .nav a, .brand, .menu a { color: var(--mist); }
-    .brand { font-weight: 700; }
-    .btn { background: var(--jade); }
-    .intro-wrap { text-align: center; padding: 64px 20px 24px; }
-    .intro-wrap h1 {
+    body {
+      background: var(--ink);
+      font-family: 'Roboto Mono', sans-serif;
+      color: #ffffff;
+      margin: 0;
+      transition: all 0.3s ease;
+    }
+
+    /* Header Section */
+    .header {
+      text-align: center;
+      padding: 50px 20px;
+      background: var(--gradient-bg);
+      color: var(--mist);
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      margin-bottom: 30px;
+      transition: background-color 0.3s ease;
+    }
+
+    .header h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 6vw, 3.2rem);
-      margin: 0 0 0.5rem 0;
       color: var(--jade);
+      font-size: 3.5rem;
+      margin: 0;
+      text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
     }
-    .intro-wrap h2 {
+
+    .header h2 {
       font-family: 'Roboto Mono', monospace;
-      font-size: clamp(1.1rem, 2.8vw, 1.5rem);
-      font-weight: 400;
-      margin: 0 0 1.2rem 0;
-      color: #ffffff;
+      font-size: 1.8rem;
+      color: var(--mist);
+      margin-top: 15px;
     }
-    .intro-wrap p {
-      font-size: 1.1rem; line-height: 1.6; max-width: 60ch; margin: 0 auto;
-      color: #ffffff;
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-top: 40px;
     }
-    /* Consulting sections */
+
+    .hero p {
+      max-width: 80%;
+      font-size: 1.3rem;
+      color: #ffffff;
+      line-height: 1.6;
+      margin: 20px auto;
+    }
+
+    .profile-img {
+      border-radius: 50%;
+      width: 160px;
+      height: 160px;
+      margin-top: 20px;
+      border: 5px solid var(--jade);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Navigation */
+    .nav {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 1.2rem;
+    }
+
+    .nav a {
+      color: var(--mist);
+      text-decoration: none;
+      padding: 10px 25px;
+      margin: 10px;
+      font-weight: bold;
+      border-radius: 10px;
+      border: 2px solid var(--jade);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nav a:hover {
+      background-color: var(--jade);
+      color: #0b0f0e;
+    }
+
+    /* Button Hover Effect */
+    .btn {
+      padding: 15px 30px;
+      background: var(--vibrant-yellow);
+      color: var(--ink);
+      font-weight: bold;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--vibrant-blue);
+      transform: scale(1.05);
+    }
+
+    /* Sections with Background Gradients */
+    .sections {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
     .section {
-      padding: 28px 0;
-      border-top: 1px solid var(--grid);
+      padding: 30px;
+      background: var(--deep-purple);
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
     }
-    .section h2, .section h3 { margin: 0 0 10px 0; }
-    .section h2 { font-size: 1.6rem; color: var(--mist); }
-    .section h3 { font-size: 1.2rem; color: var(--mist); }
-    .section p { color: #e2e8f0; }
-    .section ul { padding-left: 1.1rem; }
-    .section li { margin: 6px 0; }
-    .pill {
-      display: inline-block; padding: 0.6rem 1rem; border-radius: 999px;
-      background: var(--jade); color: #0b0f0e; font-weight: 700;
+
+    .section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--jade);
+      margin-bottom: 20px;
     }
-    blockquote {
-      margin: 18px 0 0 0; padding: 14px 16px; border-left: 3px solid var(--jade);
-      background: #0f1412; color: #e2e8f0; font-style: italic;
+
+    .section p {
+      color: #ffffff;
+      font-size: 1.2rem;
+      line-height: 1.7;
     }
-    footer { color: var(--muted); }
-    a { color: var(--mist); }
-    a:hover { color: #ffffff; }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background-color: #2d2a2b;
+      color: var(--mist);
+      margin-top: 50px;
+    }
+
+    footer a {
+      color: var(--jade);
+      text-decoration: none;
+    }
+    
+    /* Smooth transitions for scrolling */
+    .section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Scroll animations */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section.fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
   </style>
 </head>
 <body>
-  <header class="container">
-    <nav class="nav">
-      <a class="brand" href="/">Tai Song</a>
-      <ul class="menu">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/contact/">Contact</a></li>
-        <li><a href="/stories/">Stories</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main class="container">
-    <!-- Tai Song Homepage Intro -->
-    <div class="intro-wrap">
+  <div class="container">
+    <header class="header">
       <h1>Tai Song</h1>
-      <h2>
-        Asia-Pacific Trade Strategist<br>
-        AI Ethicist &amp; Fantasy Author
-      </h2>
-      <p>Bridging economies, ethics &amp; imagination through words &amp; strategy.</p>
+      <h2>Strategy, Fiction & Innovation</h2>
+    </header>
+
+    <div class="hero">
+      <img src="your-profile-image-url.jpg" alt="Tai Song" class="profile-img">
+      <p>Economies, ethics &amp; imagination through words & strategy.</p>
     </div>
 
-    <!-- Reader Counter (added) -->
-    <div id="reader-counter" style="
-      font-size: 24px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-weight: bold;
-      color: #00ffcc;
-      text-shadow: 0 0 4px #00ffcc, 0 0 8px #00A86B;
-      text-align: center;
-    ">
-      Loading readers...
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/stories/">Stories</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+
+    <div class="sections">
+      <div class="section fade-in">
+        <h3>Who I Am</h3>
+        <p>My name’s Tai Song. I build systems. In trade and tech, I set up the structures behind how things move: products, information, decisions. I work on global markets, AI ethics, ESG contracts, and long-term planning. I rely on models, mental frameworks, and spotting patterns. I try to make things clear without locking them down.</p>
+        <p>But I’ve always had two tracks going at once. There’s the outside world I work in, and the internal one I’ve explored through stories. They’re usually grounded in dynasties, cultivation, and old myths. My writing digs into power, change, and how hard it is to evolve without coming apart.</p>
+        <p>Different tools, same mission. Figure out how things work, and shift them deliberately. One path helps me handle the world I’m in. The other keeps pushing me to ask what kind of world we should actually build.</p>
+      </div>
+
+      <div class="section fade-in">
+        <h3>What I Build</h3>
+        <p>My work is about risk and design. It's about how to face what we don’t see coming and plan for what comes next. I build systems that scan for early signals, track weird patterns, and flag potential threats before they show up at the front door. I work on ethics in AI, trying to keep automation tied to real accountability. I write contracts that translate ESG goals into actions people can actually track. I help shape digital infrastructure that can take a hit, follow the rules, and still move fast.</p>
+        <p>None of this is static. These systems are built to learn and adjust as the world changes. I pull from a lot of fields: geopolitics, climate shifts, behavioral science, data law. When you line them up right, they don’t just reduce risk. They create alignment. They help people move. They make resilience something you can actually build into the system. Every project is a custom setup. It’s not just about structure. It’s about intent. And making sure it holds when pressure hits.</p>
+      </div>
+
+      <div class="section fade-in">
+        <h3>What I Write</h3>
+        <p>Alongside my strategy work, I write speculative fiction influenced by Xianxia, dynastic systems, and philosophy. It’s not a break from what I do. It’s another way of studying how systems shift, hold together, or fall apart. The stories look at the tension between personal drive and inherited structure. They ask what power costs, how people change, and what legacy really means. The worlds I build treat belief like architecture and culture like the ground it stands on.</p>
+        <p>Every story is an experiment. A sealed system. A world with its own rules, with characters trying to bend or break them. Fiction gives me room to explore what data can’t reach: moral consequences, long memory, and the inner logic that shapes how civilizations grow or collapse.</p>
+      </div>
+
+       <div class="section fade-in">
+        <h3>How I Work</h3>
+        <p>I work with people who operate where systems are stressed or shifting. That might be where AI and ethics collide, where trade runs into climate limits, or where governance has to meet the power of narrative.</p>
+        <p>Whether the job is navigating regulation, setting up accountability, or building fictional worlds that actually make sense, I bring a mix of structure and imagination. I move between domains, but I stay grounded in the details. Every project adapts to its environment. But the core goals don’t change. Make things align. Make them hold up under pressure. And do it at scale.</p>
+      </div>
+
+       <div class="section fade-in">
+        <h3>Work With Me</h3>
+        <p>This site opens two directions. One is focused on strategy: consulting in AI ethics, foresight, ESG systems, and digital policy. The other dives into storytelling: speculative fiction, worldbuilding, and myth-driven narratives.</p>
+        <p>Both tracks are about building and change. Start from wherever you are. Work the structure. Shape what comes next.</p>
+      </div>
     </div>
-    <div id="reader-delta" style="
-      font-size: 14px;
-      color: #aaffdd;
-      text-shadow: 0 0 3px #00A86B;
-      font-style: italic;
-      margin-top: 4px;
-      text-align: center;
-    ">
-    </div>
 
-    <!-- Consulting -->
-    <section class="section" id="consulting">
-      <h2>Consulting</h2>
-      <p>Whether you're building ESG infrastructure, shaping digital governance, or crafting mythic worlds, I offer strategic support with risk systems and speculative design.</p>
+    <footer>
+      <p>&copy; <span id="year"></span> Tai Song. All rights reserved. | <a href="/contact/">Contact</a></p>
+    </footer>
+  </div>
 
-      <h3>💼 For Institutions &amp; Strategic Partners</h3>
-      <ul>
-        <li><strong>ESG Risk &amp; Trade Advisory</strong>: Carbon, LNG, and metals contract structuring</li>
-        <li><strong>AI Forecasting Systems</strong>: NeuralProphet, Monte Carlo overlays, multilingual sentiment analysis</li>
-        <li><strong>Cross-Border Compliance</strong>: CBAM, OFAC, MAS, FATF, IMO-aligned frameworks</li>
-        <li><strong>Smart Clauses &amp; Blockchain-Cleared Audit Triggers</strong>: Secure, transparent contract infrastructure</li>
-        <li><strong>Scenario Modeling &amp; Logistics</strong>: Digital infrastructure for anticipatory systems</li>
-      </ul>
-      <p><em>Ideal for: Energy and finance firms, multilateral institutions, ESG teams, legal and compliance units</em></p>
-
-      <h3>🧭 For Public Sector &amp; Policy Leaders</h3>
-      <ul>
-        <li><strong>AI Ethics Governance</strong>: Designing accountable systems for autonomous technologies</li>
-        <li><strong>Zero Trust Infrastructure Strategy</strong>: Secure frameworks for state or municipal deployment</li>
-        <li><strong>Epistemic Risk &amp; Algorithmic Transparency</strong>: Analytical methods for regulatory alignment</li>
-        <li><strong>Strategic Foresight</strong>: Futureproofing for climate, cyber, and humanitarian volatility</li>
-      </ul>
-      <p><em>Ideal for: Ministries, regulatory bodies, intergovernmental units, civic tech leaders</em></p>
-
-      <h3>🐉 For Creative Studios &amp; Publishers</h3>
-      <ul>
-        <li><strong>Speculative Worldbuilding</strong>: Systems-level narrative design (Xianxia, near-future, mythic IP)</li>
-        <li><strong>Story Architecture</strong>: Integrating political, economic, and ethical models</li>
-        <li><strong>Editorial Diagnostics &amp; Tone Development</strong>: For books, games, audio, screen, serialized fiction</li>
-        <li><strong>Cultural Authenticity Reviews</strong>: Advising on narrative integrity across cultural lines</li>
-      </ul>
-      <p><em>Ideal for: Fiction publishers, game studios, screenwriters, immersive media producers</em></p>
-
-      <h3>📆 Booking Options</h3>
-      <ul>
-        <li><strong>Discovery Call (30 mins)</strong>: <em>Free</em> – Clarify project scope and determine fit</li>
-        <li><strong>Core Strategy Session (1 hr)</strong>: <em>SGD 680</em> – Deep dive into one challenge with actionable strategic insights</li>
-        <li><strong>Executive Advisory Session (75–90 mins)</strong>: <em>SGD 1,280</em> – High-level strategic synthesis for institutions, boards, or C-suite teams</li>
-        <li><strong>Retainers &amp; Custom Engagements</strong>: <em>Custom</em> – Includes multi-session retainers, workshops, or long-form advisory</li>
-      </ul>
-      <p><em>Pricing is aligned with Asia-Pacific consulting standards for advanced strategic work across regulatory, technological, and narrative systems. Flexible options are available for mission-driven or public-sector clients.</em></p>
-
-      <h3>💡 Public Interest &amp; Humanitarian Access</h3>
-      <p>Discounted or pro bono sessions are available for:</p>
-      <ul>
-        <li>Educational institutions</li>
-        <li>Public-interest technology initiatives</li>
-        <li>Nonprofits or NGOs operating in climate, cyber risk, or humanitarian response</li>
-      </ul>
-      <p>If your work aligns with these goals, feel free to reach out with context. I prioritize work that contributes to broader systems change.</p>
-
-      <p><strong>&rarr; <a href="/contact">Request a Consultation</a></strong></p>
-
-      <blockquote><em>“You don't just need insight. You need synthesis.”</em><br>Let’s build resilient systems, compelling stories, or both.</blockquote>
-
-      <p style="margin-top:18px;">
-        <a class="pill" href="taisong@shotsofrhapsody.com?subject=Consulting%20Inquiry%20—%20Tai%20Song">Email</a>
-        &nbsp; &nbsp;
-        <a class="pill" href="/contact">Request a Consultation</a>
-      </p>
-    </section>
-  </main>
-
-  <footer class="container">
-    <p>&copy; <span id="year"></span> Tai Song. All rights reserved.</p>
-  </footer>
-
-  <script src="assets/js/main.js"></script>
-
-  <!-- Reader Counter Script (added) -->
   <script>
-    const baseCount = 2000;
-    const startDate = new Date("2024-05-01");
-    const today = new Date();
-    const totalDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    function seededRandom(seed) {
-      let x = Math.sin(seed) * 10000;
-      return x - Math.floor(x);
-    }
+    // Show sections as they come into view (fade-in effect)
+    const sections = document.querySelectorAll('.section');
+    const options = { threshold: 0.2 };
 
-    function simulateChange(seed, dayIndex) {
-      const r = seededRandom(seed + dayIndex);
-      if (r < 0.15) {
-        return -Math.floor(seededRandom(seed + dayIndex + 0.1) * 3 + 1); // -1 to -3
-      } else {
-        return Math.floor(seededRandom(seed + dayIndex + 0.2) * 16 + 10); // +10 to +25
-      }
-    }
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
 
-    function simulateTotalAndDelta(seed, totalDays) {
-      let total = baseCount;
-      for (let i = 0; i < totalDays; i++) {
-        total += simulateChange(seed, i);
-      }
-      const todayChange = simulateChange(seed, totalDays);
-      const displayCount = total + todayChange;
-      return { displayCount, todayChange };
-    }
-
-    const key = "reader-counter-" + today.toDateString();
-    let displayCount = localStorage.getItem(key);
-    let todayChange;
-
-    if (!displayCount) {
-      const { displayCount: total, todayChange: delta } = simulateTotalAndDelta(42, totalDays);
-      displayCount = total;
-      todayChange = delta;
-      localStorage.setItem(key, displayCount);
-      localStorage.setItem(key + "-delta", delta);
-    } else {
-      todayChange = parseInt(localStorage.getItem(key + "-delta") || "0");
-    }
-
-    function animateCountUp(el, start, end, duration) {
-      let startTime = null;
-      const step = (timestamp) => {
-        if (!startTime) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        const current = Math.floor(progress * (end - start) + start);
-        el.textContent = current.toLocaleString() + " readers have read this story";
-        if (progress < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    }
-
-    animateCountUp(
-      document.getElementById("reader-counter"),
-      0,
-      parseInt(displayCount),
-      1500
-    );
-
-    const deltaEl = document.getElementById("reader-delta");
-    const sign = todayChange > 0 ? "+" : "";
-    deltaEl.textContent = `(${sign}${todayChange} today)`;
+    sections.forEach(section => {
+      observer.observe(section);
+    });
   </script>
-
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
