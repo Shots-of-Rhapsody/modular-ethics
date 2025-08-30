@@ -4,167 +4,300 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About — Tai Song</title>
-  <meta name="description" content="Learn more about Tai Song's background, training, and the expertise that drives his work in strategy, ethics, and storytelling.">
+  <meta name="description" content="Learn more about Tai Song, his journey, expertise, certifications, and how he integrates strategy with systems thinking in global markets.">
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/styles.css">
+
   <style>
+    /* Global Styles */
     :root {
       --jade: #00A36C;
-      --ink: #0b0f0e;
-      --mist: #e6f4ea;
-      --grid: #1b2220;
-      --muted: #94a3b8;
-      --maxw: 980px;
+      --deep-blue: #1C1C2B;
+      --electric-purple: #8A2BE2;
+      --light-gray: #F4F4F9;
+      --muted-gray: #B1B1B6;
+      --maxw: 1200px;
+      --gradient-bg: linear-gradient(135deg, #00A36C, #8A2BE2);
+      --shadow-light: 0px 20px 40px rgba(0, 0, 0, 0.1);
     }
-    body { background: var(--ink); font-family: 'Roboto Mono', sans-serif; margin: 0; }
-    .container { max-width: var(--maxw); margin: 0 auto; padding: 20px; color: #ffffff; }
-    .header { text-align: center; background-color: #2d2a2b; padding: 20px 0; border-radius: 10px; margin-bottom: 20px; }
-    .header h1 {
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto Mono', sans-serif;
+      background: #0f0f10;
+      color: #ffffff;
+    }
+
+    /* Navigation Bar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+    }
+
+    nav .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--jade);
+      font-weight: 600;
+    }
+
+    nav .menu {
+      display: flex;
+      gap: 30px;
+    }
+
+    nav .menu a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav .menu a:hover {
+      color: var(--electric-purple);
+    }
+
+/* Hero Section for About Page with Gradient Background */
+.hero {
+  height: 100vh;
+  background: linear-gradient(135deg, rgba(0, 163, 108, 0.8), rgba(138, 43, 226, 0.8)), url('your-hero-image.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* Dark overlay to make text pop */
+  z-index: 1;
+}
+
+.hero-content {
+  z-index: 2;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--jade); /* Jade green for the main heading */
+  margin: 0;
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+}
+
+.hero h2 {
+  font-size: 1.8rem;
+  color: var(--electric-purple); /* Electric purple for the subheading */
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.cta-button {
+  padding: 15px 30px;
+  background-color: var(--electric-purple);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: var(--jade);
+  transform: scale(1.05);
+}
+
+    /* Content Sections */
+    .section {
+      padding: 100px 20px;
+      margin-top: 100px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 2.5rem;
       font-family: 'Playfair Display', serif;
       color: var(--jade);
-      font-size: 3rem;
-      margin: 0;
+      margin-bottom: 30px;
     }
-    .header h2 {
-      font-family: 'Roboto Mono', monospace;
-      font-size: 1.5rem;
-      color: #ffffff;
-      margin: 10px 0;
-    }
-    .section {
-      padding: 30px 0;
-      margin-bottom: 20px;
-      border-top: 1px solid var(--grid);
-    }
-    .section h2 {
-      font-size: 1.8rem;
-      color: var(--mist);
-      margin-bottom: 10px;
-    }
-    .section h3 {
-      font-size: 1.5rem;
-      color: var(--jade);
-      margin-bottom: 8px;
-    }
+
     .section p {
       font-size: 1.1rem;
       color: #e2e8f0;
-      line-height: 1.65;
+      line-height: 1.7;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section ul {
+      text-align: left;
+      margin-top: 20px;
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .section li {
+      font-size: 1.1rem;
+      color: #e2e8f0;
+      margin: 10px 0;
+    }
+
+    /* Certifications & Studies Sections */
+    .certifications, .specialized-studies {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .certifications h3, .specialized-studies h3 {
+      font-size: 2rem;
+      color: var(--jade);
       margin-bottom: 10px;
     }
-    .section ul {
+
+    .certifications ul, .specialized-studies ul {
       padding-left: 20px;
+      list-style-type: square;
     }
-    .section li {
-      margin-bottom: 6px;
+
+    .certifications li, .specialized-studies li {
       font-size: 1.1rem;
       color: #e2e8f0;
     }
-    .section .badge {
-      display: inline-block;
-      padding: 0.3rem 0.6rem;
-      margin-top: 10px;
-      font-size: 0.9rem;
-      border: 1px solid var(--jade);
-      border-radius: 8px;
-      color: var(--jade);
+
+    /* Footer */
+    footer {
+      padding: 40px 20px;
+      text-align: center;
+      background-color: #1C1C2B;
+      color: var(--light-gray);
+      margin-top: 50px;
     }
-    footer { text-align: center; padding: 20px; background-color: #2d2a2b; color: #e2e8f0; margin-top: 20px; }
+
     footer a {
-      color: var(--jade);
+      color: var(--electric-purple);
       text-decoration: none;
+      font-weight: bold;
     }
+
+    footer a:hover {
+      color: var(--jade);
+    }
+
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="header">
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="brand">Shots of Rhapsody</div>
+    <div class="menu">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/stories/">Stories</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-content">
       <h1>Tai Song</h1>
-      <h2>Systems, Stories, Strategy</h2>
-    </header>
-
-    <section class="section" id="lineage">
-      <h2>🎓 Lineage: How I Was Trained</h2>
-      <p>My path started with two tracks: computer science and political science. I studied them side by side to figure out how systems work and who gets to shape them.</p>
-      <p>Later, I moved into advanced work in cognitive science and cybersecurity. That’s where I dug into how people understand risk, how systems break, and how behavior, attention, and outliers play off each other in messy environments.</p>
-      <p>Later, I moved into a disciplined, formal study of philosophy, focusing on:</p>
-      <ul>
-        <li><strong>Algorithmic ethics</strong></li>
-        <li><strong>Decision theory under uncertainty</strong></li>
-        <li><strong>Governance in autonomous systems</strong></li>
-      </ul>
-      <p>This work was backed by national research funding and took me from AI policy efforts in Asia to digital ethics projects across Europe.</p>
-      <p>At each step, I mixed technical depth with systems thinking. I worked on governance models, oversight strategies, and decision tools that are now part of real-world infrastructure in public and private institutions.</p>
-    </section>
-
-    <section class="section" id="certifications">
-      <h2>Certifications: Capital, Risk &amp; Trade</h2>
-      <p>My training moved in stages. I started with capital and finance, which pulled me toward questions of risk. From there, I followed risk into global trade, where I began to see not just opportunity, but imbalance, pressure, and cost.</p>
-      <h3>Capital</h3>
-      <ul>
-        <li><strong>Chartered Financial Analyst (CFA)</strong> — CFA Institute<br><span class="badge">Focus: valuation under uncertainty, macroeconomic signals, global flows</span></li>
-      </ul>
-
-      <h3>Risk</h3>
-      <ul>
-        <li><strong>Financial Risk Manager (FRM)</strong> — Global Association of Risk Professionals (GARP)<br><span class="badge">Focus: market, credit, and operational risk</span><br><span class="badge">Tools: stress-testing, volatility modeling for commodity-linked portfolios</span></li>
-      </ul>
-
-      <h3>Trade &amp; Supply Chain</h3>
-      <ul>
-        <li><strong>Certified International Trade Professional (CITP)</strong> — Forum for International Trade Training (FITT)<br><span class="badge">Focus: cross-border strategy, trade compliance, digital export readiness</span></li>
-        <li><strong>Certified Trade Finance Professional (CTFP)</strong> — International Chamber of Commerce (ICC Academy)<br><span class="badge">Focus: trade credit, supply chain finance instruments, risk mitigation under ICC rules</span></li>
-        <li><strong>Advanced Certificate in Trade Finance (ACTF)</strong> — ICC Academy<br><span class="badge">Focus: structured trade, ESG-linked contracts, global supply chain risk</span></li>
-      </ul>
-
-      <h3>Compliance &amp; Integrity</h3>
-      <ul>
-        <li><strong>Certified Anti-Money Laundering Specialist (CAMS)</strong> — ACAMS<br><span class="badge">Focus: financial crime detection, ESG audit readiness, KYC and supply chain transparency</span></li>
-      </ul>
-      <p>All of my certifications are up to date and kept active. I earned each one through formal exams and put them to work across real projects in the field.</p>
-    </section>
-
-    <section class="section" id="specialized-studies">
-      <h2>Specialized Studies: Infrastructure &amp; Law</h2>
-
-      <h3>Blockchain Systems &amp; Digital Infrastructure</h3>
-      <p>I’ve studied blockchain strategy through executive programs at:</p>
-      <ul>
-        <li>University of Oxford (Oxford Blockchain Strategy Programme — Saïd Business School)</li>
-        <li>MIT Sloan School of Management (Blockchain Technologies)</li>
-        <li>Frankfurt School Blockchain Center (Blockchain and Crypto Assets Certificate)</li>
-      </ul>
-      <p>Focus areas included:</p>
-      <ul>
-        <li>Smart contracts</li>
-        <li>Tokenization</li>
-        <li>ESG data traceability</li>
-        <li>DLT-integrated compliance protocols</li>
-      </ul>
-      <p>These tools are now applied in structuring commodity contracts and digital ESG-linked systems.</p>
-
-      <h3>Maritime Law</h3>
-      <p>To better understand the legal side of global trade, I trained in Maritime Law through the Singapore Management University (SMU). This work supports:</p>
-      <ul>
-        <li>LNG and carbon-linked contract structuring</li>
-        <li>Charter clauses</li>
-        <li>Emissions regulation across jurisdictions</li>
-      </ul>
-    </section>
-
-    <section class="section" id="why-it-matters">
-      <h2>Why It Matters</h2>
-      <p>Each one came from a field I studied with intention. Over time, they added layers to how I work. Together, they changed how I see systems and how I try to build them.</p>
-    </section>
-
-    <footer>
-      <p>&copy; <span id="year"></span> Tai Song. All rights reserved. | <a href="/contact/">Contact</a></p>
-    </footer>
+      <h2>Commodity Strategist &amp; Visionary</h2>
+    </div>
   </div>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- About Content Section -->
+  <section class="section" id="about">
+    <h2>🎓 My Journey</h2>
+    <p>My path started with two tracks: computer science and political science. I studied them side by side to figure out how systems work and who gets to shape them.</p>
+    <p>Later, I moved into advanced work in cognitive science and cybersecurity. That’s where I dug into how people understand risk, how systems break, and how behavior, attention, and outliers play off each other in messy environments.</p>
+    <p>Later, I moved into a disciplined, formal study of philosophy, focusing on:</p>
+    <ul>
+      <li><strong>Algorithmic ethics</strong></li>
+      <li><strong>Decision theory under uncertainty</strong></li>
+      <li><strong>Governance in autonomous systems</strong></li>
+    </ul>
+    <p>This work was backed by national research funding and took me from AI policy efforts in Asia to digital ethics projects across Europe.</p>
+    <p>At each step, I mixed technical depth with systems thinking. I worked on governance models, oversight strategies, and decision tools that are now part of real-world infrastructure in public and private institutions.</p>
+  </section>
+
+  <!-- Certifications Section -->
+  <section class="section" id="certifications">
+    <h2>Certifications: Capital, Risk &amp; Trade</h2>
+    <div class="certifications">
+      <div>
+        <h3>Capital</h3>
+        <ul>
+          <li><strong>Chartered Financial Analyst (CFA)</strong> — CFA Institute</li>
+          <li><strong>Focus:</strong> valuation under uncertainty, macroeconomic signals, global flows</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Risk</h3>
+        <ul>
+          <li><strong>Financial Risk Manager (FRM)</strong> — Global Association of Risk Professionals (GARP)</li>
+          <li><strong>Focus:</strong> market, credit, and operational risk</li>
+          <li><strong>Tools:</strong> stress-testing, volatility modeling for commodity-linked portfolios</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specialized Studies Section -->
+  <section class="section" id="specialized-studies">
+    <h2>Specialized Studies: Infrastructure &amp; Law</h2>
+    <div class="specialized-studies">
+      <div>
+        <h3>Blockchain Systems &amp; Digital Infrastructure</h3>
+        <ul>
+          <li><strong>University of Oxford</strong> — Oxford Blockchain Strategy Programme</li>
+          <li><strong>MIT Sloan School of Management</strong> — Blockchain Technologies</li>
+          <li><strong>Frankfurt School Blockchain Center</strong> — Blockchain and Crypto Assets Certificate</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Maritime Law</h3>
+        <ul>
+          <li><strong>Singapore Management University (SMU)</strong> — Maritime Law</li>
+          <li><strong>Focus:</strong> LNG and carbon-linked contract structuring, charter clauses, emissions regulation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="year"></span> Tai Song. All rights reserved. | <a href="/contact/">Contact</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
