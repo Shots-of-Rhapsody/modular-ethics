@@ -71,48 +71,48 @@
       color: var(--electric-purple);
     }
 
-    /* Hero Section */
-    .hero {
-      height: 100vh;
-      background: url('https://cdn.asp.events/CLIENT_TNetwor__0FD31200_A544_3CE1_7728C96E8E4C313F/sites/Thought-Networks/media/hero/Home-page-background1.png') center/cover no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-      position: relative;
-    }
+/* Hero Section with Gradient Background */
+.hero {
+  height: 100vh;
+  background: linear-gradient(120deg, rgba(0, 163, 108, 0.7), rgba(138, 43, 226, 0.7)), url('your-hero-image.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+}
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 1;
-    }
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
 
-    .hero-content {
-      z-index: 2;
-    }
+.hero-content {
+  z-index: 2;
+}
 
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 4rem;
-      font-weight: 600;
-      color: var(--jade);
-      margin: 0;
-      text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
-    }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--jade);
+  margin: 0;
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+}
 
-    .hero h2 {
-      font-size: 1.8rem;
-      color: var(--electric-purple);
-      font-weight: 500;
-      margin-top: 20px;
-    }
+.hero h2 {
+  font-size: 1.8rem;
+  color: var(--electric-purple);
+  font-weight: 500;
+  margin-top: 20px;
+}
 
     /* Call to Action Button */
     .cta-button {
@@ -245,20 +245,35 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <div class="hero">
-    <div class="hero-content">
-      <h1>Tai Song</h1>
-      <h2>Commodity Strategist &amp; Visionary</h2>
-      <button class="cta-button" onclick="window.location.href='/contact/'">Get in Touch</button>
-    </div>
+<!-- Hero Section -->
+<div class="hero">
+  <div class="hero-content">
+    <h1>Stories & Insights by Tai Song</h1>
+    <h2>Where Fiction Meets Global Markets, and Reality Shapes Imagination</h2>
+    <button class="cta-button" onclick="window.location.href='/stories/'">Explore My Work</button>
   </div>
+</div>
 
-  <!-- Reader Counter -->
-  <div class="reader-counter" id="reader-counter">
-    Loading readers...
-  </div>
-  <div class="reader-delta" id="reader-delta"></div>
+    <!-- Reader Counter -->
+    <div id="reader-counter" style="
+      font-size: 24px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: bold;
+      color: #00ffcc;
+      text-shadow: 0 0 4px #00ffcc, 0 0 8px #00A86B;
+      text-align: center;
+    ">
+      Loading readers...
+    </div>
+    <div id="reader-delta" style="
+      font-size: 14px;
+      color: #aaffdd;
+      text-shadow: 0 0 3px #00A86B;
+      font-style: italic;
+      margin-top: 4px;
+      text-align: center;
+    ">
+    </div>
 
   <!-- Stories Section -->
   <section class="section" id="stories">
