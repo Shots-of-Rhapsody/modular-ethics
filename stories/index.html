@@ -178,12 +178,37 @@
       margin-top: 40px;
     }
 
-    .fiction, .non-fiction {
-      padding: 20px;
-      background: var(--deep-blue);
-      border-radius: 12px;
-      box-shadow: var(--shadow-light);
-    }
+  /* Story Link Styling (Fiction and Non-Fiction) */
+  .fiction a, .non-fiction a {
+    color: #ffffff; /* Change to white for better contrast */
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+
+  .fiction a:hover, .non-fiction a:hover {
+    color: var(--electric-purple); /* Change hover effect to a contrasting color */
+    text-decoration: underline;
+  }
+
+  /* Optional: Additional Story Section Styling */
+  .fiction, .non-fiction {
+    padding: 20px;
+    background: var(--deep-blue);
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+  }
+</style>
+
+
+  /* Story Section Styling */
+  .fiction, .non-fiction {
+    padding: 20px;
+    background: var(--deep-blue);
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+  }
 
     .fiction h3, .non-fiction h3 {
       font-size: 2rem;
