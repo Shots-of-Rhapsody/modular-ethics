@@ -1,282 +1,447 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Meta -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shots of Rhapsody — Tai Song</title>
-  <meta name="description" content="Shots of Rhapsody - Tai Song's creative portfolio and commodity strategist expertise. Bridging strategy, innovation, and trading insights.">
+  <title>Ethics Testbed — Modular Moral Reasoning</title>
+  <meta name="description" content="A modular, transparent testbed that turns ethical theories into comparable mathematical programs and runs them on shared scenarios.">
+  <meta name="theme-color" content="#00A86B">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ethics Testbed — Modular Moral Reasoning">
+  <meta property="og:description" content="Turn philosophy into math. Compare theories, surface assumptions, and run scenarios with moral uncertainty.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xartaiusx.github.io/xartaiusx.github.io/">
+  <meta property="og:image" content="https://xartaiusx.github.io/xartaiusx.github.io/og-image.png">
+
+  <!-- Fonts (safe, fast) -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
+  <!-- Styles -->
   <style>
-    /* Global Styles */
     :root {
-      --jade: #00A36C;
-      --deep-blue: #1C1C2B;
-      --electric-purple: #8A2BE2;
-      --light-gray: #F4F4F9;
-      --muted-gray: #B1B1B6;
-      --maxw: 1200px;
-      --gradient-bg: linear-gradient(135deg, #00A36C, #8A2BE2);
-      --shadow-light: 0px 20px 40px rgba(0, 0, 0, 0.1);
+      --jade: #00A86B; /* brand */
+      --ink: #0b1220;
+      --ink-2: #1f2637;
+      --fog: #f6f7fb;
+      --muted: #6b7280;
+      --ring: rgba(0,168,107,0.25);
+      --radius: 14px;
+      --maxw: 1080px;
     }
-
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #0b0f14;
+        --ink-2: #111827;
+        --fog: #0b0f14;
+        --muted: #9aa4b2;
+      }
+      body { color-scheme: dark; }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Roboto Mono', sans-serif;
-      background: #0f0f10;
-      color: #ffffff;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      color: #111827;
+      background: linear-gradient(180deg, #ffffff 0%, #fafcff 100%);
     }
-
-    /* Hero Section */
+    @media (prefers-color-scheme: dark) {
+      body { color: #e5e7eb; background: radial-gradient(1200px 600px at 20% -10%, #0c1720, transparent), #0b0f14; }
+    }
+    a { color: var(--jade); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: saturate(120%) blur(10px);
+      background: color-mix(in srgb, var(--fog) 80%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--muted) 20%, transparent);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand {
+      display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: 0.2px;
+    }
+    .brand-logo {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: conic-gradient(from 180deg at 50% 50%, #00a86b, #00c38a, #00a86b);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--jade) 20%, #ffffff);
+    }
+    .nav-links { display: none; gap: 18px; }
+    .nav-links a { font-weight: 600; color: inherit; opacity: 0.85; }
+    .nav-cta {
+      display: flex; gap: 10px; align-items: center;
+    }
+    .btn {
+      appearance: none; border: 0; cursor: pointer;
+      font: inherit; font-weight: 700;
+      padding: 10px 16px; border-radius: 999px;
+      transition: transform .06s ease, box-shadow .2s ease, background .2s ease;
+      background: var(--jade); color: #fff;
+      box-shadow: 0 6px 18px -8px var(--ring), 0 2px 6px -2px var(--ring);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.outline {
+      background: transparent; color: var(--jade); border: 1.5px solid var(--jade);
+      box-shadow: none;
+    }
+    .menu { display: inline-flex; background: transparent; border: 0; font-size: 20px; }
+    .theme { display: inline-flex; background: transparent; border: 0; font-size: 18px; }
+    @media (min-width: 860px) {
+      .nav-links { display: flex; }
+      .menu { display: none; }
+    }
+    /* Hero */
     .hero {
-      height: 100vh;
-      background: url('https://cdn.asp.events/CLIENT_TNetwor__0FD31200_A544_3CE1_7728C96E8E4C313F/sites/Thought-Networks/media/hero/Home-page-background1.png') center/cover no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-      position: relative;
+      position: relative; overflow: clip;
+      padding: 88px 0 54px;
     }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4); /* dark overlay */
-      z-index: 1;
-    }
-
-    .hero-content {
-      z-index: 2;
-    }
-
     .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 4rem;
-      font-weight: 600;
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 700; line-height: 1.1; letter-spacing: -0.5px;
+      font-size: clamp(36px, 4.2vw, 56px);
+      margin: 0 0 16px;
+    }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
       color: var(--jade);
-      margin: 0;
-      text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+      background: color-mix(in srgb, var(--jade) 12%, transparent);
+      padding: 6px 10px; border-radius: 999px;
     }
-
-    .hero h2 {
-      font-size: 1.8rem;
-      color: var(--electric-purple);
-      font-weight: 500;
-      margin-top: 20px;
+    .hero p {
+      max-width: 780px; font-size: 18px; line-height: 1.6; color: var(--muted);
     }
-
-    .cta-button {
-      padding: 15px 30px;
-      background-color: var(--electric-purple);
-      color: #fff;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 50px;
-      margin-top: 30px;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .grid {
+      display: grid; gap: 18px; margin: 42px 0 0;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
     }
-
-    .cta-button:hover {
-      background-color: var(--jade);
-      transform: scale(1.05);
+    @media (min-width: 920px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    .card {
+      background: linear-gradient(180deg, color-mix(in srgb, #fff 85%, var(--jade) 5%), color-mix(in srgb, #fff 95%, transparent));
+      border: 1px solid color-mix(in srgb, var(--muted) 14%, transparent);
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+      box-shadow: 0 12px 34px -24px rgba(0,0,0,.25);
     }
-
-    /* Navigation */
-nav {
-  display: flex;
-  justify-content: space-between; /* Ensures even spacing between items */
-  align-items: center;
-  padding: 20px 40px;
-  background-color: rgba(0, 0, 0, 0.6);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  box-sizing: border-box; /* Ensures the padding is accounted for in the width calculation */
-}
-
-nav .brand {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  color: var(--jade);
-  font-weight: 600;
-}
-
-nav .menu {
-  display: flex;
-  gap: 30px;
-}
-
-nav .menu a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 1.1rem;
-  transition: color 0.3s ease;
-}
-
-nav .menu a:hover {
-  color: var(--electric-purple);
-}
-
-/* Ensure that the last navigation link (Contact) does not overflow */
-nav .menu a:last-child {
-  margin-right: 0;
-}
-
-    /* Content Sections */
-    .section {
-      padding: 100px 20px;
-      margin-top: 100px;
-      text-align: center;
+    @media (prefers-color-scheme: dark) {
+      .card { background: linear-gradient(180deg, #0f1520, #0b0f14); }
     }
-
-    .section h2 {
-      font-size: 2.5rem;
-      font-family: 'Playfair Display', serif;
-      color: var(--jade);
-      margin-bottom: 30px;
+    .card h3 { margin: 8px 0 8px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
+    /* Sections */
+    section { padding: 58px 0; }
+    section h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(26px, 3.2vw, 38px); margin: 0 0 14px;
     }
-
-   /* Paragraph Spacing */
-   .section p {
-     font-size: 1rem;
-     color: #e2e8f0;
-     line-height: 1.7; /* Increase line height for better readability */
-     max-width: 900px;
-     margin: 0 auto 20px; /* Add 20px bottom margin for spacing between paragraphs */
-   }
-
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 30px;
-      margin-top: 50px;
+    .lead { color: var(--muted); max-width: 820px; }
+    details {
+      background: color-mix(in srgb, var(--jade) 6%, transparent);
+      border: 1px solid color-mix(in srgb, var(--jade) 22%, transparent);
+      border-radius: 12px; padding: 12px 14px; margin: 12px 0;
     }
-
-    .project-card {
-      background: var(--deep-blue);
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: var(--shadow-light);
-      transition: transform 0.3s ease;
+    summary { cursor: pointer; font-weight: 700; }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background: #0d1117; color: #e5e7eb;
     }
-
-    .project-card:hover {
-      transform: scale(1.05);
+    pre {
+      border-radius: 12px; padding: 14px; overflow-x: auto; border: 1px solid #1f2937;
     }
-
-    .project-card h3 {
-      font-size: 1.8rem;
-      color: var(--jade);
-      margin-bottom: 15px;
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 10px; border-radius: 999px;
+      background: color-mix(in srgb, var(--jade) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--jade) 24%, transparent);
+      font-size: 13px; font-weight: 700; color: var(--jade);
     }
-
-    .project-card p {
-      font-size: 1.1rem;
-      color: #fff;
-      line-height: 1.6;
-    }
-
+    .list-axioms { display: grid; gap: 10px; margin-top: 12px; }
+    .list-axioms li { padding-left: 8px; }
     /* Footer */
     footer {
-      padding: 40px 20px;
-      text-align: center;
-      background-color: #1C1C2B;
-      color: var(--light-gray);
-      margin-top: 50px;
+      margin-top: 40px; padding: 40px 0 60px; color: var(--muted);
+      border-top: 1px dashed color-mix(in srgb, var(--muted) 24%, transparent);
     }
-
-    footer a {
-      color: var(--electric-purple);
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    footer a:hover {
-      color: var(--jade);
-    }
-
+    .foot-grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
+    @media (min-width: 720px) { .foot-grid { grid-template-columns: 1fr auto; align-items: center; } }
+    .tiny { font-size: 12px; opacity: .8; }
+    /* Skip link */
+    .skip { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+    .skip:focus { left: 12px; top: 12px; width: auto; height: auto; background: #fff; padding: 8px 12px; border-radius: 8px; outline: 2px solid var(--jade); }
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav>
-    <div class="brand">Shots of Rhapsody LLC</div>
-    <div class="menu">
-      <a href="/">Home</a>
-      <a href="/contact/">Contact</a>
-    </div>
-  </nav>
+  <a class="skip" href="#main">Skip to content</a>
 
-<!-- Hero Section -->
-<div class="hero">
-  <div class="hero-content">
-    <h1>Empowering Global Trade Through Strategic Insight & Innovation</h1>
-    <h2>Transforming Markets, Mitigating Risks & Driving Sustainable Growth</h2>
-    <button class="cta-button" onclick="window.location.href='/contact/'">Start Your Journey</button>
-  </div>
-</div>
-
-  <!-- About the Company Section -->
-  <section class="section" id="about">
-    <h2>Shaping the Future of Global Trade with Strategic Insight & ESG Principles</h2>
-    <p>At <span class="highlight">Shots of Rhapsody</span>, we specialize in commodity trading strategy, with a focus on risk management and sustainable business practices. Founded by Tai Song, a leading commodity strategist, we navigate the complex global markets by offering data-driven insights, strategic consulting, and innovative solutions tailored to the evolving landscape of commodity trading.</p>
-    <p>Our expertise spans key sectors such as <span class="highlight">energy</span>, <span class="highlight">metals</span>, and <span class="highlight">agriculture</span>, where we apply advanced models to forecast risks, identify opportunities, and guide businesses toward resilience in volatile markets.</p>
-    <p>We prioritize <span class="highlight">ESG (Environmental, Social, Governance)</span> integration, helping our clients achieve sustainable growth while complying with global regulations and market demands. We understand that in today’s interconnected world, risk and reward go hand in hand.</p>
-    <p>Our approach combines rigorous market analysis with a deep understanding of the global trade ecosystem. By leveraging <span class="highlight">AI-driven forecasting</span>, cross-border compliance strategies, and customized risk models, we equip organizations to stay ahead of the curve in a fast-moving world.</p>
-    <p>Our work extends to supply chain optimization, digital infrastructure, and blockchain technology, enabling transparency, traceability, and efficiency across the global commodities supply chain. From commodity contract structuring to trade finance, risk mitigation, and ESG-aligned investment strategies, we deliver practical solutions that make a lasting impact.</p>
-    <p>At Shots of Rhapsody, we don’t just forecast the future, we build it. With a combination of advanced market knowledge, cutting-edge technology, and sustainable solutions, we help businesses thrive in the global commodities landscape.</p>
-    <button class="cta-button" onclick="window.location.href='/contact/'">Start Your Journey</button>
-  </section>
-
-  <!-- Featured Projects Section -->
-  <section class="section" id="projects">
-    <h2>Featured Projects</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <h3>AI-Driven Risk Modeling</h3>
-        <p>Developing AI-powered risk prediction models to anticipate commodity price fluctuations and geopolitical risks in the market.</p>
+  <!-- Header -->
+  <header>
+    <div class="wrap nav" role="navigation" aria-label="Primary">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true"></div>
+        <span>Ethics Testbed</span>
       </div>
-      <div class="project-card">
-        <h3>Global Trade Strategy</h3>
-        <p>Crafting advanced global trade strategies, focusing on cross-border compliance, trade finance, and digital supply chain solutions.</p>
-      </div>
-      <div class="project-card">
-        <h3>ESG Compliance &amp; Innovation</h3>
-        <p>Building transparent, ESG-aligned financial structures, integrating sustainability with strategic commodity trading models.</p>
+      <nav class="nav-links">
+        <a href="#purpose">Purpose</a>
+        <a href="#framework">Framework</a>
+        <a href="#scenarios">Scenarios</a>
+        <a href="#axioms">Axioms</a>
+        <a href="#updates">Updates</a>
+      </nav>
+      <div class="nav-cta">
+        <button class="theme" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">🌓</button>
+        <a class="btn outline" href="https://github.com/xartaiusx/xartaiusx.github.io" target="_blank" rel="noopener">View Repo</a>
+        <button class="menu" id="menuBtn" aria-label="Open menu">☰</button>
       </div>
     </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="wrap">
+      <span class="kicker">Modular Moral Reasoning</span>
+      <h1>Turn philosophy into math—then test it, compare it, and explain it.</h1>
+      <p>
+        We’re building a small, transparent engine where ethical theories become modular programs evaluated on shared scenarios.
+        Facts live in causal models. Values live in normative modules. Disagreement is handled by explicit moral uncertainty—no hand-waving.
+      </p>
+      <div class="cta-row">
+        <a class="btn" href="#purpose">Explore the project</a>
+        <a class="btn outline" href="#scenarios">See examples</a>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <span class="pill">Why</span>
+          <h3>Clarity over rhetoric</h3>
+          <p>Debates drift; math commits. We expose assumptions, score actions, and show where theories truly diverge.</p>
+        </div>
+        <div class="card">
+          <span class="pill">How</span>
+          <h3>Modular ethics</h3>
+          <p>Consequentialism, deontology, virtue—and more—become plug-in evaluators with shared inputs and comparable outputs.</p>
+        </div>
+        <div class="card">
+          <span class="pill">What</span>
+          <h3>Auditable results</h3>
+          <p>Each recommendation ships with a minimal explanation set: the few premises that did the real work.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Testimonials Section (Optional) -->
-  <!-- <section class="section" id="testimonials">
-    <h2>What People Are Saying</h2>
-    <p>"Tai Song is the future of global trade strategy. His insights are unparalleled." - Industry Leader</p>
-  </section> -->
+  <main id="main">
+    <!-- Purpose -->
+    <section id="purpose">
+      <div class="wrap">
+        <h2>Purpose</h2>
+        <p class="lead">
+          Build a reproducible testbed for ethics that (1) separates facts from values, (2) lets multiple theories run side-by-side on the same scenario, and
+          (3) aggregates disagreement under explicit credences with safeguard constraints.
+        </p>
+        <div class="cta-row" role="group" aria-label="Primary calls">
+          <a class="btn" href="https://github.com/xartaiusx/xartaiusx.github.io" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn outline" href="paper.html">Methods Paper</a>
+          <a class="btn outline" href="#updates">Project Log</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Framework -->
+    <section id="framework">
+      <div class="wrap">
+        <h2>Framework (small but honest)</h2>
+        <p class="lead">
+          World models carry the facts. Normative modules carry the values. Aggregation handles pluralism. Constraints protect rights.
+        </p>
+        <details>
+          <summary>Formal core (plain math)</summary>
+          <pre><code>// Consequentialism
+CW_cons(a) = E[ Σ_i w_i · v(U_i(O)) | a, M ]
+
+// Deontology (admissibility)
+Admissible(a) iff ∀k: g_k(a, M) ≤ 0
+
+// Virtue (trait distance)
+CW_virtue(a) = - || T_after(a) - T* ||
+
+// Moral uncertainty (normalized to [0,1])
+CW(a) = Σ_j p_j · f_j( CW_j(a) )  over admissible actions</code></pre>
+        </details>
+        <details>
+          <summary>Scenario schema (JSON)</summary>
+          <pre><code>{
+  "id": "string",
+  "context": {"domain": "triage|evacuation|policy", "tags": ["emergency"]},
+  "agents": [{"id": "A", "baseline": {"wellbeing": 0.55, "years_left": 35}, "consent": true}],
+  "actions": ["a1","a2"],
+  "outcomes": {"a1": [{"p":0.8,"A":{"alive":true,"years_gain":35}}], "a2": []},
+  "constraints": {"no_intentional_harm_innocent": true, "treat_like_cases_alike": true}
+}</code></pre>
+        </details>
+      </div>
+    </section>
+
+    <!-- Scenarios -->
+    <section id="scenarios">
+      <div class="wrap">
+        <h2>Example Scenarios</h2>
+        <p class="lead">Two simple dilemmas we’ll use for first runs. Transparent, parameterized, and easy to audit.</p>
+
+        <details open>
+          <summary><strong>Scenario 1:</strong> Clinical triage — one ventilator, two patients</summary>
+          <p class="tiny">ID: <code>triage-vent-v1</code></p>
+          <pre><code>{
+  "agents": [
+    {"id":"A","baseline":{"wellbeing":0.55,"years_left":35},"consent":true,"survival":{"vent":0.80,"no_vent":0.10}},
+    {"id":"B","baseline":{"wellbeing":0.55,"years_left":35},"consent":true,"survival":{"vent":0.60,"no_vent":0.55}}
+  ],
+  "actions":["a1_allocate_A","a2_allocate_B","a3_lottery"],
+  "notes":"Prognosis differences count as relevant; lottery allowed when differences are small."
+}</code></pre>
+        </details>
+
+        <details>
+          <summary><strong>Scenario 2:</strong> Flood evacuation — promise vs numbers</summary>
+          <p class="tiny">ID: <code>evac-promise-v1</code></p>
+          <pre><code>{
+  "context":{"tags":["flood","resource-scarce"]},
+  "agents":["D1(elderly)","D2","D3","D4","D5","R(rescuer_with_promise_to_D1)"],
+  "boat_capacity":3,
+  "prob_survive_if_rescued":0.95,
+  "prob_if_delayed":{"east":0.40,"west":0.60},
+  "actions":["b1_east_now","b2_west_plus_one_east","b3_mixed_break_promise"]
+}</code></pre>
+        </details>
+      </div>
+    </section>
+
+    <!-- Axioms -->
+    <section id="axioms">
+      <div class="wrap">
+        <h2>Axiom Ledger v0.1</h2>
+        <ul class="list-axioms">
+          <li><strong>A1.</strong> Persons have equal moral worth.</li>
+          <li><strong>A2.</strong> Comparable goods are explicitly scaled within each scenario.</li>
+          <li><strong>A3.</strong> Uncertainty is modeled; guesses are distributions.</li>
+          <li><strong>A4.</strong> Rights/duties act as side-constraints (lexicographic priority).</li>
+          <li><strong>A5.</strong> Doing vs allowing matters but is not decisive alone.</li>
+          <li><strong>A6.</strong> Consent changes scores and constraint triggers.</li>
+          <li><strong>A7.</strong> Priority to the worse-off via concavity/priority.</li>
+          <li><strong>A8.</strong> Like cases alike; only prognosis-relevant differences justify unequal treatment.</li>
+          <li><strong>A9.</strong> Minimal explanations: identify the few premises that did the work.</li>
+          <li><strong>A10.</strong> Pluralism is explicit; red lines are not aggregative.</li>
+          <li><strong>A11.</strong> Culture tunes parameters, not personhood.</li>
+          <li><strong>A12.</strong> Reversibility check flags unstable rules.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Updates / Log -->
+    <section id="updates">
+      <div class="wrap">
+        <h2>Project Log</h2>
+        <p class="lead">Weekly, concise, reproducible. Each entry links to code, parameters, and results.</p>
+
+        <div class="card">
+          <h3>Week 0 — Scaffold</h3>
+          <p>Drafted axiom ledger, scenario schema, and two seed dilemmas. Next: implement three modules (consequentialist, deontic constraints, virtue distance) and run sensitivity on credences.</p>
+        </div>
+
+        <div class="card">
+          <h3>Week 1 — First Runs (placeholder)</h3>
+          <p>Coming soon: baseline results for triage & evacuation. Figures and explanation sets will appear here.</p>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; <span id="year"></span> Shots of Rhapsody LLC. All rights reserved. | <a href="/contact/">Contact</a></p>
+    <div class="wrap foot-grid">
+      <div>
+        <div class="tiny">© <span id="y"></span> Ethics Testbed. MIT License.</div>
+        <div class="tiny">Built for transparency, reproducibility, and pluralistic reasoning.</div>
+      </div>
+      <div class="cta-row">
+        <a class="btn outline" href="https://github.com/xartaiusx/xartaiusx.github.io/issues" target="_blank" rel="noopener">Feedback</a>
+        <a class="btn" href="#home">Back to top</a>
+      </div>
+    </div>
   </footer>
 
+  <!-- Scripts (tiny, no deps) -->
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Theme toggle (soft override of prefers-color-scheme)
+    (function () {
+      const btn = document.getElementById('themeBtn');
+      const key = 'ethics-testbed-theme';
+      const apply = (mode) => {
+        document.documentElement.dataset.theme = mode;
+        if (mode === 'light') document.documentElement.style.colorScheme = 'light';
+        if (mode === 'dark') document.documentElement.style.colorScheme = 'dark';
+      };
+      const saved = localStorage.getItem(key);
+      if (saved) apply(saved);
+
+      btn.addEventListener('click', () => {
+        const next = (document.documentElement.dataset.theme === 'dark') ? 'light' : 'dark';
+        apply(next);
+        localStorage.setItem(key, next);
+      });
+    })();
+
+    // Simple mobile menu: clone links into a temp sheet
+    (function () {
+      const btn = document.getElementById('menuBtn');
+      const header = document.querySelector('header');
+      let sheet = null;
+
+      btn?.addEventListener('click', () => {
+        if (!sheet) {
+          sheet = document.createElement('div');
+          sheet.style.position = 'fixed';
+          sheet.style.inset = '64px 12px 12px';
+          sheet.style.background = getComputedStyle(document.body).background;
+          sheet.style.border = '1px solid rgba(255,255,255,0.08)';
+          sheet.style.borderRadius = '16px';
+          sheet.style.boxShadow = '0 24px 60px -24px rgba(0,0,0,0.35)';
+          sheet.style.padding = '16px';
+          sheet.style.display = 'grid';
+          sheet.style.gap = '10px';
+          sheet.innerHTML = `
+            <a href="#purpose">Purpose</a>
+            <a href="#framework">Framework</a>
+            <a href="#scenarios">Scenarios</a>
+            <a href="#axioms">Axioms</a>
+            <a href="#updates">Updates</a>
+            <a href="https://github.com/xartaiusx/xartaiusx.github.io" target="_blank" rel="noopener">Repository</a>`;
+          document.body.appendChild(sheet);
+          btn.setAttribute('aria-expanded', 'true');
+        } else {
+          sheet.remove(); sheet = null; btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Close on ESC
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sheet) { sheet.remove(); sheet = null; btn.setAttribute('aria-expanded', 'false'); }
+      });
+
+      // Close on route click
+      document.addEventListener('click', (e) => {
+        if (sheet && e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
+          setTimeout(() => { sheet.remove(); sheet = null; btn.setAttribute('aria-expanded', 'false'); }, 80);
+        }
+      });
+    })();
   </script>
 </body>
 </html>
