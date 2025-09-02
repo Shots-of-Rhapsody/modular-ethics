@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "ledger_version": "0.1",
+    "notes": "Seed scenarios for first runs."
+  },
+  "scenarios": [
+    {
+      "id": "triage-vent-v1",
+      "context": { "domain": "triage", "tags": ["emergency", "resource-scarce"] },
+      "agents": [
+        { "id": "A", "baseline": { "wellbeing": 0.55, "years_left": 35 }, "consent": true,
+          "survival": { "vent": 0.80, "no_vent": 0.10 } },
+        { "id": "B", "baseline": { "wellbeing": 0.55, "years_left": 35 }, "consent": true,
+          "survival": { "vent": 0.60, "no_vent": 0.55 } }
+      ],
+      "actions": [
+        { "id": "a1_allocate_A", "desc": "Allocate ventilator to A" },
+        { "id": "a2_allocate_B", "desc": "Allocate ventilator to B" },
+        { "id": "a3_lottery", "desc": "Random lottery (50/50)" }
+      ],
+      "constraints": {
+        "no_intentional_harm_innocent": true,
+        "treat_like_cases_alike": true,
+        "respect_informed_consent": true
+      },
+      "params": {
+        "weights_equal": true,
+        "priority_fn": "sqrt"  // concavity placeholder
+      }
+    },
+    {
+      "id": "evac-promise-v1",
+      "context": { "domain": "evacuation", "tags": ["flood", "resource-scarce"] },
+      "agents": [
+        { "id": "D1", "role": "civilian", "traits": ["elderly"], "promised_first": true },
+        { "id": "D2", "role": "civilian" },
+        { "id": "D3", "role": "civilian" },
+        { "id": "D4", "role": "civilian" },
+        { "id": "D5", "role": "civilian" },
+        { "id": "R",  "role": "rescuer" }
+      ],
+      "boat_capacity": 3,
+      "prob_survive_if_rescued": 0.95,
+      "prob_if_delayed": { "east": 0.40, "west": 0.60 },
+      "docks": { "east": ["D1","D2","D3"], "west": ["D4","D5"] },
+      "actions": [
+        { "id": "b1_east_now", "desc": "Rescue East (D1–D3) now" },
+        { "id": "b2_west_plus_one_east", "desc": "Rescue West (D4–D5) and one from East (random)" },
+        { "id": "b3_mixed_break_promise", "desc": "Two East (incl. D1) + one West" }
+      ],
+      "constraints": {
+        "keep_credible_promises": { "enabled": true, "theta_lives": 1.5 },
+        "no_intentional_harm_innocent": true,
+        "treat_like_cases_alike": true
+      },
+      "params": {
+        "weights_equal": true,
+        "priority_fn": "sqrt"
+      }
+    }
+  ]
+}
