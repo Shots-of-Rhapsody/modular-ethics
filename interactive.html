@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive — Exports & Sensitivity | Ethics Testbed</title>
+  <meta name="theme-color" content="#00A86B">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --jade:#00A86B; --muted:#6b7280; --radius:14px; --maxw:1200px; }
+    body{ margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:#fafcff; color:#111827; }
+    header{ position:sticky; top:0; backdrop-filter:saturate(120%) blur(10px); background:#ffffffc7; border-bottom:1px solid #e5e7eb; }
+    .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 20px; }
+    .nav{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+    h1,h2{ font-family:"Playfair Display", Georgia, serif; }
+    h1{ margin:16px 0; font-size:clamp(28px,4vw,40px); }
+    h2{ margin:18px 0 10px; font-size:clamp(22px,3vw,30px); }
+    .kicker{ display:inline-flex; gap:8px; padding:6px 10px; border-radius:999px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--jade); background:#00a86b1a; }
+    .grid{ display:grid; gap:16px; grid-template-columns:1fr; }
+    @media (min-width:1100px){ .grid{ grid-template-columns:360px 1fr; } }
+    .card{ background:white; border:1px solid #e5e7eb; border-radius:var(--radius); padding:16px; box-shadow:0 12px 34px -24px rgba(0,0,0,.2); }
+    .muted{ color:var(--muted); }
+    .btn{ display:inline-block; font-weight:700; padding:10px 16px; border-radius:999px; background:var(--jade); color:#fff; text-decoration:none; box-shadow:0 6px 18px -8px rgba(0,168,107,.25), 0 2px 6px -2px rgba(0,168,107,.25); }
+    .btn.ghost{ background:transparent; color:var(--jade); border:1px solid var(--jade); }
+    .row{ display:grid; gap:10px; grid-template-columns: 1fr auto; align-items:center; }
+    .ctrl{ display:grid; gap:8px; margin-bottom:14px; }
+    .ctrl label{ font-size:12px; color:#374151; display:flex; justify-content:space-between; }
+    input[type="range"]{ width:100%; }
+    .badge{ font-size:12px; padding:2px 8px; border-radius:999px; background:#eef2ff; color:#3730a3; }
+    .hr{ height:1px; background:#e5e7eb; margin:12px 0; }
+    canvas{ width:100%; height:auto; image-rendering: crisp-edges; border-radius:12px; border:1px solid #e5e7eb; background:#fff; }
+    .legend{ display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
+    .swatch{ width:14px; height:14px; border-radius:3px; display:inline-block; border:1px solid #0001; }
+    code{ background:#0d1117; color:#e5e7eb; padding:2px 6px; border-radius:8px; font-size:12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div><span class="kicker">Interactive</span></div>
+      <nav>
+        <a href="index.html">Home</a> ·
+        <a href="paper.html">Methods</a> ·
+        <a href="results.html">Results</a> ·
+        <a href="https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO" target="_blank" rel="noopener">Repo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>Exports & Sensitivity</h1>
+    <p class="muted">
+      Export the current run as JSON, or explore how recommendations shift across credences and the promise threshold θ.
+    </p>
+
+    <div class="grid">
+      <!-- Controls -->
+      <div class="card" id="controls">
+        <h2>Controls</h2>
+
+        <div class="ctrl">
+          <label>Consequentialism weight <span><code id="lab_pcons">0.50</code></span></label>
+          <input id="p_cons" type="range" min="0" max="1" step="0.01" value="0.50">
+        </div>
+        <div class="ctrl">
+          <label>Virtue weight <span><code id="lab_pvirtue">0.50</code></span></label>
+          <input id="p_virtue" type="range" min="0" max="1" step="0.01" value="0.50">
+          <small class="muted">Scalar credences renormalize so these two sum to 1.</small>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="ctrl">
+          <label>Promise constraint enabled <span class="badge" id="lab_promise">ON</span></label>
+          <div class="row">
+            <input id="promise_enabled" type="checkbox" checked>
+            <small class="muted">Affects <code>evac-promise-v1</code></small>
+          </div>
+        </div>
+
+        <div class="ctrl">
+          <label>Promise override threshold θ (Δ lives) <span><code id="lab_theta">1.50</code></span></label>
+          <input id="theta_lives" type="range" min="0" max="3" step="0.05" value="1.50">
+        </div>
+
+        <div class="hr"></div>
+
+        <h3>Virtue trait weights</h3>
+        <div class="ctrl">
+          <label>Honesty <span><code id="lab_honesty">1.00</code></span></label>
+          <input id="w_honesty" type="range" min="0" max="3" step="0.05" value="1.00">
+        </div>
+        <div class="ctrl">
+          <label>Compassion <span><code id="lab_compassion">1.00</code></span></label>
+          <input id="w_compassion" type="range" min="0" max="3" step="0.05" value="1.00">
+        </div>
+        <div class="ctrl">
+          <label>Fairness <span><code id="lab_fairness">1.00</code></span></label>
+          <input id="w_fairness" type="range" min="0" max="3" step="0.05" value="1.00">
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="row">
+          <button class="btn" id="exportRun">Download current run (JSON)</button>
+          <a class="btn ghost" href="results.html">Table view</a>
+        </div>
+      </div>
+
+      <!-- Viz + output -->
+      <div class="card">
+        <h2>Sensitivity Map</h2>
+        <p class="muted">
+          Heatmap of the <strong>recommended action</strong> across a grid of credence in consequentialism (x-axis) and θ (y-axis).
+          For triage we show the top action; for evacuation the color reflects whether promise-breaking becomes admissible.
+        </p>
+        <canvas id="chart" width="800" height="520" aria-label="Sensitivity heatmap"></canvas>
+        <div class="legend" id="legend"></div>
+        <p class="muted"><small>X: p<sub>cons</sub> ∈ [0,1] (virtue = 1 − p<sub>cons</sub>), Y: θ ∈ [0,3]. Promise toggle respected.</small></p>
+
+        <h2 style="margin-top:18px">Current Recommendation</h2>
+        <div id="rec"></div>
+      </div>
+    </div>
+
+    <p style="margin-top:18px"><a class="btn" href="index.html">Back to Home</a></p>
+  </main>
+
+  <footer class="wrap" style="margin:30px 0 60px; color:#6b7280">
+    © <span id="y"></span> Ethics Testbed · MIT License
+  </footer>
+
+  <script src="js/engine.js"></script>
+  <script>
+    // ---- State & UI wiring ----
+    const defaults = {
+      credences: { p_cons: 0.5, p_virtue: 0.5 },
+      promise: { enabled: true, theta_lives: 1.5 },
+      virtueWeights: { honesty: 1.0, compassion: 1.0, fairness: 1.0 }
+    };
+    const state = JSON.parse(JSON.stringify(defaults));
+
+    const ui = {
+      p_cons: document.getElementById('p_cons'),
+      p_virtue: document.getElementById('p_virtue'),
+      lab_pcons: document.getElementById('lab_pcons'),
+      lab_pvirtue: document.getElementById('lab_pvirtue'),
+
+      promise_enabled: document.getElementById('promise_enabled'),
+      theta_lives: document.getElementById('theta_lives'),
+      lab_promise: document.getElementById('lab_promise'),
+      lab_theta: document.getElementById('lab_theta'),
+
+      w_honesty: document.getElementById('w_honesty'),
+      w_compassion: document.getElementById('w_compassion'),
+      w_fairness: document.getElementById('w_fairness'),
+      lab_honesty: document.getElementById('lab_honesty'),
+      lab_compassion: document.getElementById('lab_compassion'),
+      lab_fairness: document.getElementById('lab_fairness'),
+
+      exportRun: document.getElementById('exportRun')
+    };
+
+    document.getElementById('y').textContent = (new Date()).getFullYear();
+
+    let scenarios = [];
+    async function loadScenarios() {
+      const res = await fetch('data/scenarios.json');
+      if (!res.ok) throw new Error('Failed to load scenarios.json');
+      const j = await res.json();
+      scenarios = j.scenarios;
+    }
+
+    function renormCredences() {
+      const s = parseFloat(ui.p_cons.value) + parseFloat(ui.p_virtue.value);
+      state.credences.p_cons = s>0 ? parseFloat(ui.p_cons.value)/s : 0.5;
+      state.credences.p_virtue = s>0 ? parseFloat(ui.p_virtue.value)/s : 0.5;
+      ui.lab_pcons.textContent = state.credences.p_cons.toFixed(2);
+      ui.lab_pvirtue.textContent = state.credences.p_virtue.toFixed(2);
+    }
+    function syncPromise() {
+      state.promise.enabled = ui.promise_enabled.checked;
+      state.promise.theta_lives = parseFloat(ui.theta_lives.value);
+      ui.lab_promise.textContent = state.promise.enabled ? 'ON' : 'OFF';
+      ui.lab_theta.textContent = state.promise.theta_lives.toFixed(2);
+    }
+    function syncVirtueWeights() {
+      state.virtueWeights.honesty = parseFloat(ui.w_honesty.value);
+      state.virtueWeights.compassion = parseFloat(ui.w_compassion.value);
+      state.virtueWeights.fairness = parseFloat(ui.w_fairness.value);
+      ui.lab_honesty.textContent = state.virtueWeights.honesty.toFixed(2);
+      ui.lab_compassion.textContent = state.virtueWeights.compassion.toFixed(2);
+      ui.lab_fairness.textContent = state.virtueWeights.fairness.toFixed(2);
+    }
+
+    // ---- Export current run JSON ----
+    function download(filename, obj) {
+      const blob = new Blob([JSON.stringify(obj, null, 2)], {type: 'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function runAll() {
+      // Evaluate each scenario with current state
+      const evals = scenarios.map(s => window.EthicsEngine.evaluateScenario(s, state));
+      // Minimal bundle
+      return {
+        timestamp: new Date().toISOString(),
+        ledger_version: "0.1",
+        settings: JSON.parse(JSON.stringify(state)),
+        scenarios: scenarios.map(s => s.id),
+        results: evals.map(ev => ({
+          scenarioId: ev.scenarioId,
+          ranking: ev.ranking,
+          admissibility: Array.from(ev.admissibility.entries()),
+          explanations: ev.explanations
+        }))
+      };
+    }
+
+    ui.exportRun.addEventListener('click', () => {
+      const bundle = runAll();
+      download(`ethics-testbed-run-${new Date().toISOString().slice(0,10)}.json`, bundle);
+    });
+
+    // ---- Sensitivity map (canvas) ----
+    const canvas = document.getElementById('chart');
+    const ctx = canvas.getContext('2d');
+    const legend = document.getElementById('legend');
+    const recDiv = document.getElementById('rec');
+
+    // Colors per recommended action (stable small palette)
+    const COLORS = {
+      // triage actions
+      a1_allocate_A: '#2563eb',   // blue
+      a2_allocate_B: '#10b981',   // green
+      a3_lottery:    '#f59e0b',   // amber
+      // evac actions (we’ll distinguish promise-breaking admissibility)
+      b1_east_now:   '#9333ea',   // purple
+      b2_west_plus_one_east: '#ef4444', // red (promise-breaking candidate)
+      b3_mixed_break_promise: '#3b82f6' // blue-ish alt
+    };
+
+    function drawLegend(items) {
+      legend.innerHTML = items.map(([k,label]) =>
+        `<span><span class="swatch" style="background:${COLORS[k]};"></span> ${label}</span>`
+      ).join(' ');
+    }
+
+    function evaluateTopAction(scn, pCons, theta, promiseOn) {
+      const settings = {
+        credences: { p_cons: pCons, p_virtue: 1 - pCons },
+        promise: { enabled: promiseOn, theta_lives: theta },
+        virtueWeights: state.virtueWeights
+      };
+      const ev = window.EthicsEngine.evaluateScenario(scn, settings);
+      return ev.ranking[0]?.[0] || null; // action id
+    }
+
+    function renderSensitivity() {
+      // Axes: x = p_cons in [0,1], y = theta in [0,3]
+      const W = canvas.width, H = canvas.height;
+      const padL = 54, padB = 42, padT = 20, padR = 16;
+      const plotW = W - padL - padR, plotH = H - padT - padB;
+
+      ctx.clearRect(0,0,W,H);
+
+      // Grid resolution
+      const NX = 50, NY = 50;
+
+      // Choose scenario by select: here we render both stacked vertically: top = triage, bottom = evac
+      // Simpler: render evacuation only (since theta affects evac). We'll also display current top actions for both below.
+      const evac = scenarios.find(s=>s.id==="evac-promise-v1");
+
+      // Paint cells
+      for (let iy=0; iy<NY; iy++) {
+        const theta = 3 * (iy/(NY-1));
+        for (let ix=0; ix<NX; ix++) {
+          const pCons = ix/(NX-1);
+          const a = evaluateTopAction(evac, pCons, state.promise.enabled ? theta : state.promise.theta_lives, state.promise.enabled);
+          const color = COLORS[a] || '#9ca3af';
+          const x = padL + Math.floor(ix*plotW/NX);
+          const y = padT + Math.floor((NY-1-iy)*plotH/NY);
+          const cw = Math.ceil(plotW/NX)+1;
+          const ch = Math.ceil(plotH/NY)+1;
+          ctx.fillStyle = color;
+          ctx.fillRect(x, y, cw, ch);
+        }
+      }
+
+      // Axes
+      ctx.strokeStyle = '#111827';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(padL, padT, plotW, plotH);
+
+      ctx.fillStyle = '#111827';
+      ctx.font = '12px Inter, system-ui, sans-serif';
+      // X ticks
+      for (let t=0; t<=10; t+=2) {
+        const p = t/10;
+        const x = padL + p*plotW;
+        ctx.beginPath(); ctx.moveTo(x, padT+plotH); ctx.lineTo(x, padT+plotH+6); ctx.stroke();
+        ctx.fillText(p.toFixed(1), x-8, padT+plotH+20);
+      }
+      ctx.fillText('p_cons (virtue = 1 - p_cons)', padL + plotW/2 - 80, H-8);
+
+      // Y ticks (theta)
+      for (let t=0; t<=6; t+=1) {
+        const theta = (t/2);
+        const y = padT + (1 - theta/3)*plotH;
+        ctx.beginPath(); ctx.moveTo(padL-6, y); ctx.lineTo(padL, y); ctx.stroke();
+        ctx.fillText(theta.toFixed(1), 8, y+4);
+      }
+      ctx.save();
+      ctx.translate(12, padT + plotH/2);
+      ctx.rotate(-Math.PI/2);
+      ctx.fillText('θ (Δ lives to override promise)', -90, 0);
+      ctx.restore();
+
+      drawLegend([
+        ['b1_east_now', 'Keep promise (East now)'],
+        ['b2_west_plus_one_east', 'Break promise (West+1 East)'],
+        ['b3_mixed_break_promise', 'Mixed (incl. D1)']
+      ]);
+
+      // Current recommendation (both scenarios, using sliders)
+      const triage = scenarios.find(s=>s.id==="triage-vent-v1");
+      const curP = state.credences.p_cons;
+      const curT = state.promise.theta_lives;
+      const topTriage = evaluateTopAction(triage, curP, curT, state.promise.enabled);
+      const topEvac   = evaluateTopAction(evac,   curP, curT, state.promise.enabled);
+
+      recDiv.innerHTML = `
+        <p>Triage top action: <code>${topTriage}</code></p>
+        <p>Evacuation top action: <code>${topEvac}</code> (promise ${state.promise.enabled ? 'ON' : 'OFF'}, θ=${curT.toFixed(2)})</p>
+      `;
+    }
+
+    // Bind UI
+    ui.p_cons.addEventListener('input', () => { renormCredences(); renderSensitivity(); });
+    ui.p_virtue.addEventListener('input', () => { renormCredences(); renderSensitivity(); });
+    ui.promise_enabled.addEventListener('change', () => { syncPromise(); renderSensitivity(); });
+    ui.theta_lives.addEventListener('input', () => { syncPromise(); renderSensitivity(); });
+    ui.w_honesty.addEventListener('input', () => { syncVirtueWeights(); renderSensitivity(); });
+    ui.w_compassion.addEventListener('input', () => { syncVirtueWeights(); renderSensitivity(); });
+    ui.w_fairness.addEventListener('input', () => { syncVirtueWeights(); renderSensitivity(); });
+
+    // Boot
+    (async function main(){
+      renormCredences(); syncPromise(); syncVirtueWeights();
+      await loadScenarios();
+      renderSensitivity();
+    })();
+  </script>
+</body>
+</html>
