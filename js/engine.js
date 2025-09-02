@@ -1,6 +1,5 @@
-/* Ethics Testbed — minimal engine v0.1
-   Modules: consequentialism, deontic constraints, virtue distance
-   Aggregation: normalized min–max per module, credences p
+/* Ethics Testbed — minimal engine v0.2
+   Adds: UI-configurable credences, promise override, and virtue-trait weights.
 */
 const Engine = (() => {
   const EPS = 1e-9;
@@ -9,11 +8,23 @@ const Engine = (() => {
   const sqrt = x => Math.sqrt(Math.max(0, x));
   const clamp01 = x => Math.max(0, Math.min(1, x));
   const sum = arr => arr.reduce((a,b)=>a+b,0);
-  const mean = arr => arr.length ? sum(arr)/arr.length : 0;
 
   function normalize(values) {
     const lo = Math.min(...values), hi = Math.max(...values);
     return values.map(v => (v - lo) / (hi - lo + EPS));
+  }
+
+  // Merge scenario with runtime settings (promise rules, etc.)
+  function mergeSettingsIntoScenario(scn, settings) {
+    const copy = JSON.parse(JSON.stringify(scn));
+    if (copy.id === "evac-promise-v1") {
+      const k = copy.constraints.keep_credible_promises || {};
+      const ui = settings.promise || {};
+      k.enabled = (ui.enabled ?? k.enabled ?? true);
+      if (typeof ui.theta_lives === "number") k.theta_lives = ui.theta_lives;
+      copy.constraints.keep_credible_promises = k;
+    }
+    return copy;
   }
 
   // --- Scenario calculators ---------------------------------------------------
@@ -47,98 +58,89 @@ const Engine = (() => {
     const pNow = scn.prob_survive_if_rescued;
     const pEastLater = scn.prob_if_delayed.east;
     const pWestLater = scn.prob_if_delayed.west;
-
     const east = scn.docks.east;
     const west = scn.docks.west;
-    const includesD1 = arr => arr.includes("D1");
 
     const actions = {
       b1_east_now: () => {
-        // rescue D1,D2,D3 now; west waits
-        const now = 3 * pNow;
-        const later = west.length * pWestLater; // 2
+        const now = 3 * pNow;               // D1,D2,D3 now
+        const later = west.length * pWestLater; // D4,D5 later
         return now + later;
       },
       b2_west_plus_one_east: () => {
-        // rescue D4,D5 + one east; remaining east wait
-        const now = 3 * pNow;
-        const later = (east.length - 1) * pEastLater; // 2 wait
+        const now = 3 * pNow;               // D4,D5 + one east
+        const later = (east.length - 1) * pEastLater; // remaining east later
         return now + later;
       },
       b3_mixed_break_promise: () => {
-        // rescue D1 + one east + one west now; remaining wait by dock
-        const now = 3 * pNow;
+        const now = 3 * pNow; // D1 + one east + one west
         const later = ((east.length - 2) * pEastLater) + ((west.length - 1) * pWestLater);
         return now + later;
       }
     };
 
-    // Return raw expected survivors; apply concavity if desired
     const v = scn.params.priority_fn === "sqrt" ? sqrt : (x=>x);
     return scn.actions.map(a => [a.id, v(actions[a.id]())]);
   }
 
   // --- Deontic admissibility --------------------------------------------------
-
   function deonticAdmissible(scn, actionId) {
-    // Universal constraints satisfied in these seeds (no intentional harm, consent).
     if (scn.id === "triage-vent-v1") {
-      // Treat-like-cases-alike: prognosis differences material -> lottery not required
+      // Seeds have no hard deontic exclusion; prognosis difference is material
       return { admissible: true, reasons: [] };
     }
     if (scn.id === "evac-promise-v1") {
-      // Promise-keeping: if enabled, breaking promise inadmissible unless large-harm override
       const keep = scn.constraints.keep_credible_promises;
       if (!keep || !keep.enabled) return { admissible: true, reasons: [] };
 
-      // Identify whether action breaks promise to D1 being rescued first
-      const breaks = (actionId === "b2_west_plus_one_east"); // D1 not guaranteed this round
+      const breaks = (actionId === "b2_west_plus_one_east"); // D1 not first
       if (!breaks) return { admissible: true, reasons: [] };
 
-      // Compute Δ lives saved between best admissible promise-keeping action and the breaking action
-      // Compare b1 (keep promise strictly) vs b2 (break promise)
+      // Compare breaking vs keeping
       const scnCopy = JSON.parse(JSON.stringify(scn));
       const getLives = id => evacExpectedLives(scnCopy).find(([aid])=>aid===id)[1];
       const delta = getLives("b2_west_plus_one_east") - getLives("b1_east_now");
+      const theta = keep.theta_lives ?? 1.5;
 
-      if (delta < (keep.theta_lives ?? 1.5)) {
-        return { admissible: false, reasons: ["Breaks credible promise without sufficient harm avoidance"] };
+      if (delta < theta) {
+        return { admissible: false, reasons: [`Breaks credible promise; ΔLives=${delta.toFixed(2)} < θ=${theta}`] };
       } else {
-        return { admissible: true, reasons: ["Promise overridden by large harm avoidance"] };
+        return { admissible: true, reasons: [`Promise overridden; ΔLives=${delta.toFixed(2)} ≥ θ=${theta}`] };
       }
     }
     return { admissible: true, reasons: [] };
   }
 
   // --- Virtue distance (proxy) -----------------------------------------------
-  // Traits: honesty (penalize promise-breaking), compassion (favor higher expected lives),
-  // fairness (prefer lottery when options are close)
-  function virtueScore(scn, actionId, consRawMap) {
+  // Traits: honesty (promise-keeping), compassion (cons normalized), fairness (lottery bonus when close)
+  function virtueScore(scn, actionId, consRawMap, traitWts) {
+    const { honesty:wh=1, compassion:wc=1, fairness:wf=1 } = traitWts || {};
     let honesty = 1, compassion = 0, fairness = 0;
 
     if (scn.id === "evac-promise-v1") {
       const keep = scn.constraints.keep_credible_promises;
       const breaks = (actionId === "b2_west_plus_one_east");
-      if (keep && keep.enabled && breaks) honesty = 0.4; // penalize promise-breaking
+      if (keep && keep.enabled && breaks) honesty = 0.35; // penalty
     }
 
     // Compassion ~ normalized consequentialist score
     const consVals = Array.from(consRawMap.values());
     const consNorm = normalize(consVals);
-    const consIdx = Array.from(consRawMap.keys()).indexOf(actionId);
-    compassion = consNorm[consIdx];
+    const idx = Array.from(consRawMap.keys()).indexOf(actionId);
+    compassion = consNorm[idx];
 
-    // Fairness: if top two cons options differ by < δ, boost lottery / split options
-    const delta = (() => {
-      const sorted = [...consVals].sort((a,b)=>b-a);
-      return (sorted[0] - (sorted[1] ?? sorted[0]));
+    // Fairness: if top two cons options are close, lottery/split gets a bonus
+    const spread = (() => {
+      const s = [...consVals].sort((a,b)=>b-a);
+      return (s[0] - (s[1] ?? s[0]));
     })();
-    const close = delta < 0.25; // threshold: scenarios are coarse
+    const close = spread < 0.25;
     if (scn.id === "triage-vent-v1" && actionId === "a3_lottery" && close) fairness = 1.0;
     else fairness = 0.5;
 
-    // Simple average; could weight traits later
-    return (honesty + compassion + fairness) / 3;
+    // Weighted average
+    const totalW = wh + wc + wf + EPS;
+    return (wh*honesty + wc*compassion + wf*fairness) / totalW;
   }
 
   // --- Consequentialist raw scores per scenario -------------------------------
@@ -150,23 +152,29 @@ const Engine = (() => {
 
   // --- Aggregation ------------------------------------------------------------
   function aggregate(moduleScores, credences) {
-    // moduleScores: { cons: Map(action->norm), virtue: Map(action->norm) }
-    // Admissibility handled before aggregation
-    const { p_cons=0.5, p_deon=0.3, p_virtue=0.2 } = credences || {};
+    // Credences over scalarized modules (deon is gating)
+    let { p_cons=0.5, p_virtue=0.5 } = credences || {};
+    // Soft renormalize to sum=1 for scalar combo
+    const s = p_cons + p_virtue;
+    p_cons = (s>0) ? p_cons/s : 0.5;
+    p_virtue = (s>0) ? p_virtue/s : 0.5;
+
     const actions = [...moduleScores.cons.keys()];
     const out = new Map();
     for (const a of actions) {
       const c = moduleScores.cons.get(a) ?? 0;
       const v = moduleScores.virtue.get(a) ?? 0;
-      // deontic has no scalar; it gates actions earlier
-      out.set(a, p_cons*c + p_virtue*v); // p_deon implicit via gating
+      out.set(a, p_cons*c + p_virtue*v);
     }
     return out;
   }
 
   // --- Public API -------------------------------------------------------------
-  function evaluateScenario(scn, credences) {
-    // 1) Consequentialist raw
+  function evaluateScenario(scnOriginal, settings) {
+    const scn = mergeSettingsIntoScenario(scnOriginal, settings || {});
+    const traitWts = settings.virtueWeights || { honesty:1, compassion:1, fairness:1 };
+
+    // 1) Consequentialist raw & norm
     const consPairs = consRawScores(scn);
     const consMapRaw = new Map(consPairs);
     const consNormVals = normalize(consPairs.map(([,v])=>v));
@@ -178,10 +186,10 @@ const Engine = (() => {
       adm.set(a, deonticAdmissible(scn, a));
     }
 
-    // 3) Virtue distance
+    // 3) Virtue
     const virtueMapRaw = new Map();
     for (const a of scn.actions.map(x=>x.id)) {
-      virtueMapRaw.set(a, virtueScore(scn, a, consMapRaw));
+      virtueMapRaw.set(a, virtueScore(scn, a, consMapRaw, traitWts));
     }
     const virtueNormVals = normalize([...virtueMapRaw.values()]);
     const virtueMapNorm = new Map([...virtueMapRaw.keys()].map((k,i)=>[k, virtueNormVals[i]]));
@@ -190,20 +198,18 @@ const Engine = (() => {
     const gated = [...adm.entries()].filter(([,v])=>v.admissible).map(([k])=>k);
     const consG = new Map(gated.map(k=>[k, consMapNorm.get(k)]));
     const virtueG = new Map(gated.map(k=>[k, virtueMapNorm.get(k)]));
-    const agg = aggregate({cons: consG, virtue: virtueG}, credences);
+    const agg = aggregate({cons: consG, virtue: virtueG}, settings.credences || {});
 
-    // 5) Minimal explanation set (simplified)
+    // 5) Explanation set (brief)
     const explanations = [];
     if (scn.id === "triage-vent-v1") {
-      explanations.push("E1: Prognosis delta between A and B is material.");
-      explanations.push("E2: No deontic constraint triggered.");
+      explanations.push("E1: Prognosis delta material; no hard constraints triggered.");
     }
     if (scn.id === "evac-promise-v1") {
-      const promiseOn = scn.constraints.keep_credible_promises?.enabled;
-      explanations.push(`E1: Promise-keeping ${promiseOn ? "enabled" : "disabled"} with θ=${scn.constraints.keep_credible_promises?.theta_lives ?? "—"}.`);
+      const pr = scn.constraints.keep_credible_promises;
+      explanations.push(`E1: Promise ${pr?.enabled ? "enabled" : "disabled"}; θ=${pr?.theta_lives ?? "—"}.`);
     }
 
-    // 6) Rankings
     const ranking = [...agg.entries()].sort((a,b)=>b[1]-a[1]);
 
     return {
@@ -222,5 +228,4 @@ const Engine = (() => {
   return { evaluateScenario };
 })();
 
-// Expose for browser usage
 window.EthicsEngine = Engine;
