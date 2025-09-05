@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Interactive Results — Ethics Testbed</title>
-  <meta name="description" content="Adjust credences, promise thresholds, and virtue weights. See how recommendations change.">
+  <title>First Results — Ethics Testbed</title>
+  <meta name="description" content="Baseline runs for the modular ethics engine on seed scenarios.">
   <meta name="theme-color" content="#00A86B">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
     h2{ margin:20px 0 10px; font-size:clamp(22px,3vw,30px); }
     .kicker{ display:inline-flex; gap:8px; padding:6px 10px; border-radius:999px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--jade); background:#00a86b1a; }
     .grid{ display:grid; gap:16px; grid-template-columns:1fr; }
-    @media (min-width:1024px){ .grid{ grid-template-columns:360px 1fr; } }
+    @media (min-width:960px){ .grid{ grid-template-columns:1fr 1fr; } }
     .card{ background:white; border:1px solid #e5e7eb; border-radius:var(--radius); padding:16px; box-shadow:0 12px 34px -24px rgba(0,0,0,.2); }
     table{ width:100%; border-collapse:collapse; }
     th,td{ padding:8px 10px; border-bottom:1px solid #e5e7eb; font-size:14px; }
@@ -28,89 +28,22 @@
     .pill{ display:inline-block; padding:4px 8px; border-radius:999px; background:#00a86b1a; color:#047857; font-weight:700; font-size:12px; }
     .muted{ color:var(--muted); }
     .btn{ display:inline-block; font-weight:700; padding:10px 16px; border-radius:999px; background:var(--jade); color:#fff; text-decoration:none; box-shadow:0 6px 18px -8px rgba(0,168,107,.25), 0 2px 6px -2px rgba(0,168,107,.25); }
-    .row{ display:grid; gap:10px; grid-template-columns: 1fr auto; align-items:center; }
-    .ctrl{ display:grid; gap:8px; margin-bottom:14px; }
-    .ctrl label{ font-size:12px; color:#374151; display:flex; justify-content:space-between; }
-    input[type="range"]{ width:100%; }
-    .hr{ height:1px; background:#e5e7eb; margin:12px 0; }
     footer{ margin:30px 0 60px; color:var(--muted); }
-    .badge{ font-size:12px; padding:2px 8px; border-radius:999px; background:#eef2ff; color:#3730a3; }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap nav">
-      <div><span class="kicker">Interactive Runs</span></div>
-      <nav><a href="index.html">Home</a> · <a href="paper.html">Methods</a> · <a href="https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO" target="_blank" rel="noopener">Repo</a></nav>
+      <div><span class="kicker">Baseline Runs</span></div>
+      <nav><a href="index.html">Home</a> · <a href="paper.html">Methods</a> · <a href="interactive.html">Interactive</a> · <a href="https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO" target="_blank" rel="noopener">Repo</a></nav>
     </div>
   </header>
 
   <main class="wrap">
-    <h1>Results (Live)</h1>
-    <p class="muted">Adjust parameters on the left. The tables recompute instantly. Deontic constraints gate actions before aggregation.</p>
+    <h1>First Results</h1>
+    <p class="muted">Aggregator uses credences <code>{ p_cons: 0.5, p_rawls: 0.25, p_virtue: 0.25 }</code>. Deontic constraints gate actions before aggregation.</p>
 
-    <div class="grid">
-      <!-- Controls -->
-      <div class="card" id="controls">
-        <h2>Controls</h2>
-
-        <div class="ctrl">
-          <label>Consequentialism weight <span><code id="lab_pcons">0.50</code></span></label>
-          <input id="p_cons" type="range" min="0" max="1" step="0.01" value="0.50">
-        </div>
-
-        <div class="ctrl">
-          <label>Virtue weight <span><code id="lab_pvirtue">0.50</code></span></label>
-          <input id="p_virtue" type="range" min="0" max="1" step="0.01" value="0.50">
-          <small class="muted">Scalar credences renormalize so these two sum to 1.</small>
-        </div>
-
-        <div class="hr"></div>
-
-        <div class="ctrl">
-          <label>Promise constraint enabled <span class="badge" id="lab_promise">ON</span></label>
-          <div class="row">
-            <input id="promise_enabled" type="checkbox" checked>
-            <small class="muted">Scenario: <code>evac-promise-v1</code></small>
-          </div>
-        </div>
-
-        <div class="ctrl">
-          <label>Promise override threshold θ (Δ lives) <span><code id="lab_theta">1.50</code></span></label>
-          <input id="theta_lives" type="range" min="0" max="3" step="0.05" value="1.50">
-        </div>
-
-        <div class="hr"></div>
-
-        <h3>Virtue trait weights</h3>
-        <div class="ctrl">
-          <label>Honesty <span><code id="lab_honesty">1.00</code></span></label>
-          <input id="w_honesty" type="range" min="0" max="3" step="0.05" value="1.00">
-        </div>
-        <div class="ctrl">
-          <label>Compassion <span><code id="lab_compassion">1.00</code></span></label>
-          <input id="w_compassion" type="range" min="0" max="3" step="0.05" value="1.00">
-        </div>
-        <div class="ctrl">
-          <label>Fairness <span><code id="lab_fairness">1.00</code></span></label>
-          <input id="w_fairness" type="range" min="0" max="3" step="0.05" value="1.00">
-        </div>
-
-        <div class="hr"></div>
-
-        <button class="btn" id="reset">Reset</button>
-      </div>
-
-      <!-- Results -->
-      <div id="results" class="grid"></div>
-    </div>
-
-    <h2>Notes</h2>
-    <ul class="muted">
-      <li>Consequentialism reports normalized expected outcomes (life-years in triage, survivors in evacuation).</li>
-      <li>Virtue proxy combines honesty (promise-keeping), compassion (normalized outcomes), and fairness (lottery bonus when options are close). Weights tune their influence.</li>
-      <li>Promise rule: if enabled, breaking a credible promise is inadmissible unless expected harm avoided meets θ.</li>
-    </ul>
+    <div id="results" class="grid"></div>
 
     <p><a class="btn" href="index.html">Back to Home</a></p>
   </main>
@@ -121,75 +54,17 @@
 
   <script src="js/engine.js"></script>
   <script>
-    const defaults = {
-      credences: { p_cons: 0.5, p_virtue: 0.5 },
-      promise: { enabled: true, theta_lives: 1.5 },
-      virtueWeights: { honesty: 1.0, compassion: 1.0, fairness: 1.0 }
-    };
-    const state = JSON.parse(JSON.stringify(defaults));
     document.getElementById('y').textContent = (new Date()).getFullYear();
-
-    // UI bindings
-    const ui = {
-      p_cons: document.getElementById('p_cons'),
-      p_virtue: document.getElementById('p_virtue'),
-      lab_pcons: document.getElementById('lab_pcons'),
-      lab_pvirtue: document.getElementById('lab_pvirtue'),
-
-      promise_enabled: document.getElementById('promise_enabled'),
-      theta_lives: document.getElementById('theta_lives'),
-      lab_promise: document.getElementById('lab_promise'),
-      lab_theta: document.getElementById('lab_theta'),
-
-      w_honesty: document.getElementById('w_honesty'),
-      w_compassion: document.getElementById('w_compassion'),
-      w_fairness: document.getElementById('w_fairness'),
-      lab_honesty: document.getElementById('lab_honesty'),
-      lab_compassion: document.getElementById('lab_compassion'),
-      lab_fairness: document.getElementById('lab_fairness'),
-
-      reset: document.getElementById('reset')
-    };
-
-    function renormCredences() {
-      const s = parseFloat(ui.p_cons.value) + parseFloat(ui.p_virtue.value);
-      const c = s > 0 ? parseFloat(ui.p_cons.value) / s : 0.5;
-      const v = s > 0 ? parseFloat(ui.p_virtue.value) / s : 0.5;
-      state.credences.p_cons = c;
-      state.credences.p_virtue = v;
-      ui.lab_pcons.textContent = c.toFixed(2);
-      ui.lab_pvirtue.textContent = v.toFixed(2);
-    }
-
-    function syncPromise() {
-      state.promise.enabled = ui.promise_enabled.checked;
-      state.promise.theta_lives = parseFloat(ui.theta_lives.value);
-      ui.lab_promise.textContent = state.promise.enabled ? 'ON' : 'OFF';
-      ui.lab_theta.textContent = state.promise.theta_lives.toFixed(2);
-    }
-
-    function syncVirtueWeights() {
-      state.virtueWeights.honesty = parseFloat(ui.w_honesty.value);
-      state.virtueWeights.compassion = parseFloat(ui.w_compassion.value);
-      state.virtueWeights.fairness = parseFloat(ui.w_fairness.value);
-      ui.lab_honesty.textContent = state.virtueWeights.honesty.toFixed(2);
-      ui.lab_compassion.textContent = state.virtueWeights.compassion.toFixed(2);
-      ui.lab_fairness.textContent = state.virtueWeights.fairness.toFixed(2);
-    }
-
-    // Load scenarios and render
-    let scenarios = [];
-    const container = document.getElementById('results');
 
     async function loadScenarios() {
       const res = await fetch('data/scenarios.json');
       if (!res.ok) throw new Error('Failed to load scenarios.json');
-      scenarios = (await res.json()).scenarios;
+      return (await res.json()).scenarios;
     }
 
     function fmt(x){ return (typeof x === 'number') ? x.toFixed(3) : (x ?? '—'); }
 
-    function renderScenario(scn, evald) {
+    function renderScenario(container, scn, evald) {
       const card = document.createElement('div');
       card.className = 'card';
 
@@ -202,7 +77,9 @@
         <tr>
           <td><code>${id}</code></td>
           <td>${fmt(evald.consRaw.get(id))}</td>
-          <td>${(evald.consNorm.get(id)??null) === null ? '—' : evald.consNorm.get(id).toFixed(3)}</td>
+          <td>${evald.consNorm.get(id).toFixed(3)}</td>
+          <td>${fmt(evald.rawlsRaw.get(id))}</td>
+          <td>${evald.rawlsNorm.get(id).toFixed(3)}</td>
           <td>${evald.virtueRaw.get(id).toFixed(3)}</td>
           <td>${evald.virtueNorm.get(id).toFixed(3)}</td>
           <td>${(evald.aggregate.get(id)??null) === null ? '—' : evald.aggregate.get(id).toFixed(3)}</td>
@@ -219,6 +96,8 @@
               <th>Action</th>
               <th>Cons. Raw</th>
               <th>Cons. Norm</th>
+              <th>Rawls Raw</th>
+              <th>Rawls Norm</th>
               <th>Virtue Raw</th>
               <th>Virtue Norm</th>
               <th>Aggregate</th>
@@ -238,42 +117,16 @@
 
         <p><strong>Explanation set:</strong> ${evald.explanations.join(' ')} </p>
       `;
-      return card;
+      container.appendChild(card);
     }
 
-    function rerun() {
-      container.innerHTML = '';
-      for (const scn of scenarios) {
-        const ev = window.EthicsEngine.evaluateScenario(scn, state);
-        container.appendChild(renderScenario(scn, ev));
-      }
-    }
-
-    // Wire events
-    ui.p_cons.addEventListener('input', () => { renormCredences(); rerun(); });
-    ui.p_virtue.addEventListener('input', () => { renormCredences(); rerun(); });
-
-    ui.promise_enabled.addEventListener('change', () => { syncPromise(); rerun(); });
-    ui.theta_lives.addEventListener('input', () => { syncPromise(); rerun(); });
-
-    ui.w_honesty.addEventListener('input', () => { syncVirtueWeights(); rerun(); });
-    ui.w_compassion.addEventListener('input', () => { syncVirtueWeights(); rerun(); });
-    ui.w_fairness.addEventListener('input', () => { syncVirtueWeights(); rerun(); });
-
-    ui.reset.addEventListener('click', () => {
-      Object.assign(state, JSON.parse(JSON.stringify(defaults)));
-      // reset inputs
-      ui.p_cons.value = 0.5; ui.p_virtue.value = 0.5;
-      ui.promise_enabled.checked = true; ui.theta_lives.value = 1.5;
-      ui.w_honesty.value = 1.0; ui.w_compassion.value = 1.0; ui.w_fairness.value = 1.0;
-      renormCredences(); syncPromise(); syncVirtueWeights(); rerun();
-    });
-
-    // Boot
     (async function main(){
-      renormCredences(); syncPromise(); syncVirtueWeights();
-      await loadScenarios();
-      rerun();
+      const container = document.getElementById('results');
+      const scenarios = await loadScenarios();
+      for (const scn of scenarios) {
+        const ev = window.EthicsEngine.evaluateScenario(scn, { credences: { p_cons:0.5, p_rawls:0.25, p_virtue:0.25 } });
+        renderScenario(container, scn, ev);
+      }
     })();
   </script>
 </body>
