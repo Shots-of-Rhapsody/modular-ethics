@@ -395,5 +395,33 @@ function rawlsRawScores(scn) {
       toc.innerHTML = ids.map((id,i)=>`<li><a href="#${id}">${labels[i]}</a></li>`).join('');
     })();
   </script>
+  <script>
+document.getElementById('validateJson').addEventListener('click', async () => {
+  const out = document.getElementById('validateOut');
+  out.textContent = 'Validating…';
+  try {
+    const res = await fetch('data/scenarios.json', {cache:'no-store'});
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+    try {
+      const parsed = JSON.parse(text);
+      if (!parsed || !Array.isArray(parsed.scenarios)) throw new Error('Missing "scenarios" array.');
+      // quick structure pokes
+      const ids = new Set();
+      for (const s of parsed.scenarios) {
+        if (!s.id) throw new Error('Scenario missing id.');
+        if (ids.has(s.id)) throw new Error('Duplicate scenario id: ' + s.id);
+        ids.add(s.id);
+      }
+      out.textContent = '✅ scenarios.json is valid. Scenarios: ' + [...ids].join(', ');
+    } catch (e) {
+      // try to locate the error position if possible
+      out.textContent = '❌ JSON parse error: ' + e.message;
+    }
+  } catch (e) {
+    out.textContent = '❌ Could not load data/scenarios.json: ' + e.message;
+  }
+});
+</script>
 </body>
 </html>
