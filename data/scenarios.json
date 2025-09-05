@@ -56,8 +56,9 @@
       "params": {
         "weights_equal": true,
         "priority_fn": "sqrt"
-    }
-   ,{
+      }
+    },
+    {
       "id": "vax-allocation-v1",
       "context": { "domain": "public-health", "tags": ["vaccines", "scarcity", "distribution"] },
       "groups": [
@@ -75,7 +76,6 @@
         "no_intentional_harm_innocent": true
       },
       "params": { "priority_fn": "sqrt" }
-    }
     }
   ]
 }
