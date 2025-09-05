@@ -1,0 +1,172 @@
+/* ==========================================================================
+   Ethics Testbed — Unified Site Styles (site.css)
+   Applies to: index.html, paper.html, results.html, interactive.html, contribute.html
+   Keeps the existing visual language: Inter + Playfair, jade accent, soft cards.
+   ========================================================================== */
+
+/* Root variables */
+:root{
+  --jade: #00A86B;
+  --jade-ink: #047857;
+  --muted: #6b7280;
+  --ink: #111827;
+  --bg: #fafcff;
+  --radius: 14px;
+  --ring: rgba(0,168,107,.25);
+  --maxw: 1080px;
+}
+
+/* Base reset-ish */
+*{ box-sizing: border-box; }
+html{ -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
+body{
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+img{ max-width: 100%; height: auto; display: block; }
+a{ color: var(--jade); text-decoration: none; }
+a:hover{ text-decoration: underline; }
+:focus-visible{
+  outline: 2px solid var(--jade);
+  outline-offset: 2px;
+}
+
+/* Layout scaffolding */
+.wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+header{
+  position: sticky; top: 0; z-index: 40;
+  backdrop-filter: saturate(120%) blur(10px);
+  background: #ffffffc7;
+  border-bottom: 1px solid #e5e7eb;
+}
+.nav{ display: flex; align-items: center; justify-content: space-between; height: 64px; }
+
+/* Headings & text */
+h1,h2{ font-family: "Playfair Display", Georgia, serif; line-height: 1.2; }
+h1{ margin: 14px 0; font-size: clamp(28px, 4vw, 40px); }
+h2{ margin: 20px 0 10px; font-size: clamp(22px, 3vw, 30px); }
+h3{ margin: 18px 0 8px; font-size: 18px; }
+.lead{ font-size: 18px; color: var(--muted); }
+.meta{ font-size: 13px; color: var(--muted); }
+
+/* Kicker / pill label */
+.kicker{
+  display: inline-flex; gap: 8px; align-items: center;
+  padding: 6px 10px; border-radius: 999px;
+  font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--jade); background: #00a86b1a;
+}
+
+/* Utilities */
+.muted{ color: var(--muted); }
+.hr{ height: 1px; background: #e5e7eb; margin: 12px 0; }
+.row{ display: grid; gap: 10px; grid-template-columns: 1fr auto; align-items: center; }
+
+/* Cards */
+.card{
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 12px 34px -24px rgba(0,0,0,.20);
+}
+
+/* Buttons */
+.btn{
+  display: inline-block;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--jade);
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid transparent;
+  box-shadow: 0 6px 18px -8px var(--ring), 0 2px 6px -2px var(--ring);
+  transition: transform .06s ease, box-shadow .2s ease;
+}
+.btn:hover{ text-decoration: none; transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); }
+.btn.ghost{
+  background: transparent;
+  color: var(--jade);
+  border: 1px solid var(--jade);
+  box-shadow: none;
+}
+
+/* Badges / Pills */
+.pill{
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #00a86b1a;
+  color: var(--jade-ink);
+  font-weight: 700;
+  font-size: 12px;
+}
+.badge{
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+/* Tables */
+table{ width: 100%; border-collapse: collapse; }
+th, td{ padding: 8px 10px; border-bottom: 1px solid #e5e7eb; font-size: 14px; text-align: left; }
+th{ background: #f8fafc; font-weight: 700; }
+
+/* Code blocks */
+code{
+  background: #0d1117; color: #e5e7eb;
+  padding: 2px 6px; border-radius: 8px; font-size: 12px;
+}
+pre{
+  margin: 0; padding: 14px; border-radius: 12px; overflow: auto;
+  background: #0d1117; color: #e5e7eb; border: 1px solid #1f2937;
+}
+
+/* Forms & controls */
+.ctrl{ display: grid; gap: 8px; margin-bottom: 14px; }
+.ctrl label{ font-size: 12px; color: #374151; display: flex; justify-content: space-between; align-items: center; }
+input[type="range"]{ width: 100%; }
+input[type="checkbox"]{ width: 18px; height: 18px; }
+
+/* Grids (baseline) */
+.grid{ display: grid; gap: 16px; grid-template-columns: 1fr; }
+
+/* Optional helpers if you want explicit grid presets in HTML:
+   - Add class "grid--two" for equal two columns on wider screens
+   - Add class "grid--sidebar" for a 360px sidebar + main content
+*/
+@media (min-width: 960px){
+  .grid--two{ grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1024px){
+  .grid--sidebar{ grid-template-columns: 360px 1fr; }
+}
+
+/* Canvas & legend (interactive page) */
+canvas{
+  width: 100%; height: auto;
+  image-rendering: crisp-edges;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+.legend{ display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.swatch{ width: 14px; height: 14px; border-radius: 3px; display: inline-block; border: 1px solid #0001; }
+
+/* Footer */
+footer{ margin: 30px 0 60px; color: var(--muted); }
+
+/* Print niceties (for paper.html) */
+@media print{
+  header, footer, .btn{ display: none !important; }
+  .wrap{ max-width: 100%; padding: 0; }
+  body{ background: #ffffff; color: #000; }
+  a{ color: #000; text-decoration: underline; }
+}
