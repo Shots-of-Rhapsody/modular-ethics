@@ -56,7 +56,26 @@
       "params": {
         "weights_equal": true,
         "priority_fn": "sqrt"
-      }
+    }
+   ,{
+      "id": "vax-allocation-v1",
+      "context": { "domain": "public-health", "tags": ["vaccines", "scarcity", "distribution"] },
+      "groups": [
+        { "id": "H", "label": "High-risk elders", "population": 1200, "years_left": 12, "p_infect": 0.10, "ifr": 0.08 },
+        { "id": "E", "label": "Essential workers", "population": 1800, "years_left": 40, "p_infect": 0.20, "ifr": 0.01 }
+      ],
+      "vaccine": { "doses": 1000, "ve_death": 0.90 },
+      "actions": [
+        { "id": "c1_prioritize_high_risk", "desc": "Prioritize elders (H) first, then E" },
+        { "id": "c2_prioritize_essential", "desc": "Prioritize essential workers (E) first, then H" },
+        { "id": "c3_split_even", "desc": "Split doses 50/50 between H and E" }
+      ],
+      "constraints": {
+        "treat_like_cases_alike": true,
+        "no_intentional_harm_innocent": true
+      },
+      "params": { "priority_fn": "sqrt" }
+    }
     }
   ]
 }
