@@ -170,3 +170,37 @@ footer{ margin: 30px 0 60px; color: var(--muted); }
   body{ background: #ffffff; color: #000; }
   a{ color: #000; text-decoration: underline; }
 }
+
+/* ---- Results page overflow fixes ---- */
+
+/* Let grid children shrink to the card width */
+.grid > * { min-width: 0; }         /* generic safety */
+.card { min-width: 0; }
+
+/* Make the results grid responsive and non-overflowing */
+#results.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: start;
+}
+
+/* Tables: keep within the card and wrap long content */
+.card table { width: 100%; table-layout: fixed; }  /* prevent column blowout */
+.card th, .card td {
+  overflow-wrap: anywhere;       /* modern, best-effort */
+  word-break: break-word;        /* fallback */
+}
+
+/* Inline code often has long unbroken tokens (action ids) */
+.card code {
+  white-space: normal;           /* allow wrapping */
+  word-break: break-all;         /* last-resort wrap inside tokens */
+}
+
+/* Long paragraphs (ranking/explanations) also wrap */
+.card p { overflow-wrap: anywhere; }
+
+/* Optional: if a table is still wider (small phones), allow horizontal scroll */
+.table-wrap { overflow-x: auto; }
+.table-wrap table { min-width: 520px; } /* prevents ultra-squeezed columns */
