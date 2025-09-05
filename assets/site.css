@@ -1,7 +1,6 @@
 /* ==========================================================================
    Ethics Testbed — Unified Site Styles (site.css)
    Applies to: index.html, paper.html, results.html, interactive.html, contribute.html
-   Keeps the existing visual language: Inter + Playfair, jade accent, soft cards.
    ========================================================================== */
 
 /* Root variables */
@@ -170,8 +169,6 @@ footer{ margin: 30px 0 60px; color: var(--muted); }
   body{ background: #ffffff; color: #000; }
   a{ color: #000; text-decoration: underline; }
 }
-
-/* ---- Results page overflow fixes ---- */
 
 /* Let grid children shrink to the card width */
 .grid > * { min-width: 0; }         /* generic safety */
