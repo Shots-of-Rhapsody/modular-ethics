@@ -60,9 +60,14 @@
         </div>
 
         <div class="ctrl">
-          <label>Virtue weight <span><code id="lab_pvirtue">0.50</code></span></label>
-          <input id="p_virtue" type="range" min="0" max="1" step="0.01" value="0.50">
-          <small class="muted">Scalar credences renormalize so these two sum to 1.</small>
+          <label>Rawls weight <span><code id="lab_prawls">0.25</code></span></label>
+          <input id="p_rawls" type="range" min="0" max="1" step="0.01" value="0.25">
+        </div>
+
+        <div class="ctrl">
+          <label>Virtue weight <span><code id="lab_pvirtue">0.25</code></span></label>
+          <input id="p_virtue" type="range" min="0" max="1" step="0.01" value="0.25">
+          <small class="muted">Credences renormalize so the three sum to 1.</small>
         </div>
 
         <div class="hr"></div>
@@ -108,7 +113,8 @@
     <h2>Notes</h2>
     <ul class="muted">
       <li>Consequentialism reports normalized expected outcomes (life-years in triage, survivors in evacuation).</li>
-      <li>Virtue proxy combines honesty (promise-keeping), compassion (normalized outcomes), and fairness (lottery bonus when options are close). Weights tune their influence.</li>
+      <li><strong>Rawls (maximin)</strong> scores an action by the welfare of the worst-off individual (min over persons); normalized within each scenario.</li>
+      <li>Virtue proxy combines honesty (promise-keeping), compassion (normalized outcomes), and fairness (lottery/split bonus when options are close). Weights tune their influence.</li>
       <li>Promise rule: if enabled, breaking a credible promise is inadmissible unless expected harm avoided meets θ.</li>
     </ul>
 
@@ -121,19 +127,22 @@
 
   <script src="js/engine.js"></script>
   <script>
+    // Defaults now include Rawls
     const defaults = {
-      credences: { p_cons: 0.5, p_virtue: 0.5 },
+      credences: { p_cons: 0.5, p_rawls: 0.25, p_virtue: 0.25 },
       promise: { enabled: true, theta_lives: 1.5 },
       virtueWeights: { honesty: 1.0, compassion: 1.0, fairness: 1.0 }
     };
     const state = JSON.parse(JSON.stringify(defaults));
     document.getElementById('y').textContent = (new Date()).getFullYear();
 
-    // UI bindings
+    // UI bindings (added p_rawls)
     const ui = {
       p_cons: document.getElementById('p_cons'),
+      p_rawls: document.getElementById('p_rawls'),
       p_virtue: document.getElementById('p_virtue'),
       lab_pcons: document.getElementById('lab_pcons'),
+      lab_prawls: document.getElementById('lab_prawls'),
       lab_pvirtue: document.getElementById('lab_pvirtue'),
 
       promise_enabled: document.getElementById('promise_enabled'),
@@ -151,13 +160,19 @@
       reset: document.getElementById('reset')
     };
 
+    // Renormalize three credences to sum to 1
     function renormCredences() {
-      const s = parseFloat(ui.p_cons.value) + parseFloat(ui.p_virtue.value);
-      const c = s > 0 ? parseFloat(ui.p_cons.value) / s : 0.5;
-      const v = s > 0 ? parseFloat(ui.p_virtue.value) / s : 0.5;
+      let c = parseFloat(ui.p_cons.value);
+      let r = parseFloat(ui.p_rawls.value);
+      let v = parseFloat(ui.p_virtue.value);
+      const s = c + r + v;
+      if (s <= 0) { c = 1; r = 0; v = 0; }
+      else { c /= s; r /= s; v /= s; }
       state.credences.p_cons = c;
+      state.credences.p_rawls = r;
       state.credences.p_virtue = v;
       ui.lab_pcons.textContent = c.toFixed(2);
+      ui.lab_prawls.textContent = r.toFixed(2);
       ui.lab_pvirtue.textContent = v.toFixed(2);
     }
 
@@ -203,6 +218,8 @@
           <td><code>${id}</code></td>
           <td>${fmt(evald.consRaw.get(id))}</td>
           <td>${(evald.consNorm.get(id)??null) === null ? '—' : evald.consNorm.get(id).toFixed(3)}</td>
+          <td>${fmt(evald.rawlsRaw.get(id))}</td>
+          <td>${(evald.rawlsNorm.get(id)??null) === null ? '—' : evald.rawlsNorm.get(id).toFixed(3)}</td>
           <td>${evald.virtueRaw.get(id).toFixed(3)}</td>
           <td>${evald.virtueNorm.get(id).toFixed(3)}</td>
           <td>${(evald.aggregate.get(id)??null) === null ? '—' : evald.aggregate.get(id).toFixed(3)}</td>
@@ -219,6 +236,8 @@
               <th>Action</th>
               <th>Cons. Raw</th>
               <th>Cons. Norm</th>
+              <th>Rawls Raw</th>
+              <th>Rawls Norm</th>
               <th>Virtue Raw</th>
               <th>Virtue Norm</th>
               <th>Aggregate</th>
@@ -249,8 +268,9 @@
       }
     }
 
-    // Wire events
+    // Wire events (now also listen to p_rawls)
     ui.p_cons.addEventListener('input', () => { renormCredences(); rerun(); });
+    ui.p_rawls.addEventListener('input', () => { renormCredences(); rerun(); });
     ui.p_virtue.addEventListener('input', () => { renormCredences(); rerun(); });
 
     ui.promise_enabled.addEventListener('change', () => { syncPromise(); rerun(); });
@@ -263,7 +283,7 @@
     ui.reset.addEventListener('click', () => {
       Object.assign(state, JSON.parse(JSON.stringify(defaults)));
       // reset inputs
-      ui.p_cons.value = 0.5; ui.p_virtue.value = 0.5;
+      ui.p_cons.value = 0.5; ui.p_rawls.value = 0.25; ui.p_virtue.value = 0.25;
       ui.promise_enabled.checked = true; ui.theta_lives.value = 1.5;
       ui.w_honesty.value = 1.0; ui.w_compassion.value = 1.0; ui.w_fairness.value = 1.0;
       renormCredences(); syncPromise(); syncVirtueWeights(); rerun();
