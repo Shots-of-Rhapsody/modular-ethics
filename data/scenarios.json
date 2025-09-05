@@ -41,7 +41,7 @@
       ],
       "boat_capacity": 3,
       "prob_survive_if_rescued": 0.95,
-      "prob_if_delayed": { "east": 0.40, "west": 0.60 },
+      "prob_if_delayed": { "east": 0.60, "west": 0.20 },
       "docks": { "east": ["D1","D2","D3"], "west": ["D4","D5"] },
       "actions": [
         { "id": "b1_east_now", "desc": "Rescue East (D1–D3) now" },
