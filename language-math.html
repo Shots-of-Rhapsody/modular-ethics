@@ -3,16 +3,47 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Language and Math - Ethics Testbed</title>
-  <meta name="description" content="Exploring the parallels between language and mathematics as rule-based systems for meaning.">
+  <title>Language ⇄ Math — Ethics Testbed</title>
+  <meta name="description" content="A visual guide to how language and mathematics mirror each other: symbols, syntax, semantics, and logic.">
   <meta name="theme-color" content="#00A86B">
   <link rel="stylesheet" href="assets/site.css?v=1">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Page-specific accents only (rely on site.css for the rest) */
+    .hero { padding: 64px 0 24px; }
+    .hero h1 { margin: 0 0 10px; }
+    .sub { color: var(--muted); max-width: 820px; }
+    .grid-gallery { display:grid; gap:16px; grid-template-columns: 1fr; }
+    @media (min-width: 960px){ .grid-gallery{ grid-template-columns: 1fr 1fr; } }
+    .chip { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-weight:700; }
+    .chip.lang { background:#ecfeff; color:#0369a1; border:1px solid #bae6fd; }
+    .chip.math { background:#ecfdf5; color:#047857; border:1px solid #bbf7d0; }
+    .legend-row { display:flex; gap:8px; flex-wrap:wrap; }
+    .slot { background:#f8fafc; border:1px dashed #e5e7eb; padding:10px; border-radius:12px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .center { text-align:center; }
+    .two-col { display:grid; gap:16px; grid-template-columns:1fr; }
+    @media (min-width: 940px){ .two-col { grid-template-columns:1fr 1fr; } }
+    .axis-label { font-size:12px; fill:#6b7280; }
+    .caption { font-size:13px; color: var(--muted); margin-top:8px; }
+    .dial { display:flex; align-items:center; gap:10px; }
+    .kicker-alt{ display:inline-block; background:#eef2ff; color:#3730a3; border-radius:999px; padding:4px 8px; font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;}
+    .arrow { color:#6b7280; }
+    .mini-grid { display:grid; gap:10px; grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .truth { text-align:center; padding:8px; border-radius:10px; }
+    .truth.T { background:#ecfdf5; border:1px solid #bbf7d0; }
+    .truth.F { background:#fef2f2; border:1px solid #fecaca; }
+    .fig { background:white; border:1px solid #e5e7eb; border-radius:12px; padding:12px; }
+    .small { font-size:12px; }
+    /* keep long tokens inside cards */
+    .card code { white-space: normal; word-break: break-word; }
+  </style>
 </head>
 <body>
+  <a class="skip" href="#content">Skip to content</a>
   <header>
     <div class="wrap nav">
-      <div><span class="kicker">Essay</span></div>
+      <div class="brand"><span class="kicker">Essay</span></div>
       <nav>
         <a href="index.html">Home</a> ·
         <a href="paper.html">Methods</a> ·
@@ -24,35 +55,227 @@
     </div>
   </header>
 
-  <main class="wrap">
-    <h1>How Language Is Like Math</h1>
-    <p class="lead muted">Both are rule-based symbol systems for creating and sharing meaning. The parallels run deeper than we often realize.</p>
+  <main id="content" class="wrap">
+    <section class="hero">
+      <h1>Language ⇄ Math</h1>
+      <p class="sub">Both are rule-based symbol systems. Letters and words; numbers and operators. Grammar and algebra. Semantics that point to meaning—ideas in one case, quantities in the other. This page is a visual map of those parallels.</p>
+      <div class="legend-row" aria-label="Legend">
+        <span class="chip lang">Language</span>
+        <span class="chip math">Math</span>
+        <span class="pill">Logic = the bridge</span>
+      </div>
+    </section>
 
-    <div class="card">
-      <h2>Symbols</h2>
-      <p><strong>Language</strong> uses letters and words. <strong>Math</strong> uses numbers, variables, and operators.</p>
+    <!-- 1. Two languages, one logic (Venn-ish) -->
+    <section>
+      <div class="card two-col">
+        <div>
+          <h2>Two systems, one skeleton</h2>
+          <p>Language and math both turn <em>symbols</em> into <em>structure</em> into <em>meaning</em>. Logic is the common skeleton we hang them on.</p>
+          <ul class="muted">
+            <li><strong>Symbols</strong>: tokens in an alphabet</li>
+            <li><strong>Syntax</strong>: rules for valid form</li>
+            <li><strong>Semantics</strong>: how forms map to meaning</li>
+            <li><strong>Generativity</strong>: finite rules, infinite expressions</li>
+          </ul>
+          <p class="caption">We can travel either direction: phrase → formula, or formula → description.</p>
+        </div>
+        <figure class="fig">
+          <svg viewBox="0 0 420 220" role="img" aria-label="Language and Math overlap via Logic">
+            <defs>
+              <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ecfeff"/>
+                <stop offset="100%" stop-color="#ecfdf5"/>
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="420" height="220" rx="12" fill="url(#lg)" />
+            <circle cx="160" cy="110" r="80" fill="#93c5fd66" stroke="#60a5fa" />
+            <circle cx="260" cy="110" r="80" fill="#86efac66" stroke="#22c55e" />
+            <text x="120" y="110" text-anchor="middle" fill="#0369a1" font-weight="700">Language</text>
+            <text x="300" y="110" text-anchor="middle" fill="#047857" font-weight="700">Math</text>
+            <text x="210" y="115" text-anchor="middle" fill="#111827" font-weight="700">Logic</text>
+            <text x="85"  y="180" class="axis-label">ambiguous</text>
+            <text x="325" y="180" class="axis-label">precise</text>
+          </svg>
+          <figcaption class="caption">The overlap is where grammar meets algebra: logic rules that both can share.</figcaption>
+        </figure>
+      </div>
+    </section>
 
-      <h2>Grammar (Syntax)</h2>
-      <p>Language has grammar rules that tell us how to order words. Math has algebraic and logical rules that tell us how to arrange symbols.</p>
+    <!-- 2. Symbols: mapping chips -->
+    <section>
+      <div class="card">
+        <h2>Symbols ↔ Tokens</h2>
+        <p>Different costumes, same job: carry meaning under rules.</p>
+        <div class="mini-grid">
+          <div class="slot center">
+            <div class="chip lang">“five”</div>
+            <div class="arrow">↕</div>
+            <div class="chip math">5</div>
+          </div>
+          <div class="slot center">
+            <div class="chip lang">“plus”</div>
+            <div class="arrow">↕</div>
+            <div class="chip math">+</div>
+          </div>
+          <div class="slot center">
+            <div class="chip lang">“equals”</div>
+            <div class="arrow">↕</div>
+            <div class="chip math">=</div>
+          </div>
+        </div>
+        <p class="caption">Vocabulary differs, structure rhymes.</p>
+      </div>
+    </section>
 
-      <h2>Semantics (Meaning)</h2>
-      <p>In language, a sentence points to an idea, object, or action. In math, an expression points to a value, quantity, or relationship.</p>
+    <!-- 3. Syntax: parse tree vs expression tree -->
+    <section>
+      <div class="card grid-gallery">
+        <figure class="fig">
+          <h3 class="kicker-alt">Language parse (syntax tree)</h3>
+          <svg viewBox="0 0 520 220" role="img" aria-label="Language syntax tree">
+            <g font-size="12" font-family="Inter, sans-serif">
+              <rect x="210" y="10" width="100" height="28" rx="8" fill="#e0f2fe" stroke="#60a5fa"/>
+              <text x="260" y="28" text-anchor="middle">Sentence</text>
 
-      <h2>Generativity</h2>
-      <p>From a limited alphabet, language can generate infinite sentences. From a limited set of numbers and operations, math can generate infinite equations.</p>
+              <line x1="260" y1="38" x2="160" y2="80" stroke="#9ca3af"/>
+              <line x1="260" y1="38" x2="360" y2="80" stroke="#9ca3af"/>
 
-      <h2>Precision vs. Ambiguity</h2>
-      <p>Math leans toward exactness: <code>2+2=4</code> has one answer. Language tolerates ambiguity: the word “love” means different things depending on context. Yet both rely on shared rules to avoid chaos in communication.</p>
+              <rect x="120" y="80" width="80" height="26" rx="8" fill="#e0f2fe" stroke="#60a5fa"/>
+              <text x="160" y="97" text-anchor="middle">NP</text>
+              <rect x="320" y="80" width="80" height="26" rx="8" fill="#e0f2fe" stroke="#60a5fa"/>
+              <text x="360" y="97" text-anchor="middle">VP</text>
 
-      <h2>Translation Across Domains</h2>
-      <p>We can translate “five plus three” into <code>5+3</code>. Similarly, equations can describe real-world statements like “the apple falls” through Newton’s laws.</p>
+              <line x1="160" y1="106" x2="160" y2="146" stroke="#9ca3af"/>
+              <line x1="360" y1="106" x2="360" y2="146" stroke="#9ca3af"/>
 
-      <h2>The Bridge of Logic</h2>
-      <p>In essence, language is a system for expressing relationships between ideas, and math is a system for expressing relationships between quantities. Both are structured symbol games that let humans compress thought and share it with others.</p>
-      <p>The fascinating bridge is <em>logic</em>: the skeleton that underpins both grammar and mathematics. It shows why philosophers and scientists often treat math as a formal language, just with stricter rules and fewer shades of gray.</p>
-    </div>
+              <rect x="130" y="146" width="60" height="24" rx="6" fill="#ecfeff" stroke="#bae6fd"/>
+              <text x="160" y="163" text-anchor="middle">“five”</text>
+              <rect x="330" y="146" width="60" height="24" rx="6" fill="#ecfeff" stroke="#bae6fd"/>
+              <text x="360" y="163" text-anchor="middle">“adds”</text>
+            </g>
+          </svg>
+          <figcaption class="caption">Grammar tells us which word can go where.</figcaption>
+        </figure>
 
-    <p><a class="btn" href="index.html">Back to Home</a></p>
+        <figure class="fig">
+          <h3 class="kicker-alt">Math expression tree</h3>
+          <svg viewBox="0 0 520 220" role="img" aria-label="Math expression tree">
+            <g font-size="12" font-family="Inter, sans-serif">
+              <rect x="230" y="10" width="60" height="28" rx="8" fill="#dcfce7" stroke="#34d399"/>
+              <text x="260" y="28" text-anchor="middle">=</text>
+
+              <line x1="260" y1="38" x2="180" y2="90" stroke="#9ca3af"/>
+              <line x1="260" y1="38" x2="340" y2="90" stroke="#9ca3af"/>
+
+              <rect x="150" y="90" width="60" height="26" rx="8" fill="#dcfce7" stroke="#34d399"/>
+              <text x="180" y="108" text-anchor="middle">+</text>
+              <rect x="310" y="90" width="60" height="26" rx="8" fill="#dcfce7" stroke="#34d399"/>
+              <text x="340" y="108" text-anchor="middle">8</text>
+
+              <line x1="180" y1="116" x2="140" y2="160" stroke="#9ca3af"/>
+              <line x1="180" y1="116" x2="220" y2="160" stroke="#9ca3af"/>
+
+              <rect x="120" y="160" width="40" height="24" rx="6" fill="#ecfdf5" stroke="#bbf7d0"/>
+              <text x="140" y="177" text-anchor="middle">5</text>
+              <rect x="220" y="160" width="40" height="24" rx="6" fill="#ecfdf5" stroke="#bbf7d0"/>
+              <text x="240" y="177" text-anchor="middle">3</text>
+            </g>
+          </svg>
+          <figcaption class="caption">Algebra tells us how symbols can combine without breaking meaning.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 4. Semantics: live token mapping -->
+    <section>
+      <div class="card">
+        <h2>Semantics: one idea, two renderings</h2>
+        <div class="two-col">
+          <div>
+            <div class="dial">
+              <label for="mix">Blend</label>
+              <input id="mix" type="range" min="0" max="1" step="0.01" value="0">
+              <code id="mixVal">0%</code>
+            </div>
+            <p class="caption">Slide from a natural sentence to a formula. Colors track matching parts.</p>
+          </div>
+          <div class="slot">
+            <div id="langOut" class="mono" aria-live="polite"></div>
+            <div id="mathOut" class="mono" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Precision vs Ambiguity: small chart -->
+    <section>
+      <div class="card">
+        <h2>Precision ⇄ Ambiguity</h2>
+        <div class="two-col">
+          <div>
+            <canvas id="ambChart" width="520" height="260" aria-label="Ambiguity vs precision chart" role="img"></canvas>
+            <p class="caption">Language spreads meaning across contexts (wider curve). Math pins it down (narrower curve). Choose a word to see the spread.</p>
+          </div>
+          <div>
+            <label for="wordPick"><strong>Word</strong></label>
+            <select id="wordPick">
+              <option value="love">“love” (broadest)</option>
+              <option value="bank">“bank” (polysemy)</option>
+              <option value="triangle">“triangle” (narrower)</option>
+              <option value="2+2=4">“2+2=4” (pinpoint)</option>
+            </select>
+            <p id="wordHint" class="muted small">Love: many senses (romance, charity, delight…)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Translation: phrase ↔ formula map -->
+    <section>
+      <div class="card">
+        <h2>Translation: saying the same thing twice</h2>
+        <div class="two-col">
+          <div class="slot">
+            <ul>
+              <li><span class="chip lang">“five plus three equals eight”</span></li>
+              <li><span class="chip lang">“if it rains then the street is wet”</span></li>
+              <li><span class="chip lang">“not both A and B”</span></li>
+            </ul>
+          </div>
+          <div class="slot">
+            <ul class="mono">
+              <li><span class="chip math">5 + 3 = 8</span></li>
+              <li><span class="chip math">r → w</span></li>
+              <li><span class="chip math">¬(A ∧ B)</span></li>
+            </ul>
+          </div>
+        </div>
+        <p class="caption">Once we fix the dictionary (symbols) and the grammar (syntax), meaning can travel cleanly across domains.</p>
+      </div>
+    </section>
+
+    <!-- 7. Logic bridge: live truth table -->
+    <section>
+      <div class="card">
+        <h2>Logic: the shared backbone</h2>
+        <div class="two-col">
+          <div>
+            <label for="op"><strong>Operator</strong></label>
+            <select id="op">
+              <option value="and">AND (∧)</option>
+              <option value="or">OR (∨)</option>
+              <option value="imp">IMPLIES (→)</option>
+              <option value="xor">XOR (⊕)</option>
+            </select>
+            <p class="caption">Truth tables are the same no matter whether you describe them in words or symbols.</p>
+          </div>
+          <div id="truthGrid" class="mini-grid" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <p class="center"><a class="btn" href="index.html">Back to Home</a></p>
   </main>
 
   <footer class="wrap">
@@ -60,7 +283,140 @@
   </footer>
 
   <script>
+    // Footer year
     document.getElementById('y').textContent = (new Date()).getFullYear();
+
+    // --- Semantics blend ---
+    const L_TOK = [
+      {t:'five',      c:'#0369a1'},
+      {t:'plus',      c:'#0ea5e9'},
+      {t:'three',     c:'#0369a1'},
+      {t:'equals',    c:'#0ea5e9'},
+      {t:'eight',     c:'#0369a1'}
+    ];
+    const M_TOK = [
+      {t:'5',         c:'#047857'},
+      {t:'+',         c:'#10b981'},
+      {t:'3',         c:'#047857'},
+      {t:'=',         c:'#10b981'},
+      {t:'8',         c:'#047857'}
+    ];
+    const langOut = document.getElementById('langOut');
+    const mathOut = document.getElementById('mathOut');
+    const mix = document.getElementById('mix');
+    const mixVal = document.getElementById('mixVal');
+
+    function lerp(a,b,t){ return a + (b-a)*t; }
+    function interpColor(hexA, hexB, t){
+      const pa = parseInt(hexA.slice(1),16), pb = parseInt(hexB.slice(1),16);
+      const ra=(pa>>16)&255, ga=(pa>>8)&255, ba=pa&255;
+      const rb=(pb>>16)&255, gb=(pb>>8)&255, bb=pb&255;
+      const r=Math.round(lerp(ra,rb,t)), g=Math.round(lerp(ga,gb,t)), b=Math.round(lerp(ba,bb,t));
+      return `rgb(${r},${g},${b})`;
+    }
+    function renderBlend(t){
+      mixVal.textContent = Math.round(t*100) + '%';
+      langOut.innerHTML = L_TOK.map((x,i)=>{
+        const c = interpColor(x.c, M_TOK[i].c, t);
+        return `<span style="color:${c};padding-right:6px">${x.t}</span>`;
+      }).join(' ');
+      mathOut.innerHTML = M_TOK.map((x,i)=>{
+        const c = interpColor(x.c, L_TOK[i].c, 1-t);
+        return `<span style="color:${c};padding-right:6px">${x.t}</span>`;
+      }).join(' ');
+    }
+    mix.addEventListener('input', e=>renderBlend(parseFloat(e.target.value)));
+    renderBlend(0);
+
+    // --- Ambiguity vs Precision chart ---
+    const ctx = document.getElementById('ambChart').getContext('2d');
+    function gaussian(x, mu, sigma){
+      const z = (x-mu)/sigma;
+      return Math.exp(-0.5*z*z)/(sigma*Math.sqrt(2*Math.PI));
+    }
+    function drawAmb(sigmaLang, sigmaMath, label){
+      const w=520,h=260, pad=28;
+      ctx.clearRect(0,0,w,h);
+      // axes
+      ctx.strokeStyle='#e5e7eb'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(pad,h-pad); ctx.lineTo(w-pad,h-pad); ctx.moveTo(pad,pad); ctx.lineTo(pad,h-pad); ctx.stroke();
+      ctx.fillStyle='#6b7280'; ctx.fillText('meaning space →', w-120, h-10);
+      ctx.save(); ctx.translate(10, h/2); ctx.rotate(-Math.PI/2); ctx.fillText('probability density', 0, 0); ctx.restore();
+
+      // curves
+      const mu = (w - 2*pad)/2 + pad;
+      const xs = []; for(let x=pad;x<=w-pad;x++) xs.push(x);
+      const maxY = Math.max(gaussian(mu,mu,sigmaLang), gaussian(mu,mu,sigmaMath));
+      function plot(sigma, stroke, fill){
+        ctx.beginPath();
+        xs.forEach((x,i)=>{
+          const y = gaussian(x, mu, sigma);
+          const yy = (h-pad) - (y/maxY)*(h-2*pad-10);
+          if(i===0) ctx.moveTo(x,yy); else ctx.lineTo(x,yy);
+        });
+        ctx.strokeStyle=stroke; ctx.lineWidth=2; ctx.stroke();
+        ctx.lineTo(w-pad, h-pad); ctx.lineTo(pad, h-pad); ctx.closePath();
+        ctx.fillStyle=fill; ctx.globalAlpha=0.1; ctx.fill(); ctx.globalAlpha=1;
+      }
+      plot(sigmaLang, '#0284c7', '#0ea5e9');
+      plot(sigmaMath, '#059669', '#10b981');
+
+      // legend
+      ctx.fillStyle='#0369a1'; ctx.fillRect(pad+6, pad+6, 10,10);
+      ctx.fillStyle='#111827'; ctx.fillText('Language (ambiguous)', pad+22, pad+15);
+      ctx.fillStyle='#047857'; ctx.fillRect(pad+6, pad+24, 10,10);
+      ctx.fillStyle='#111827'; ctx.fillText('Math (precise)', pad+22, pad+33);
+
+      // label
+      ctx.fillStyle='#6b7280';
+      ctx.fillText(label, pad+6, h-6);
+    }
+
+    const wordPick = document.getElementById('wordPick');
+    const wordHint = document.getElementById('wordHint');
+    const hints = {
+      'love':'Love: many senses (romance, charity, delight…)',
+      'bank':'Bank: river bank, money bank, to bank on (polysemy).',
+      'triangle':'Triangle: geometric shape; narrower but still context-bound.',
+      '2+2=4':'2+2=4: exact equality; almost zero ambiguity.'
+    };
+    function updateAmb(){
+      const v = wordPick.value;
+      if(v==='love') drawAmb(70, 14, 'very wide vs narrow');
+      else if(v==='bank') drawAmb(55, 14, 'wide vs narrow');
+      else if(v==='triangle') drawAmb(32, 14, 'moderate vs narrow');
+      else drawAmb(16, 12, 'near-pinhole vs pinhole');
+      wordHint.textContent = hints[v];
+    }
+    wordPick.addEventListener('change', updateAmb);
+    updateAmb();
+
+    // --- Truth table widget ---
+    const truthGrid = document.getElementById('truthGrid');
+    const opSel = document.getElementById('op');
+    function opFn(op, A, B){
+      if(op==='and') return A && B;
+      if(op==='or')  return A || B;
+      if(op==='imp') return (!A) || B;
+      if(op==='xor') return (!!A) !== (!!B);
+      return false;
+    }
+    function renderTruth(){
+      const op = opSel.value;
+      const rows = [[false,false],[false,true],[true,false],[true,true]];
+      truthGrid.innerHTML = rows.map(([A,B])=>{
+        const T = opFn(op, A, B);
+        const cls = T ? 'truth T' : 'truth F';
+        return `
+          <div class="${cls}">
+            <div class="small"><strong>A</strong>: ${A?'T':'F'}</div>
+            <div class="small"><strong>B</strong>: ${B?'T':'F'}</div>
+            <div class="small"><strong>Result</strong>: ${T?'T':'F'}</div>
+          </div>`;
+      }).join('');
+    }
+    opSel.addEventListener('change', renderTruth);
+    renderTruth();
   </script>
 </body>
 </html>
