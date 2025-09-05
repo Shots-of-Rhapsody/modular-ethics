@@ -1,7 +1,6 @@
-/* Ethics Testbed — engine v0.4
+/* Ethics Testbed — engine v0.3
    Modules: consequentialism, rawls (maximin), virtue; deontic gates
    Aggregation: normalize per module; credences (p_cons, p_rawls, p_virtue) renormalize to sum=1
-   Scenarios: triage-vent-v1, evac-promise-v1, vax-allocation-v1
 */
 const Engine = (() => {
   const EPS = 1e-9;
@@ -27,10 +26,7 @@ const Engine = (() => {
     return copy;
   }
 
-  // ===================================================================
-  // Consequentialism (scalar)
-  // ===================================================================
-
+  // ---------- Consequentialism (scalar) ----------
   // TRIAGE: expected life-years (optionally concave)
   function triageExpectedYears(scn) {
     const A = scn.agents.find(x=>x.id==="A");
@@ -63,60 +59,14 @@ const Engine = (() => {
     return scn.actions.map(a => [a.id, actions[a.id]()]);
   }
 
-  // VAX: expected life-years saved (deaths averted × years_left), proxy utility
-  function vaxExpectedLifeYearsSaved(scn) {
-    const H = scn.groups.find(g=>g.id==="H");
-    const E = scn.groups.find(g=>g.id==="E");
-    const doses = scn.vaccine.doses;
-    const ve = scn.vaccine.ve_death; // efficacy against death
-    const v = scn.params.priority_fn === "sqrt" ? sqrt : (x=>x);
-
-    function allocCounts(actionId) {
-      if (actionId === "c1_prioritize_high_risk") {
-        const toH = Math.min(doses, H.population);
-        const toE = Math.max(0, doses - toH);
-        return { H: toH, E: Math.min(toE, E.population) };
-      }
-      if (actionId === "c2_prioritize_essential") {
-        const toE = Math.min(doses, E.population);
-        const toH = Math.max(0, doses - toE);
-        return { H: Math.min(toH, H.population), E: toE };
-      }
-      if (actionId === "c3_split_even") {
-        const half = Math.floor(doses/2);
-        const toH = Math.min(half, H.population);
-        const toE = Math.min(doses - toH, E.population);
-        return { H: toH, E: toE };
-      }
-      throw new Error("Unknown vax action: " + actionId);
-    }
-
-    function deathsAverted(group, vaxCount) {
-      // Expected deaths averted = vaccinated * p_infect * IFR * VE_death
-      return vaxCount * group.p_infect * group.ifr * ve;
-    }
-
-    function lySaved(actionId) {
-      const { H: vH, E: vE } = allocCounts(actionId);
-      const dH = deathsAverted(H, vH) * H.years_left;
-      const dE = deathsAverted(E, vE) * E.years_left;
-      return v(dH + dE);
-    }
-
-    return scn.actions.map(a => [a.id, lySaved(a.id)]);
-  }
-
   function consRawScores(scn) {
     if (scn.id === "triage-vent-v1") return triageExpectedYears(scn);
     if (scn.id === "evac-promise-v1") return evacExpectedLives(scn);
-    if (scn.id === "vax-allocation-v1") return vaxExpectedLifeYearsSaved(scn);
     throw new Error("Unknown scenario id: " + scn.id);
   }
 
-  // ===================================================================
-  // Rawlsian maximin (scalar)
-  // ===================================================================
-
+  // ---------- Rawlsian maximin (scalar) ----------
+  // Score of an action = minimum expected welfare across persons.
   // TRIAGE: welfare_i = P_survive * years_left
   function triageRawls(scn) {
     const A = scn.agents.find(x=>x.id==="A");
@@ -126,6 +76,7 @@ const Engine = (() => {
       a1_allocate_A: () => Math.min(A.survival.vent*yA,     B.survival.no_vent*yB),
       a2_allocate_B: () => Math.min(A.survival.no_vent*yA,  B.survival.vent*yB),
       a3_lottery:    () => {
+        // Expected per-person welfare under the 50/50 lottery
         const wA = 0.5*(A.survival.vent*yA) + 0.5*(A.survival.no_vent*yA);
         const wB = 0.5*(B.survival.vent*yB) + 0.5*(B.survival.no_vent*yB);
         return Math.min(wA, wB);
@@ -134,21 +85,27 @@ const Engine = (() => {
     return scn.actions.map(a => [a.id, byAction[a.id]()]);
   }
 
-  // EVAC: welfare_i = expected survival probability per person
+  // EVAC: welfare_i = expected survival probability per person (years not specified)
   function evacRawls(scn) {
     const pNow = scn.prob_survive_if_rescued;
     const pE = scn.prob_if_delayed.east;
     const pW = scn.prob_if_delayed.west;
 
+    // Expected per-person survival by action
     const perPerson = {
-      b1_east_now: () => ({ D1:pNow, D2:pNow, D3:pNow, D4:pW, D5:pW }),
+      b1_east_now: () => ({
+        D1:pNow, D2:pNow, D3:pNow,
+        D4:pW,   D5:pW
+      }),
       b2_west_plus_one_east: () => ({
+        // one of East is rescued now at random
         D1: (1/3)*pNow + (2/3)*pE,
         D2: (1/3)*pNow + (2/3)*pE,
         D3: (1/3)*pNow + (2/3)*pE,
         D4: pNow, D5: pNow
       }),
       b3_mixed_break_promise: () => ({
+        // now: D1 + one East + one West (each random among peers)
         D1: pNow,
         D2: 0.5*pNow + 0.5*pE,
         D3: 0.5*pNow + 0.5*pE,
@@ -165,61 +122,13 @@ const Engine = (() => {
     return scn.actions.map(a => [a.id, actions[a.id]]);
   }
 
-  // VAX: welfare_i = expected survival * years_left; Rawls takes the minimum across persons
-  function vaxRawls(scn) {
-    const H = scn.groups.find(g=>g.id==="H");
-    const E = scn.groups.find(g=>g.id==="E");
-    const doses = scn.vaccine.doses;
-    const ve = scn.vaccine.ve_death;
-
-    function allocCounts(actionId) {
-      if (actionId === "c1_prioritize_high_risk") {
-        const toH = Math.min(doses, H.population);
-        const toE = Math.max(0, doses - toH);
-        return { H: toH, E: Math.min(toE, E.population) };
-      }
-      if (actionId === "c2_prioritize_essential") {
-        const toE = Math.min(doses, E.population);
-        const toH = Math.max(0, doses - toE);
-        return { H: Math.min(toH, H.population), E: toE };
-      }
-      if (actionId === "c3_split_even") {
-        const half = Math.floor(doses/2);
-        const toH = Math.min(half, H.population);
-        const toE = Math.min(doses - toH, E.population);
-        return { H: toH, E: toE };
-      }
-      throw new Error("Unknown vax action: " + actionId);
-    }
-
-    function survUnvax(g){ return (1 - g.p_infect * g.ifr) * g.years_left; }
-    function survVax(g){ return (1 - g.p_infect * g.ifr * (1 - ve)) * g.years_left; }
-
-    function worstOff(actionId) {
-      const { H: vH, E: vE } = allocCounts(actionId);
-      const remH = H.population - vH;
-      const remE = E.population - vE;
-
-      // The worst-off are unvaccinated if any remain; otherwise the vaccinated minimum
-      const candidates = [];
-      if (remH > 0) candidates.push(survUnvax(H)); else candidates.push(survVax(H));
-      if (remE > 0) candidates.push(survUnvax(E)); else candidates.push(survVax(E));
-      return Math.min(...candidates);
-    }
-
-    return scn.actions.map(a => [a.id, worstOff(a.id)]);
-  }
-
   function rawlsRawScores(scn) {
     if (scn.id === "triage-vent-v1") return triageRawls(scn);
     if (scn.id === "evac-promise-v1") return evacRawls(scn);
-    if (scn.id === "vax-allocation-v1") return vaxRawls(scn);
     throw new Error("Unknown scenario id: " + scn.id);
   }
 
-  // ===================================================================
-  // Deontic admissibility (gates)
-  // ===================================================================
+  // ---------- Deontic admissibility (gates) ----------
   function deonticAdmissible(scn, actionId) {
     if (scn.id === "triage-vent-v1") {
       return { admissible: true, reasons: [] };
@@ -242,16 +151,10 @@ const Engine = (() => {
         return { admissible: true, reasons: [`Promise overridden; ΔLives=${delta.toFixed(2)} ≥ θ=${theta}`] };
       }
     }
-    if (scn.id === "vax-allocation-v1") {
-      // No special deontic gates in the seed vaccine scenario
-      return { admissible: true, reasons: [] };
-    }
     return { admissible: true, reasons: [] };
   }
 
-  // ===================================================================
-  // Virtue (scalar proxy)
-  // ===================================================================
+  // ---------- Virtue (scalar proxy) ----------
   // Traits: honesty (promise-keeping), compassion (cons normalized), fairness (lottery/split bonus when close)
   function virtueScore(scn, actionId, consRawMap, traitWts) {
     const { honesty:wh=1, compassion:wc=1, fairness:wf=1 } = traitWts || {};
@@ -275,16 +178,13 @@ const Engine = (() => {
     const close = spread < 0.25;
     if (scn.id === "triage-vent-v1" && actionId === "a3_lottery" && close) fairness = 1.0;
     else if (scn.id === "evac-promise-v1" && actionId === "b3_mixed_break_promise" && close) fairness = 0.9;
-    else if (scn.id === "vax-allocation-v1" && actionId === "c3_split_even" && close) fairness = 0.9;
     else fairness = 0.5;
 
     const totalW = wh + wc + wf + EPS;
     return (wh*honesty + wc*compassion + wf*fairness) / totalW;
   }
 
-  // ===================================================================
-  // Aggregation
-  // ===================================================================
+  // ---------- Aggregation ----------
   function aggregate(moduleScores, credences) {
     // Renormalize scalar credences to sum=1 (deon is gating only)
     let { p_cons=0.5, p_rawls=0.25, p_virtue=0.25 } = credences || {};
@@ -304,9 +204,7 @@ const Engine = (() => {
     return out;
   }
 
-  // ===================================================================
-  // Public API
-  // ===================================================================
+  // ---------- Public API ----------
   function evaluateScenario(scnOriginal, settings) {
     const scn = mergeSettingsIntoScenario(scnOriginal, settings || {});
     const traitWts = settings.virtueWeights || { honesty:1, compassion:1, fairness:1 };
@@ -346,9 +244,6 @@ const Engine = (() => {
     if (scn.id === "evac-promise-v1") {
       const pr = scn.constraints.keep_credible_promises;
       explanations.push(`E1: Promise ${pr?.enabled ? "enabled" : "disabled"}; θ=${pr?.theta_lives ?? "—"}.`);
-    }
-    if (scn.id === "vax-allocation-v1") {
-      explanations.push("E1: Utility = deaths averted × years; Rawls = min(personal survival × years).");
     }
 
     const ranking = [...(agg.entries())].sort((a,b)=>b[1]-a[1]);
