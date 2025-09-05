@@ -237,6 +237,7 @@
         <h2>${scn.id}</h2>
         <p class="muted">${scn.context?.domain ?? ''} · ${scn.context?.tags?.join(', ') ?? ''}</p>
 
+      <div class="table-wrap">
         <table>
           <thead>
             <tr>
@@ -255,6 +256,7 @@
             ${actions.map(row).join('')}
           </tbody>
         </table>
+      </div>
 
         <p><strong>Ranking:</strong> ${
           evald.ranking.map(([a,s])=>`<code>${a}</code> (${s.toFixed(3)})`).join(' > ')
