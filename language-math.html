@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Language ⇄ Math - Ethics Testbed</title>
-  <meta name="description" content="A visual guide to how language and mathematics mirror each other: symbols, syntax, semantics, and logic.">
+  <meta name="description" content="A visual guide to how language & mathematics mirror each other: symbols, syntax, semantics, & logic.">
   <meta name="theme-color" content="#00A86B">
   <link rel="stylesheet" href="assets/site.css?v=1">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -43,7 +43,7 @@
   <a class="skip" href="#content">Skip to content</a>
   <header>
     <div class="wrap nav">
-      <div class="brand"><span class="kicker">Essay</span></div>
+      <div class="br&"><span class="kicker">Essay</span></div>
       <nav>
         <a href="index.html">Home</a> ·
         <a href="paper.html">Methods</a> ·
@@ -58,7 +58,7 @@
   <main id="content" class="wrap">
     <section class="hero">
       <h1>Language ⇄ Math</h1>
-      <p class="sub">Both are rule-based symbol systems. Letters and words; numbers and operators. Grammar and algebra. Semantics that point to meaning-ideas in one case, quantities in the other. This page is a visual map of those parallels.</p>
+      <p class="sub">Both are rule-based symbol systems. Letters & words; numbers & operators. Grammar & algebra. Semantics that point to meaning-ideas in one case, quantities in the other. This page is a visual map of those parallels.</p>
       <div class="legend-row" aria-label="Legend">
         <span class="chip lang">Language</span>
         <span class="chip math">Math</span>
@@ -71,7 +71,7 @@
       <div class="card two-col">
         <div>
           <h2>Two systems, one skeleton</h2>
-          <p>Language and math both turn <em>symbols</em> into <em>structure</em> into <em>meaning</em>. Logic is the common skeleton we hang them on.</p>
+          <p>Language & math both turn <em>symbols</em> into <em>structure</em> into <em>meaning</em>. Logic is the common skeleton we hang them on.</p>
           <ul class="muted">
             <li><strong>Symbols</strong>: tokens in an alphabet</li>
             <li><strong>Syntax</strong>: rules for valid form</li>
@@ -81,7 +81,7 @@
           <p class="caption">We can travel either direction: phrase → formula, or formula → description.</p>
         </div>
         <figure class="fig">
-          <svg viewBox="0 0 420 220" role="img" aria-label="Language and Math overlap via Logic">
+          <svg viewBox="0 0 420 220" role="img" aria-label="Language & Math overlap via Logic">
             <defs>
               <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stop-color="#ecfeff"/>
@@ -240,7 +240,7 @@
             <ul>
               <li><span class="chip lang">“five plus three equals eight”</span></li>
               <li><span class="chip lang">“if it rains then the street is wet”</span></li>
-              <li><span class="chip lang">“not both A and B”</span></li>
+              <li><span class="chip lang">“not both A & B”</span></li>
             </ul>
           </div>
           <div class="slot">
@@ -251,7 +251,7 @@
             </ul>
           </div>
         </div>
-        <p class="caption">Once we fix the dictionary (symbols) and the grammar (syntax), meaning can travel cleanly across domains.</p>
+        <p class="caption">Once we fix the dictionary (symbols) & the grammar (syntax), meaning can travel cleanly across domains.</p>
       </div>
     </section>
 
@@ -263,7 +263,7 @@
           <div>
             <label for="op"><strong>Operator</strong></label>
             <select id="op">
-              <option value="and">AND (∧)</option>
+              <option value="&">& (∧)</option>
               <option value="or">OR (∨)</option>
               <option value="imp">IMPLIES (→)</option>
               <option value="xor">XOR (⊕)</option>
@@ -395,7 +395,7 @@
     const truthGrid = document.getElementById('truthGrid');
     const opSel = document.getElementById('op');
     function opFn(op, A, B){
-      if(op==='and') return A && B;
+      if(op==='&') return A && B;
       if(op==='or')  return A || B;
       if(op==='imp') return (!A) || B;
       if(op==='xor') return (!!A) !== (!!B);
