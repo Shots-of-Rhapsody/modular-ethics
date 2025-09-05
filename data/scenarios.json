@@ -25,7 +25,7 @@
       },
       "params": {
         "weights_equal": true,
-        "priority_fn": "sqrt"  // concavity placeholder
+        "priority_fn": "sqrt"
       }
     },
     {
