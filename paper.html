@@ -5,7 +5,7 @@
   <!-- Meta -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Methods Paper — Ethics Testbed</title>
+  <title>Methods Paper - Ethics Testbed</title>
   <meta name="description" content="A modular, transparent testbed that turns ethical theories into comparable mathematical programs and runs them on shared scenarios.">
   <meta name="theme-color" content="#00A86B">
 
@@ -146,8 +146,8 @@
       <p class="lead">
         We present a small, auditable framework that converts major ethical views into modular evaluators running on shared scenarios.
         Facts are represented by a causal world model. Values are encoded as normative modules, which output theory-specific scores or constraints.
-        Moral disagreement is handled by explicit credences with safeguards for rights. We release a schema, two seed scenarios, and minimal implementations
-        for consequentialism, deontic constraints, and virtue distance. Early results demonstrate transparent points of agreement and principled divergence.
+        Moral disagreement is handled by explicit credences with safeguards for rights. We release a schema, two seed scenarios & minimal implementations
+        for consequentialism, deontic constraints & virtue distance. Early results demonstrate transparent points of agreement & principled divergence.
       </p>
     </section>
 
@@ -158,12 +158,12 @@
         <li><a href="#intro">Introduction</a></li>
         <li><a href="#framework">Framework</a></li>
         <li><a href="#implementations">Implementations of Theories</a></li>
-        <li><a href="#schema">Scenario Schema and Dataset</a></li>
+        <li><a href="#schema">Scenario Schema & Dataset</a></li>
         <li><a href="#experiments">Experiments</a></li>
         <li><a href="#results">Results</a></li>
-        <li><a href="#limitations">Limitations and Ethical Considerations</a></li>
-        <li><a href="#ledger">Axiom Ledger and Reproducibility</a></li>
-        <li><a href="#discussion">Discussion and Future Work</a></li>
+        <li><a href="#limitations">Limitations & Ethical Considerations</a></li>
+        <li><a href="#ledger">Axiom Ledger & Reproducibility</a></li>
+        <li><a href="#discussion">Discussion & Future Work</a></li>
         <li><a href="#appendices">Appendices</a></li>
       </ol>
     </section>
@@ -172,30 +172,30 @@
     <section id="intro">
       <h2>1. Introduction</h2>
       <p>
-        Ethical debate often stalls on rhetoric. We aim for clarity by separating facts from values and by running rival views on the same inputs.
+        Ethical debate often stalls on rhetoric. We aim for clarity by separating facts from values & by running rival views on the same inputs.
         The contribution is a minimal, extensible testbed: a shared scenario format; modular evaluators for major theories; an aggregation rule for
-        pluralism; and an axiom ledger that records assumptions in plain English.
+        pluralism & an axiom ledger that records assumptions in plain English.
       </p>
       <div class="box">
-        <strong>Design principles.</strong> Small honest models, explicit uncertainty, side-constraints before trade-offs, and auditability by non-specialists.
+        <strong>Design principles.</strong> Small honest models, explicit uncertainty, side-constraints before trade-offs & auditability by non-specialists.
       </div>
     </section>
 
     <!-- Framework -->
     <section id="framework">
       <h2>2. Framework</h2>
-      <h3>2.1 World models and scenarios</h3>
+      <h3>2.1 World models & scenarios</h3>
       <p>
-        A scenario encodes agents, actions, outcomes, and constraints. A world model $M$ provides $P(O \mid a, M)$, the distribution over outcomes for each action $a$.
+        A scenario encodes agents, actions, outcomes & constraints. A world model $M$ provides $P(O \mid a, M)$, the distribution over outcomes for each action $a$.
       </p>
 
       <h3>2.2 Normative modules</h3>
       <p>
         Each ethical view $j$ contributes either a choiceworthiness function $CW_j(a \mid M)$ or admissibility constraints $g_k(a,M)\le 0$.
-        Modules depend only on scenario fields and shared utilities.
+        Modules depend only on scenario fields & shared utilities.
       </p>
 
-      <h3>2.3 Moral uncertainty and aggregation</h3>
+      <h3>2.3 Moral uncertainty & aggregation</h3>
       <p>
         After normalizing module outputs to $[0,1]$ within a scenario, we aggregate by credences $p_j$:
         $$
@@ -206,7 +206,7 @@
 
       <h3>2.4 Explanation sets</h3>
       <p>
-        Each recommendation includes a minimal explanation set: the smallest group of premises that drove the result. This improves transparency and supports disagreement.
+        Each recommendation includes a minimal explanation set: the smallest group of premises that drove the result. This improves transparency & supports disagreement.
       </p>
     </section>
 
@@ -249,9 +249,9 @@ Traits: honesty, compassion, fairness.</code></pre>
 
     <!-- Schema -->
     <section id="schema">
-      <h2>4. Scenario Schema and Dataset</h2>
+      <h2>4. Scenario Schema & Dataset</h2>
       <p>
-        The schema is compact and human-readable. It keeps facts explicit and leaves values to the modules.
+        The schema is compact & human-readable. It keeps facts explicit & leaves values to the modules.
       </p>
       <pre><code>{
   "id": "string",
@@ -279,7 +279,7 @@ Traits: honesty, compassion, fairness.</code></pre>
 
       <h3>4.1 Seed scenarios</h3>
       <details open>
-        <summary><strong>Scenario 1:</strong> Clinical triage — one ventilator, two patients</summary>
+        <summary><strong>Scenario 1:</strong> Clinical triage - one ventilator, two patients</summary>
         <pre><code>{
   "id":"triage-vent-v1",
   "agents":[
@@ -294,7 +294,7 @@ Traits: honesty, compassion, fairness.</code></pre>
       </details>
 
       <details>
-        <summary><strong>Scenario 2:</strong> Flood evacuation — promise vs numbers</summary>
+        <summary><strong>Scenario 2:</strong> Flood evacuation - promise vs numbers</summary>
         <pre><code>{
   "id":"evac-promise-v1",
   "context":{"tags":["flood","resource-scarce"]},
@@ -311,7 +311,7 @@ Traits: honesty, compassion, fairness.</code></pre>
     <section id="experiments">
       <h2>5. Experiments</h2>
       <p>
-        We compute module outputs for each action and apply deontic admissibility. Remaining actions are ranked by the aggregated score with credences
+        We compute module outputs for each action & apply deontic admissibility. Remaining actions are ranked by the aggregated score with credences
         $p = \{ p_{\text{cons}}, p_{\text{deon}}, p_{\text{virtue}} \}$.
       </p>
       <div class="grid2">
@@ -336,7 +336,7 @@ Traits: honesty, compassion, fairness.</code></pre>
 
       <div class="box">
         <strong>Reproducibility checklist.</strong>
-        Code links, random seeds, scenario JSON, module versions, and ledger version are attached to each run ID.
+        Code links, random seeds, scenario JSON, module versions & ledger version are attached to each run ID.
       </div>
     </section>
 
@@ -344,7 +344,7 @@ Traits: honesty, compassion, fairness.</code></pre>
     <section id="results">
       <h2>6. Results</h2>
       <p>
-        Placeholder for first runs. We report for each scenario: module-wise recommendations, admissibility rejections, final aggregated choice, and the minimal explanation set.
+        Placeholder for first runs. We report for each scenario: module-wise recommendations, admissibility rejections, final aggregated choice & the minimal explanation set.
       </p>
       <div class="grid2">
         <div>
@@ -368,18 +368,18 @@ Aggregate (p = {0.5,0.3,0.2}): depends on promise rule</code></pre>
 
     <!-- Limitations -->
     <section id="limitations">
-      <h2>7. Limitations and Ethical Considerations</h2>
+      <h2>7. Limitations & Ethical Considerations</h2>
       <ul>
-        <li><strong>Interpersonal comparability.</strong> Report cardinal and ordinal analyses side by side.</li>
+        <li><strong>Interpersonal comparability.</strong> Report cardinal & ordinal analyses side by side.</li>
         <li><strong>Rights are not utilities.</strong> Enforce side-constraints lexically before trade-offs.</li>
         <li><strong>Culture.</strong> Tune parameters with stratified reporting rather than averaging away divergence.</li>
-        <li><strong>Misuse risk.</strong> Require explanation sets and scope notes for each deployment.</li>
+        <li><strong>Misuse risk.</strong> Require explanation sets & scope notes for each deployment.</li>
       </ul>
     </section>
 
     <!-- Ledger -->
     <section id="ledger">
-      <h2>8. Axiom Ledger and Reproducibility</h2>
+      <h2>8. Axiom Ledger & Reproducibility</h2>
       <div class="grid2">
         <div>
           <h3>8.1 Axioms (v0.1)</h3>
@@ -387,9 +387,9 @@ Aggregate (p = {0.5,0.3,0.2}): depends on promise rule</code></pre>
             <li>Persons have equal moral worth.</li>
             <li>Comparable goods are explicitly scaled within each scenario.</li>
             <li>Uncertainty is modeled; guesses are distributions.</li>
-            <li>Rights and duties act as side-constraints.</li>
+            <li>Rights & duties act as side-constraints.</li>
             <li>Doing vs allowing matters but is not decisive alone.</li>
-            <li>Consent changes scores and constraint triggers.</li>
+            <li>Consent changes scores & constraint triggers.</li>
             <li>Priority to the worse-off via concavity or priority weights.</li>
             <li>Like cases alike; only prognosis-relevant differences justify unequal treatment.</li>
             <li>Minimal explanations identify the few premises that did the work.</li>
@@ -408,17 +408,17 @@ Random seed: 42</code></pre>
         </div>
       </div>
       <div class="box">
-        <strong>How to disagree with us.</strong> Point to a specific axiom, parameter, or dataset field. Propose a replacement and show its effect on a scenario.
+        <strong>How to disagree with us.</strong> Point to a specific axiom, parameter, or dataset field. Propose a replacement & show its effect on a scenario.
       </div>
     </section>
 
     <!-- Discussion -->
     <section id="discussion">
-      <h2>9. Discussion and Future Work</h2>
+      <h2>9. Discussion & Future Work</h2>
       <ul>
-        <li>Richer rights models and role-based duties.</li>
+        <li>Richer rights models & role-based duties.</li>
         <li>Learning value weights safely from diverse panels.</li>
-        <li>Dynamic contexts and sequential decisions.</li>
+        <li>Dynamic contexts & sequential decisions.</li>
         <li>Cross-cultural replication with preregistered scenarios.</li>
       </ul>
     </section>
@@ -427,7 +427,7 @@ Random seed: 42</code></pre>
     <section id="appendices">
       <h2>Appendices</h2>
       <h3>A. Normalization proof sketch</h3>
-      <p>Min–max mapping is monotone and affine-invariant within the action set; $\epsilon$ prevents divide-by-zero when actions tie.</p>
+      <p>Min–max mapping is monotone & affine-invariant within the action set; $\epsilon$ prevents divide-by-zero when actions tie.</p>
 
       <h3>B. Constraint algebra (examples)</h3>
       <pre><code>// Promise keeping as hard constraint unless large-harm override
