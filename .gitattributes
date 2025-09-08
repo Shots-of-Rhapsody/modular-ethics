@@ -1,0 +1,2 @@
+*.ads filter=lfs diff=lfs merge=lfs -text
+*.adp filter=lfs diff=lfs merge=lfs -text
