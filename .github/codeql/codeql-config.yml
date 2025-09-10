@@ -1,12 +1,8 @@
-name: ethics-testbed-codeql-config
+name: ethics-testbed-codeql
 paths:
-  - assets/
-  - js/
   - .
 paths-ignore:
   - player/ios/**
   - player/macos/**
-  - player/**/ios/**
-  - player/**/macos/**
   - node_modules/**
   - vendor/**

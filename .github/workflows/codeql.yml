@@ -10,7 +10,7 @@ on:
 
 jobs:
   analyze:
-    name: CodeQL Analyze
+    name: CodeQL Analyze (JS only)
     runs-on: ubuntu-latest
 
     permissions:
@@ -21,21 +21,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'javascript' ]  # ✅ No 'swift' here
+        language: [ 'javascript' ]  # exclude swift
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Initialize CodeQL
+      - name: Init CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
-          config-file: ./.github/codeql/codeql-config.yml  # see next step
+          config-file: ./.github/codeql/codeql-config.yml
 
-      # For JavaScript, autobuild is a no-op and safe to keep.
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3
 
-      - name: Perform CodeQL Analysis
+      - name: Analyze
         uses: github/codeql-action/analyze@v3
