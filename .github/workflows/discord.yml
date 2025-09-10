@@ -1,0 +1,42 @@
+name: Notify Discord on push
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:      # Manual Trigger
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compose and send Discord message
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          REPO: ${{ github.repository }}
+          ACTOR: ${{ github.actor }}
+          BRANCH: ${{ github.ref_name }}
+          COMPARE_URL: ${{ github.event.compare }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          # Trim commit message to avoid Discord's 2000-char limit
+          MSG="${COMMIT_MSG}"
+          MSG="${MSG//$'\n'/ }"
+          MSG="${MSG:0:300}"
+
+          read -r -d '' JSON <<'EOF'
+          {
+            "embeds": [{
+              "title": "Git push",
+              "description": "**${ACTOR}** pushed to **${REPO}** on **${BRANCH}**",
+              "url": "${COMPARE_URL}",
+              "fields": [
+                { "name": "Commit", "value": "${MSG}" }
+              ]
+            }]
+          }
+          EOF
+
+          # Expand variables inside JSON
+          JSON=$(eval "echo \"$JSON\"")
+
+          curl -sS -f -H "Content-Type: application/json" \
+            -d "$JSON" "$DISCORD_WEBHOOK"
