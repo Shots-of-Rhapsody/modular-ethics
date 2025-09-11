@@ -1,0 +1,8 @@
+name: ethics-testbed-codeql
+paths:
+  - .
+paths-ignore:
+  - player/ios/**
+  - player/macos/**
+  - node_modules/**
+  - vendor/**
