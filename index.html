@@ -110,29 +110,37 @@
         </p>
         <details>
           <summary>Formal core (plain math)</summary>
-          <pre><code>// Consequentialism
-CW_cons(a) = E[ Σ_i w_i · v(U_i(O)) | a, M ]
+          <pre><code>// World model and outcomes
+Given a world model M that induces P(O | a, M) over outcomes O, for each action a.
+
+// Consequentialism
+Assume weights w_i ≥ 0 with Σ_i w_i = 1 and a priority/utility map v(·).
+CW_cons(a) = E_M[ Σ_i w_i · v( U_i(O) ) | a ]
+// (If v is prioritarian/priority, risk attitudes live in E_M; avoid double-counting.)
 
 // Deontology (admissibility)
 Admissible(a) iff ∀k: g_k(a, M) ≤ 0
+Let A* = { a : ∀k g_k(a, M) ≤ 0 }  // admissible set
+// Fallback if A* = ∅: minimize lex-ordered violations (or smallest max_k g_k).
 
 // Virtue (trait distance)
-CW_virtue(a) = - || T_after(a) - T* ||
+Choose a norm (default L2) on trait space with per-dimension scaling S:
+CW_virtue(a) = - || S ∘ ( T_after(a) - T* ) ||_2
 
-// Moral uncertainty (normalized to [0,1])
-CW(a) = Σ_j p_j · f_j( CW_j(a) )  over admissible actions</code></pre>
+// Moral uncertainty (per-scenario normalization to [0,1])
+Assume credences p_j ≥ 0 with Σ_j p_j = 1 over theories j.
+For each j, define f_j over A*:
+  f_j(x) = ( x - min_{a∈A*} CW_j(a) ) / ( max_{a∈A*} CW_j(a) - min_{a∈A*} CW_j(a) + ε )
+with small ε > 0 to avoid 0/0 on flats.
+
+Aggregate over admissible actions only:
+CW(a) = Σ_j p_j · f_j( CW_j(a) ),  a ∈ A*
+</code></pre>
         </details>
-        <details>
-          <summary>Scenario schema (JSON)</summary>
-          <pre><code>{
-  "id": "string",
-  "context": {"domain": "triage|evacuation|policy", "tags": ["emergency"]},
-  "agents": [{"id": "A", "baseline": {"wellbeing": 0.55, "years_left": 35}, "consent": true}],
-  "actions": ["a1","a2"],
-  "outcomes": {"a1": [{"p":0.8,"A":{"alive":true,"years_gain":35}}], "a2": []},
-  "constraints": {"no_intentional_harm_innocent": true, "treat_like_cases_alike": true}
-}</code></pre>
-        </details>
+        <p class="tiny">
+  Notes: Normalization is taken over the admissible set A*. If A* is empty, we select actions by lexicographically minimizing constraint violations.
+  Virtue uses L2 with per-trait scaling S to avoid unit dominance. The world model M determines P(O | a, M), anchoring the expectation.
+</p>
       </div>
     </section>
 
@@ -167,6 +175,14 @@ CW(a) = Σ_j p_j · f_j( CW_j(a) )  over admissible actions</code></pre>
   "actions":["b1_east_now","b2_west_plus_one_east","b3_mixed_break_promise"]
 }</code></pre>
         </details>
+        <p class="tiny">
+  Sketch: If rescued immediately, survival ≈ 0.95 per passenger. Under delay, East risk 0.40 vs West 0.60.
+  The engine’s expected-lives estimates per action are derived directly from these inputs; showing them here
+  lets readers verify the calculation mirrors the scenario.
+</p>
+<p class="tiny"><code>
+A* = { a : ∀k g_k(a,M) ≤ 0 }, f_j(x) = (x - m_j) / (M_j - m_j + ε), m_j = min_{a∈A*} CW_j(a), M_j = max_{a∈A*} CW_j(a)
+</code></p>
       </div>
     </section>
 

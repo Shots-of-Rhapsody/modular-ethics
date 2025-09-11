@@ -1,7 +1,7 @@
-/* Ethics Testbed — engine v0.4.1 (merged)
+/* Ethics Testbed — engine v0.4.2
    Scenarios: triage-vent-v1, evac-promise-v1, vax-allocation-v1
    Modules: Consequentialism, Rawls (maximin), Virtue; Deontic gates (promise)
-   Aggregation: per-module min–max; credences (p_cons, p_rawls, p_virtue) renormalize to sum=1
+   Aggregation: per-module min–max over admissible set A*; credences renormalize to sum=1
 */
 const Engine = (() => {
   const EPS = 1e-9;
@@ -246,7 +246,7 @@ const Engine = (() => {
   // ===================================================================
   // Virtue (scalar proxy)
   // ===================================================================
-  // Traits: honesty (promise-keeping), compassion (cons normalized), fairness (lottery/split bonus when close)
+  // Traits: honesty (promise-keeping), compassion (cons normalized over A*), fairness (lottery/split bonus when close)
   function virtueScore(scn, actionId, consRawMap, traitWts) {
     const { honesty:wh=1, compassion:wc=1, fairness:wf=1 } = traitWts || {};
     let honesty = 1, compassion = 0, fairness = 0;
@@ -258,18 +258,18 @@ const Engine = (() => {
       if (keep && keep.enabled && breaks) honesty = 0.35;
     }
 
-    // Compassion: normalized consequentialist value
-    const consVals = Array.from(consRawMap.values());
-    const consNorm = normalize(consVals);
-    const idx = Array.from(consRawMap.keys()).indexOf(actionId);
-    compassion = consNorm[idx] ?? 0.5;
+    // Compassion: normalized consequentialist value over A*
+    const keysAstar = Array.from(consRawMap.keys());
+    const consValsA = keysAstar.map(k => consRawMap.get(k));
+    const consNormA = normalize(consValsA);
+    const idx = keysAstar.indexOf(actionId);
+    compassion = consNormA[idx] ?? 0.5;
 
-    // Fairness: prefer fair splits when options are close
-    const spread = (() => {
-      const s = [...consVals].sort((a,b)=>b-a);
-      return (s[0] - (s[1] ?? s[0]));
-    })();
-    const close = spread < 0.25;
+    // Fairness: "close" computed over A* too
+    const sortedA = [...consValsA].sort((a,b)=>b-a);
+    const spread  = (sortedA[0] - (sortedA[1] ?? sortedA[0]));
+    const close   = spread < 0.25;
+
     if (scn.id === "triage-vent-v1" && actionId === "a3_lottery" && close) fairness = 1.0;
     else if (scn.id === "evac-promise-v1" && actionId === "b3_mixed_break_promise" && close) fairness = 0.9;
     else if (scn.id === "vax-allocation-v1" && actionId === "c3_split_even" && close) fairness = 0.9;
@@ -307,44 +307,52 @@ const Engine = (() => {
     const scn = mergeSettingsIntoScenario(scnOriginal, settings || {});
     const traitWts = settings?.virtueWeights || { honesty:1, compassion:1, fairness:1 };
 
-    // Consequentialism
-    const consPairs = consRawScores(scn);
-    const consMapRaw = new Map(consPairs);
-    const consNormValues = normalize(consPairs.map(([,v])=>v));
-    const consNorm = new Map(consPairs.map(([k],i)=>[k, consNormValues[i]]));
-
-    // Rawls
-    const rawlsPairs = rawlsRawScores(scn);
+    // Raw module outputs (unnormalized)
+    const consPairs   = consRawScores(scn);
+    const consMapRaw  = new Map(consPairs);
+    const rawlsPairs  = rawlsRawScores(scn);
     const rawlsMapRaw = new Map(rawlsPairs);
-    const rawlsNormValues = normalize(rawlsPairs.map(([,v])=>v));
-    const rawlsNorm = new Map(rawlsPairs.map(([k],i)=>[k, rawlsNormValues[i]]));
 
-    // Deontic admissibility
+    // Deontic admissibility and admissible set A*
     const adm = new Map();
     for (const a of scn.actions.map(x=>x.id)) {
       adm.set(a, deonticAdmissible(scn, a));
     }
-
-    // Virtue
-    const virtueMapRaw = new Map();
-    for (const a of scn.actions.map(x=>x.id)) {
-      virtueMapRaw.set(a, virtueScore(scn, a, consMapRaw, traitWts));
-    }
-    const virtueNormValues = normalize([...virtueMapRaw.values()]);
-    const virtueNorm = new Map([...virtueMapRaw.keys()].map((k,i)=>[k, virtueNormValues[i]]));
-
-    // Gate by deontic constraints; if all are inadmissible, fall back to all (and note)
     const allowed = [...adm.entries()].filter(([,v])=>v.admissible).map(([k])=>k);
     const gatingFallback = allowed.length === 0;
     const allowedUse = gatingFallback ? scn.actions.map(a=>a.id) : allowed;
 
+    // helper: normalize map values over the key set (A*)
+    function normalizeMapOverKeys(mapRaw, keys) {
+      const vals = keys.map(k => mapRaw.get(k));
+      const normVals = normalize(vals);
+      const out = new Map();
+      keys.forEach((k, i) => out.set(k, normVals[i]));
+      return out;
+    }
+
+    // Normalize each module over A*
+    const consNorm  = normalizeMapOverKeys(consMapRaw,  allowedUse);
+    const rawlsNorm = normalizeMapOverKeys(rawlsMapRaw, allowedUse);
+
+    // Virtue — compute only for A* and normalize over A*
+    const virtueMapRaw = new Map();
+    const consRawOnA   = new Map(allowedUse.map(k => [k, consMapRaw.get(k)]));
+    for (const a of allowedUse) {
+      virtueMapRaw.set(a, virtueScore(scn, a, consRawOnA, traitWts));
+    }
+    const virtueNorm = normalizeMapOverKeys(virtueMapRaw, allowedUse);
+
+    // Prepare gated maps for aggregation
     const consG   = new Map(allowedUse.map(k=>[k, consNorm.get(k)]));
     const rawlsG  = new Map(allowedUse.map(k=>[k, rawlsNorm.get(k)]));
     const virtueG = new Map(allowedUse.map(k=>[k, virtueNorm.get(k)]));
 
+    // Aggregate & rank
     const agg = aggregate({cons:consG, rawls:rawlsG, virtue:virtueG}, settings?.credences || {});
     const ranking = [...agg.entries()].sort((a,b)=>b[1]-a[1]);
 
+    // Explanations
     const explanations = [];
     if (scn.id === "triage-vent-v1") explanations.push("E1: Prognosis delta material; no hard constraints triggered.");
     if (scn.id === "evac-promise-v1") {
