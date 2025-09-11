@@ -3,12 +3,13 @@ name: Notify Discord on push
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:      # Manual Trigger
+  workflow_dispatch:
+
 jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Compose and send Discord message
+      - name: Prepare message and send
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           REPO: ${{ github.repository }}
@@ -16,27 +17,27 @@ jobs:
           BRANCH: ${{ github.ref_name }}
           COMPARE_URL: ${{ github.event.compare }}
           COMMIT_MSG: ${{ github.event.head_commit.message }}
+        shell: bash
         run: |
-          # Trim commit message to avoid Discord's 2000-char limit
-          MSG="${COMMIT_MSG}"
+          set -euo pipefail
+
+          # Fallbacks (head_commit can be empty on some pushes)
+          MSG="${COMMIT_MSG:-}"
+          MSG="${MSG//$'\r'/ }"
           MSG="${MSG//$'\n'/ }"
+          # Truncate to keep Discord happy
           MSG="${MSG:0:300}"
+          if [ -z "$MSG" ]; then MSG="(no commit message)"; fi
 
-          read -r -d '' JSON <<'EOF'
-          {
-            "embeds": [{
-              "title": "Git push",
-              "description": "**${ACTOR}** pushed to **${REPO}** on **${BRANCH}**",
-              "url": "${COMPARE_URL}",
-              "fields": [
-                { "name": "Commit", "value": "${MSG}" }
-              ]
-            }]
-          }
-          EOF
+          # Minimal, robust payload using plain 'content'
+          # (Plain text is safer than embeds if you don't escape JSON thoroughly)
+          CONTENT="**${ACTOR}** pushed to **${REPO}** on **${BRANCH}** — ${MSG}
+${COMPARE_URL:-https://github.com/${REPO}}"
 
-          # Expand variables inside JSON
-          JSON=$(eval "echo \"$JSON\"")
+          # Escape double quotes for JSON
+          CONTENT_ESCAPED=${CONTENT//\"/\\\"}
+
+          JSON="{\"content\":\"$CONTENT_ESCAPED\"}"
 
           curl -sS -f -H "Content-Type: application/json" \
             -d "$JSON" "$DISCORD_WEBHOOK"
