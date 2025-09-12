@@ -163,13 +163,15 @@ CW(a) = Σ_j p_j · f_j( CW_j(a) ),  a ∈ A*
           $$
           </p>
 
-          <!-- Mermaid: end each statement with a semicolon -->
-          <div class="mermaid">flowchart TD;
-A[Scenario Inputs] --> B{Admissible?};
-B --|yes|--> C[Theory Modules];
-C --> D[Normalization];
-D --> E[Aggregate CW(a)];
-B --|no|--> F[Lex-min constraints];</div>
+          <!-- Mermaid: multi-line, no semicolons -->
+          <div class="mermaid">
+flowchart TD
+  A[Scenario Inputs] --> B{Admissible?}
+  B -->|yes| C[Theory Modules]
+  C --> D[Normalization]
+  D --> E[Aggregate CW(a)]
+  B -->|no| F[Lex-min constraints]
+          </div>
         </div>
 
         <p class="tiny">
@@ -298,17 +300,13 @@ A* = { a : ∀k g_k(a,M) ≤ 0 }, f_j(x) = (x - m_j) / (M_j - m_j + ε), m_j
   <!-- Mermaid for diagrams -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
-    // Render Mermaid manually and defensively
+    // Render Mermaid manually (no extra post-processing that could join tokens)
     document.addEventListener('DOMContentLoaded', function () {
       mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
       const blocks = document.querySelectorAll('.mermaid');
       blocks.forEach((el, idx) => {
         const code = (el.textContent || '')
           .replace(/\u00A0/g, ' ')
-          .replace(/[ \t]+/g, ' ')
-          // Ensure separators so tokens don't run together during minification
-          .replace(/;(?=\S)/g, ';\n')
-          .replace(/](?=\S)/g, '] ')
           .trim();
         const id = 'mermaid-' + idx;
         mermaid.render(id, code)
