@@ -163,7 +163,7 @@ CW(a) = Σ_j p_j · f_j( CW_j(a) ),  a ∈ A*
           $$
           </p>
 
-          <!-- Mermaid: add semicolons at the end of each statement -->
+          <!-- Mermaid: end each statement with a semicolon -->
           <div class="mermaid">flowchart TD;
 A[Scenario Inputs] --> B{Admissible?};
 B --|yes|--> C[Theory Modules];
@@ -303,10 +303,12 @@ A* = { a : ∀k g_k(a,M) ≤ 0 }, f_j(x) = (x - m_j) / (M_j - m_j + ε), m_j
       mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
       const blocks = document.querySelectorAll('.mermaid');
       blocks.forEach((el, idx) => {
-        // Use textContent, normalize NBSPs, collapse multiple spaces, and trim
         const code = (el.textContent || '')
           .replace(/\u00A0/g, ' ')
           .replace(/[ \t]+/g, ' ')
+          // Ensure separators so tokens don't run together during minification
+          .replace(/;(?=\S)/g, ';\n')
+          .replace(/](?=\S)/g, '] ')
           .trim();
         const id = 'mermaid-' + idx;
         mermaid.render(id, code)
