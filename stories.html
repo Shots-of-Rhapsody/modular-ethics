@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="assets/site.css">
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stories — Ethics Testbed</title>
+  <meta name="description" content="Original short stories, serials, and philosophical fiction published on the Ethics Testbed site.">
+  <meta name="theme-color" content="#00A86B">
+  <meta name="color-scheme" content="light dark">
+  <link rel="canonical" href="https://shotsofrhapsody.com/stories.html">
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Stories — Ethics Testbed">
+  <meta property="og:description" content="Original short stories, serials, and philosophical fiction published on the Ethics Testbed site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shotsofrhapsody.com/stories.html">
+  <meta property="og:image" content="https://shotsofrhapsody.com/og-image.png">
+  <meta property="og:image:alt" content="Stories on Ethics Testbed">
+  <meta property="og:site_name" content="Ethics Testbed">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Stories — Ethics Testbed">
+  <meta name="twitter:description" content="Original short stories, serials, and philosophical fiction published on the Ethics Testbed site.">
+  <meta name="twitter:image" content="https://shotsofrhapsody.com/og-image.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Header (reuses site styles + site.js for theme/menu) -->
+  <header>
+    <div class="wrap nav" role="navigation" aria-label="Primary">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true"></div>
+        <span>Ethics Testbed</span>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html#purpose">Purpose</a>
+        <a href="index.html#framework">Framework</a>
+        <a href="index.html#scenarios">Scenarios</a>
+        <a href="index.html#axioms">Axioms</a>
+        <a href="index.html#updates">Updates</a>
+        <a href="contribute.html">Contribute</a>
+        <a href="language-math.html">Language & Math</a>
+        <a href="research.html">Math & Universe</a>
+        <a href="results.html">Results</a>
+      </nav>
+      <div class="nav-cta">
+        <button class="theme" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">🌓</button>
+        <a class="btn outline" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">View Repo</a>
+        <button class="menu" id="menuBtn" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="wrap">
+      <span class="kicker">Original Serials & Shorts</span>
+      <h1>Stories</h1>
+      <p class="lead">
+        Serialized fiction, short stories, and philosophical vignettes. Subscribe, browse by genre, and continue reading where you left off.
+      </p>
+      <div class="cta-row" role="group" aria-label="Primary calls">
+        <a class="btn" href="#library">Browse Library</a>
+        <a class="btn outline" href="#reader">Open Reader</a>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <!-- Library controls -->
+    <section id="library">
+      <div class="wrap">
+        <h2>Library</h2>
+        <div class="grid" style="grid-template-columns: 1fr; gap: 12px;">
+          <div class="card">
+            <form id="filters" class="grid" style="grid-template-columns: repeat(6, minmax(0,1fr)); gap: 10px;" aria-label="Filter stories">
+              <input id="q" type="search" placeholder="Search title, author, or tag…" aria-label="Search stories" />
+              <select id="genre" aria-label="Filter by genre">
+                <option value="">All genres</option>
+                <option>Sci-Fi</option>
+                <option>Speculative</option>
+                <option>Philosophy</option>
+                <option>Drama</option>
+                <option>Mystery</option>
+              </select>
+              <select id="status" aria-label="Filter by status">
+                <option value="">Any status</option>
+                <option>Ongoing</option>
+                <option>Completed</option>
+                <option>Hiatus</option>
+              </select>
+              <select id="sort" aria-label="Sort stories">
+                <option value="updated_desc">Recently updated</option>
+                <option value="title_asc">Title (A→Z)</option>
+                <option value="title_desc">Title (Z→A)</option>
+                <option value="subs_desc">Most subscribed</option>
+              </select>
+              <button class="btn" type="submit">Apply</button>
+              <button class="btn outline" type="button" id="resetFilters">Reset</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Cards grid -->
+        <div id="cards" class="grid" style="margin-top: 16px;">
+          <!-- Cards injected by JS -->
+        </div>
+
+        <!-- Pagination -->
+        <div id="pager" class="cta-row" style="justify-content: center; margin-top: 16px;">
+          <button class="btn outline" id="prevPage" disabled>Previous</button>
+          <span class="tiny" id="pageInfo" aria-live="polite">Page 1</span>
+          <button class="btn" id="nextPage">Next</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reader -->
+    <section id="reader" aria-labelledby="reader-title" style="scroll-margin-top: 80px;">
+      <div class="wrap">
+        <div class="grid" style="gap: 16px; grid-template-columns: 280px 1fr;">
+          <!-- Sidebar -->
+          <aside class="card" aria-label="Chapters and details">
+            <div class="pill">Reader</div>
+            <h3 id="reader-title" style="margin-top: 6px;">Select a story</h3>
+            <p class="tiny" id="reader-author"></p>
+            <div id="reader-meta" class="tiny"></div>
+            <hr />
+            <div class="tiny">Chapters</div>
+            <nav id="chapters" class="grid" style="gap: 8px; margin-top: 8px;">
+              <!-- Chapters injected -->
+            </nav>
+            <hr />
+            <div class="cta-row">
+              <button class="btn outline" id="toggleSub">Subscribe</button>
+              <button class="btn" id="continueBtn" disabled>Continue</button>
+            </div>
+          </aside>
+
+          <!-- Content -->
+          <article class="card" aria-label="Story content">
+            <div class="pill" id="reader-genre">—</div>
+            <h2 id="chapter-title" style="margin-top: 6px;">No chapter loaded</h2>
+            <div id="chapter-meta" class="tiny"></div>
+            <div id="chapter-content" style="margin-top: 10px;">
+              <p class="tiny">Pick a story from the Library above to start reading.</p>
+            </div>
+            <div class="cta-row" style="margin-top: 16px;">
+              <button class="btn outline" id="prevChapter" disabled>← Previous</button>
+              <button class="btn" id="nextChapter" disabled>Next →</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap foot-grid">
+      <div>
+        <div class="tiny">© <span id="y"></span> Ethics Testbed. MIT License.</div>
+        <div class="tiny">Built for clarity, reproducibility, & imagination.</div>
+      </div>
+      <div class="cta-row">
+        <a class="btn outline" href="https://github.com/xartaiusx/ethics.testbed/issues" target="_blank" rel="noopener">Feedback</a>
+        <a class="btn" href="#home">Back to top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts (use your shared site.js for theme/menu) -->
+  <script src="assets/site.js"></script>
+
+  <!-- Page logic (no external deps) -->
+  <script>
+    // ---- Tiny in-page “backend” ----
+    const STORIES = [
+      {
+        id: 'return-to-the-harbor',
+        title: 'Return to the Harbor',
+        author: 'A. M. Taís',
+        genres: ['Drama','Philosophy'],
+        tags: ['identity','memory','ships-of-theseus'],
+        status: 'Ongoing',
+        updated: '2025-09-01',
+        subs: 1240,
+        cover: 'assets/covers/harbor.jpg',
+        blurb: 'A salvage diver finds a boat rebuilt plank by plank—then meets the person doing the same to themselves.',
+        chapters: [
+          { id: 'ch1', title: 'Planks',    words: 1650, published: '2025-08-12',
+            body: [
+              'The hull lay split like a thought half-formed.',
+              'Each plank was numbered in chalk, a sequence that refused to end.',
+              '“You can change the wood,” she said, “but do you change the boat?”'
+            ]},
+          { id: 'ch2', title: 'Caulking',  words: 1720, published: '2025-08-26',
+            body: [
+              'They sealed the seams with a patience that felt religious.',
+              'Water finds every gap. So does grief.',
+              'The question was not whether it would float—but whether it would be the same.'
+            ]},
+          { id: 'ch3', title: 'Harbor',    words: 1800, published: '2025-09-01',
+            body: [
+              'Fog ate the horizon. Names thinned to pronouns.',
+              'A gull carried off a ribbon of bread like it had stolen a memory.',
+              '“We keep what resists replacement,” she said. “Sometimes that’s a scar.”'
+            ]},
+        ]
+      },
+      {
+        id: 'axiom-garden',
+        title: 'Axiom Garden',
+        author: 'Kai Song',
+        genres: ['Speculative','Philosophy'],
+        tags: ['ethics','systems','pluralism'],
+        status: 'Completed',
+        updated: '2025-07-18',
+        subs: 980,
+        cover: 'assets/covers/garden.jpg',
+        blurb: 'In a walled garden where rules bloom and wither, a caretaker prunes contradictions before they seed.',
+        chapters: [
+          { id: 'ax1', title: 'Seed',   words: 2100, published: '2025-07-04',
+            body: [
+              'The rules flowered briefly each morning.',
+              'Some wilted by noon. Others coiled around their neighbors.',
+              'She kept a ledger of stems and exceptions.'
+            ]},
+          { id: 'ax2', title: 'Graft',  words: 2050, published: '2025-07-10',
+            body: [
+              'Two principles refused to share soil.',
+              'She grafted them together, and the scar tasted like compromise.',
+              'By dusk, the bees had learned a new path.'
+            ]},
+          { id: 'ax3', title: 'Fruit',  words: 2300, published: '2025-07-18',
+            body: [
+              'The fruit split cleanly: sweet on one side, bitter on the other.',
+              'She served slices to the council. No one agreed which half was truth.',
+              'In the morning, the seeds had migrated rows on their own.'
+            ]},
+        ]
+      },
+      {
+        id: 'railcar-logic',
+        title: 'Railcar Logic',
+        author: 'R. D. Elms',
+        genres: ['Mystery','Philosophy'],
+        tags: ['trolley','evidence','doubt'],
+        status: 'Hiatus',
+        updated: '2025-05-09',
+        subs: 412,
+        cover: 'assets/covers/railcar.jpg',
+        blurb: 'A detective boards a night train where every cabin houses a variant of the same dilemma.',
+        chapters: [
+          { id: 'rc1', title: 'Switch', words: 1550, published: '2025-04-14',
+            body: [
+              'The conductor carried no keys, only levers.',
+              'Cabin 3A rehearsed a choice with the rigor of confession.',
+              'Steel remembers pressure long after the boots leave.'
+            ]},
+        ]
+      }
+    ];
+
+    // ---- Utilities ----
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+    const fmtDate = s => new Date(s).toLocaleDateString(undefined, {year:'numeric', month:'short', day:'numeric'});
+
+    const PROGRESS_KEY = 'stories-progress-v1';
+    const SUBS_KEY = 'stories-subs-v1';
+    const state = {
+      page: 1, perPage: 6,
+      q: '', genre: '', status: '', sort: 'updated_desc',
+      subs: new Set(JSON.parse(localStorage.getItem(SUBS_KEY) || '[]')),
+      progress: JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}'),
+      current: null,   // story id
+      chapter: null    // chapter id
+    };
+
+    function saveSubs(){ localStorage.setItem(SUBS_KEY, JSON.stringify([...state.subs])); }
+    function saveProgress(){ localStorage.setItem(PROGRESS_KEY, JSON.stringify(state.progress)); }
+
+    // ---- Library rendering ----
+    function matches(story){
+      const q = state.q.trim().toLowerCase();
+      if (q) {
+        const hay = [story.title, story.author, ...story.genres, ...story.tags].join(' ').toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      if (state.genre && !story.genres.includes(state.genre)) return false;
+      if (state.status && story.status !== state.status) return false;
+      return true;
+    }
+
+    function sorted(list){
+      const arr = [...list];
+      switch (state.sort) {
+        case 'title_asc':  arr.sort((a,b)=>a.title.localeCompare(b.title)); break;
+        case 'title_desc': arr.sort((a,b)=>b.title.localeCompare(a.title)); break;
+        case 'subs_desc':  arr.sort((a,b)=>b.subs - a.subs); break;
+        default:           arr.sort((a,b)=>new Date(b.updated)-new Date(a.updated)); break;
+      }
+      return arr;
+    }
+
+    function cardHTML(story){
+      const isSub = state.subs.has(story.id);
+      const prog = state.progress[story.id];
+      const contLabel = prog ? `Continue — ${prog.chapterTitle}` : 'Read First';
+      const cover = story.cover || 'assets/covers/placeholder.jpg';
+      return `
+      <div class="card" data-id="${story.id}">
+        <div class="grid" style="grid-template-columns: 140px 1fr; gap: 12px;">
+          <div>
+            <img src="${cover}" alt="Cover — ${story.title}" style="width:100%;height:auto;border-radius:12px;" loading="lazy">
+          </div>
+          <div>
+            <div class="cta-row" style="justify-content: space-between;">
+              <h3 style="margin:0;">${story.title}</h3>
+              <span class="pill">${story.status}</span>
+            </div>
+            <div class="tiny">By ${story.author} • Updated ${fmtDate(story.updated)} • ${story.subs.toLocaleString()} subs</div>
+            <div class="tiny" style="margin-top:6px;">
+              ${story.genres.map(g=>`<span class="pill">${g}</span>`).join(' ')}
+            </div>
+            <p style="margin-top:8px;">${story.blurb}</p>
+            <div class="cta-row">
+              <button class="btn" data-action="read" data-id="${story.id}">${contLabel}</button>
+              <button class="btn outline" data-action="sub" data-id="${story.id}">${isSub ? 'Subscribed' : 'Subscribe'}</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    function renderLibrary(){
+      const pool = sorted(STORIES.filter(matches));
+      const start = (state.page-1)*state.perPage;
+      const pageItems = pool.slice(start, start+state.perPage);
+      $('#cards').innerHTML = pageItems.map(cardHTML).join('') || '<div class="tiny">No stories match your filters.</div>';
+
+      // Pager
+      const totalPages = Math.max(1, Math.ceil(pool.length / state.perPage));
+      $('#pageInfo').textContent = `Page ${state.page} / ${totalPages}`;
+      $('#prevPage').disabled = state.page <= 1;
+      $('#nextPage').disabled = state.page >= totalPages;
+    }
+
+    // ---- Reader ----
+    function getStory(id){ return STORIES.find(s=>s.id===id); }
+    function getChapter(story, chId){ return story.chapters.find(c=>c.id===chId); }
+
+    function openStory(id, chapterId){
+      const story = getStory(id);
+      if (!story) return;
+
+      state.current = story.id;
+      const ch = chapterId ? getChapter(story, chapterId) : story.chapters[0];
+      state.chapter = ch?.id || null;
+
+      // Sidebar/meta
+      $('#reader-title').textContent = story.title;
+      $('#reader-author').textContent = `By ${story.author}`;
+      $('#reader-meta').innerHTML = `
+        <div class="tiny">${story.genres.map(g=>`<span class="pill">${g}</span>`).join(' ')}</div>
+        <div class="tiny" style="margin-top:6px;">Status: ${story.status} • Updated: ${fmtDate(story.updated)}</div>
+      `;
+      $('#reader-genre').textContent = story.genres[0] || '—';
+
+      // Chapters list
+      const chHTML = story.chapters.map(c => `
+        <button class="btn outline" data-action="jump" data-id="${story.id}" data-ch="${c.id}">
+          ${c.title} <span class="tiny">(${c.words.toLocaleString()} words)</span>
+        </button>
+      `).join('');
+      $('#chapters').innerHTML = chHTML;
+
+      // Subscribe button state
+      $('#toggleSub').textContent = state.subs.has(story.id) ? 'Subscribed' : 'Subscribe';
+
+      // Continue button
+      const prog = state.progress[story.id];
+      if (prog) {
+        $('#continueBtn').disabled = false;
+        $('#continueBtn').dataset.id = story.id;
+        $('#continueBtn').dataset.ch = prog.chapterId;
+      } else {
+        $('#continueBtn').disabled = true;
+      }
+
+      // Load the chapter content
+      if (ch) loadChapter(story, ch.id);
+      // Jump to reader
+      location.hash = '#reader';
+    }
+
+    function loadChapter(story, chId){
+      const ch = getChapter(story, chId);
+      if (!ch) return;
+      state.chapter = ch.id;
+
+      $('#chapter-title').textContent = ch.title;
+      $('#chapter-meta').textContent = `${story.title} — ${fmtDate(ch.published)} • ${ch.words.toLocaleString()} words`;
+      $('#chapter-content').innerHTML = ch.body.map(p=>`<p>${p}</p>`).join('');
+
+      // Prev/Next buttons
+      const idx = story.chapters.findIndex(c=>c.id===ch.id);
+      $('#prevChapter').disabled = idx <= 0;
+      $('#nextChapter').disabled = idx >= story.chapters.length-1;
+      $('#prevChapter').dataset.id = story.id;
+      $('#nextChapter').dataset.id = story.id;
+      $('#prevChapter').dataset.ch = story.chapters[Math.max(0, idx-1)].id;
+      $('#nextChapter').dataset.ch = story.chapters[Math.min(story.chapters.length-1, idx+1)].id;
+
+      // Save progress
+      state.progress[story.id] = { chapterId: ch.id, chapterTitle: ch.title, ts: Date.now() };
+      saveProgress();
+      // Enable continue
+      $('#continueBtn').disabled = false;
+      $('#continueBtn').dataset.id = story.id;
+      $('#continueBtn').dataset.ch = ch.id;
+    }
+
+    // ---- Events ----
+    document.addEventListener('click', (e) => {
+      const t = e.target.closest('button, a');
+      if (!t) return;
+
+      // Card actions
+      if (t.dataset.action === 'read') {
+        const id = t.dataset.id;
+        const prog = state.progress[id];
+        openStory(id, prog?.chapterId);
+      }
+      if (t.dataset.action === 'sub') {
+        const id = t.dataset.id;
+        if (state.subs.has(id)) state.subs.delete(id); else state.subs.add(id);
+        saveSubs();
+        renderLibrary();
+        if (state.current === id) {
+          $('#toggleSub').textContent = state.subs.has(id) ? 'Subscribed' : 'Subscribe';
+        }
+      }
+
+      // Chapters jump
+      if (t.dataset.action === 'jump') {
+        const story = getStory(t.dataset.id);
+        loadChapter(story, t.dataset.ch);
+      }
+
+      // Reader nav
+      if (t.id === 'prevChapter' || t.id === 'nextChapter') {
+        const story = getStory(t.dataset.id);
+        loadChapter(story, t.dataset.ch);
+      }
+      if (t.id === 'toggleSub' && state.current) {
+        if (state.subs.has(state.current)) state.subs.delete(state.current);
+        else state.subs.add(state.current);
+        saveSubs();
+        t.textContent = state.subs.has(state.current) ? 'Subscribed' : 'Subscribe';
+        renderLibrary();
+      }
+      if (t.id === 'continueBtn' && !t.disabled) {
+        openStory(t.dataset.id, t.dataset.ch);
+      }
+
+      // Pager
+      if (t.id === 'prevPage') { state.page = Math.max(1, state.page-1); renderLibrary(); }
+      if (t.id === 'nextPage') { state.page = state.page+1; renderLibrary(); }
+    });
+
+    $('#filters').addEventListener('submit', (e) => {
+      e.preventDefault();
+      state.q = $('#q').value;
+      state.genre = $('#genre').value;
+      state.status = $('#status').value;
+      state.sort = $('#sort').value;
+      state.page = 1;
+      renderLibrary();
+    });
+
+    $('#resetFilters').addEventListener('click', () => {
+      $('#q').value = '';
+      $('#genre').value = '';
+      $('#status').value = '';
+      $('#sort').value = 'updated_desc';
+      state.q = ''; state.genre = ''; state.status = ''; state.sort = 'updated_desc'; state.page = 1;
+      renderLibrary();
+    });
+
+    // Init
+    document.getElementById('y').textContent = new Date().getFullYear();
+    renderLibrary();
+
+    // If arriving with hash #reader and existing progress, open the first continued story
+    if (location.hash === '#reader') {
+      const firstProgId = Object.keys(state.progress)[0];
+      if (firstProgId) {
+        openStory(firstProgId, state.progress[firstProgId].chapterId);
+      }
+    }
+  </script>
+
+  <!-- JSON-LD: CollectionPage of creative works -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Stories — Ethics Testbed",
+    "description": "Serialized fiction, short stories, and philosophical vignettes.",
+    "url": "https://shotsofrhapsody.com/stories.html",
+    "hasPart": [
+      {
+        "@type": "CreativeWorkSeries",
+        "name": "Return to the Harbor",
+        "author": {"@type":"Person","name":"A. M. Taís"},
+        "genre": ["Drama","Philosophy"]
+      },
+      {
+        "@type": "CreativeWorkSeries",
+        "name": "Axiom Garden",
+        "author": {"@type":"Person","name":"Kai Song"},
+        "genre": ["Speculative","Philosophy"]
+      },
+      {
+        "@type": "CreativeWorkSeries",
+        "name": "Railcar Logic",
+        "author": {"@type":"Person","name":"R. D. Elms"},
+        "genre": ["Mystery","Philosophy"]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
