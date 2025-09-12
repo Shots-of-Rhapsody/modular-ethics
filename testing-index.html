@@ -163,14 +163,13 @@ CW(a) = Σ_j p_j · f_j( CW_j(a) ),  a ∈ A*
           $$
           </p>
 
-          <div class="mermaid">
-          flowchart TD
-            A[Scenario Inputs] --> B{Admissible?}
-            B --|yes|--> C[Theory Modules]
-            C --> D[Normalization]
-            D --> E[Aggregate CW(a)]
-            B --|no|--> F[Lex-min constraints]
-          </div>
+          <!-- Keep the diagram text-only inside the .mermaid container -->
+          <div class="mermaid">flowchart TD
+A[Scenario Inputs] --> B{Admissible?}
+B --|yes|--> C[Theory Modules]
+C --> D[Normalization]
+D --> E[Aggregate CW(a)]
+B --|no|--> F[Lex-min constraints]</div>
         </div>
 
         <p class="tiny">
@@ -289,9 +288,7 @@ A* = { a : ∀k g_k(a,M) ≤ 0 }, f_j(x) = (x - m_j) / (M_j - m_j + ε), m_j
         tags: 'ams'
       },
       options: {
-        // Don’t process code/pre/etc.
         skipHtmlTags: {'[+]': ['pre','code','kbd','samp']},
-        // Also ignore Mermaid containers so there’s no parser conflict
         ignoreHtmlClass: 'mermaid'
       }
     };
@@ -300,7 +297,26 @@ A* = { a : ∀k g_k(a,M) ≤ 0 }, f_j(x) = (x - m_j) / (M_j - m_j + ε), m_j
 
   <!-- Mermaid for diagrams -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script> mermaid.initialize({ startOnLoad: true }); </script>
+  <script>
+    // Render Mermaid manually to avoid parser conflicts and stray whitespace issues
+    document.addEventListener('DOMContentLoaded', function () {
+      mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
+      const blocks = document.querySelectorAll('.mermaid');
+      blocks.forEach((el, idx) => {
+        // Use textContent only (strip any nested HTML), normalize NBSPs, and trim
+        const code = (el.textContent || '')
+          .replace(/\u00A0/g, ' ')
+          .trim();
+        const id = 'mermaid-' + idx;
+        mermaid.render(id, code)
+          .then(({ svg }) => { el.innerHTML = svg; })
+          .catch(err => {
+            console.error('Mermaid render error:', err);
+            el.innerHTML = '<pre>' + (err?.message || 'Mermaid render error') + '</pre>';
+          });
+      });
+    });
+  </script>
 
   <!-- JSON-LD (basic site identity) -->
   <script type="application/ld+json">
