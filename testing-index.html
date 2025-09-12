@@ -163,15 +163,11 @@ CW(a) = Σ_j p_j · f_j( CW_j(a) ),  a ∈ A*
           $$
           </p>
 
-          <!-- Mermaid diagram stored safely as plain text -->
-          <script type="text/plain" class="mermaid">
-flowchart TD
-  A[Scenario Inputs] --> B{Admissible?}
-  B -->|yes| C[Theory Modules]
-  C --> D[Normalization]
-  D --> E[Aggregate CW(a)]
-  B -->|no| F[Lex-min constraints]
-          </script>
+          <!-- Mermaid diagram will be rendered here via JS (string source) -->
+          <div id="engine-diagram" class="diagram" aria-label="Engine flow diagram"></div>
+          <noscript>
+            <p class="tiny">Diagram requires JavaScript (Mermaid) to render.</p>
+          </noscript>
         </div>
 
         <p class="tiny">
@@ -297,28 +293,35 @@ A* = { a : ∀k g_k(a,M) ≤ 0 }, f_j(x) = (x - m_j) / (M_j - m_j + ε), m_j
   </script>
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.min.js"></script>
 
-  <!-- Mermaid for diagrams: render from <script type="text/plain" class="mermaid"> blocks -->
+  <!-- Mermaid for diagrams -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
+    // Render Mermaid from a JS string to avoid any HTML/minifier interference.
     document.addEventListener('DOMContentLoaded', function () {
-      mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
+      try {
+        mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
+        const graph = [
+          'flowchart TD',
+          '  A[Scenario Inputs] --> B{Admissible?}',
+          '  B -->|yes| C[Theory Modules]',
+          '  C --> D[Normalization]',
+          '  D --> E[Aggregate CW(a)]',
+          '  B -->|no| F[Lex-min constraints]'
+        ].join('\\n');
 
-      const scripts = document.querySelectorAll('script.mermaid[type="text/plain"]');
-      scripts.forEach((scriptEl, idx) => {
-        const code = (scriptEl.textContent || '').trim();
-        const id = 'mermaid-' + idx;
-
-        const container = document.createElement('div');
-        container.className = 'mermaid-render';
-        scriptEl.parentNode.insertBefore(container, scriptEl.nextSibling);
-
-        mermaid.render(id, code)
-          .then(({ svg }) => { container.innerHTML = svg; })
-          .catch(err => {
-            console.error('Mermaid render error:', err);
-            container.innerHTML = '<pre>' + (err?.message || 'Mermaid render error') + '</pre>';
-          });
-      });
+        const container = document.getElementById('engine-diagram');
+        const id = 'mermaid-engine-diagram';
+        mermaid.render(id, graph).then(({ svg }) => {
+          container.innerHTML = svg;
+        }).catch(err => {
+          console.error('Mermaid render error:', err);
+          container.innerHTML = '<pre>Diagram render error.</pre>';
+        });
+      } catch (e) {
+        console.error('Mermaid init error:', e);
+        const container = document.getElementById('engine-diagram');
+        if (container) container.innerHTML = '<pre>Diagram unavailable.</pre>';
+      }
     });
   </script>
 
