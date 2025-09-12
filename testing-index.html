@@ -166,10 +166,10 @@ CW(a) = Σ_j p_j · f_j( CW_j(a) ),  a ∈ A*
           <div class="mermaid">
           flowchart TD
             A[Scenario Inputs] --> B{Admissible?}
-            B -- |yes| --> C[Theory Modules]
+            B --|yes|--> C[Theory Modules]
             C --> D[Normalization]
             D --> E[Aggregate CW(a)]
-            B -- |no| --> F[Lex-min constraints]
+            B --|no|--> F[Lex-min constraints]
           </div>
         </div>
 
@@ -290,7 +290,7 @@ A* = { a : ∀k g_k(a,M) ≤ 0 }, f_j(x) = (x - m_j) / (M_j - m_j + ε), m_j
       },
       options: {
         // Don’t process code/pre/etc.
-        skipHtmlTags: {'[+]': ['pre','code','kbd','samp']}
+        skipHtmlTags: {'[+]': ['pre','code','kbd','samp']},
         // Also ignore Mermaid containers so there’s no parser conflict
         ignoreHtmlClass: 'mermaid'
       }
