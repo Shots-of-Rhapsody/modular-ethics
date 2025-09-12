@@ -163,15 +163,15 @@ CW(a) = Σ_j p_j · f_j( CW_j(a) ),  a ∈ A*
           $$
           </p>
 
-          <!-- Mermaid: multi-line, no semicolons -->
-          <div class="mermaid">
+          <!-- Mermaid diagram stored safely as plain text -->
+          <script type="text/plain" class="mermaid">
 flowchart TD
   A[Scenario Inputs] --> B{Admissible?}
   B -->|yes| C[Theory Modules]
   C --> D[Normalization]
   D --> E[Aggregate CW(a)]
   B -->|no| F[Lex-min constraints]
-          </div>
+          </script>
         </div>
 
         <p class="tiny">
@@ -297,23 +297,26 @@ A* = { a : ∀k g_k(a,M) ≤ 0 }, f_j(x) = (x - m_j) / (M_j - m_j + ε), m_j
   </script>
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.min.js"></script>
 
-  <!-- Mermaid for diagrams -->
+  <!-- Mermaid for diagrams: render from <script type="text/plain" class="mermaid"> blocks -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
-    // Render Mermaid manually (no extra post-processing that could join tokens)
     document.addEventListener('DOMContentLoaded', function () {
       mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
-      const blocks = document.querySelectorAll('.mermaid');
-      blocks.forEach((el, idx) => {
-        const code = (el.textContent || '')
-          .replace(/\u00A0/g, ' ')
-          .trim();
+
+      const scripts = document.querySelectorAll('script.mermaid[type="text/plain"]');
+      scripts.forEach((scriptEl, idx) => {
+        const code = (scriptEl.textContent || '').trim();
         const id = 'mermaid-' + idx;
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-render';
+        scriptEl.parentNode.insertBefore(container, scriptEl.nextSibling);
+
         mermaid.render(id, code)
-          .then(({ svg }) => { el.innerHTML = svg; })
+          .then(({ svg }) => { container.innerHTML = svg; })
           .catch(err => {
             console.error('Mermaid render error:', err);
-            el.innerHTML = '<pre>' + (err?.message || 'Mermaid render error') + '</pre>';
+            container.innerHTML = '<pre>' + (err?.message || 'Mermaid render error') + '</pre>';
           });
       });
     });
