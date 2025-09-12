@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="assets/site.css">
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ethics Testbed - Modular Moral Reasoning</title>
+  <meta name="description" content="A modular, transparent testbed that turns ethical theories into comparable mathematical programs & runs them on shared scenarios.">
+  <meta name="theme-color" content="#00A86B">
+  <meta name="color-scheme" content="light dark">
+  <link rel="canonical" href="https://shotsofrhapsody.com/">
+  <meta name="robots" content="index,follow">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ethics Testbed - Modular Moral Reasoning">
+  <meta property="og:description" content="Turn philosophy into math. Compare theories, surface assumptions, & run scenarios with moral uncertainty.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shotsofrhapsody.com/">
+  <meta property="og:image" content="https://shotsofrhapsody.com/og-image.png">
+  <meta property="og:image:alt" content="Ethics Testbed — modular moral reasoning">
+  <meta property="og:site_name" content="Ethics Testbed">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ethics Testbed - Modular Moral Reasoning">
+  <meta name="twitter:description" content="Turn philosophy into math. Compare theories, surface assumptions, & run scenarios with moral uncertainty.">
+  <meta name="twitter:image" content="https://shotsofrhapsody.com/og-image.png">
+
+  <!-- Fonts (safe, fast) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <!-- Optional: favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Header -->
+  <header>
+    <div class="wrap nav" role="navigation" aria-label="Primary">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true"></div>
+        <span>Ethics Testbed</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#purpose">Purpose</a>
+        <a href="#framework">Framework</a>
+        <a href="#scenarios">Scenarios</a>
+        <a href="#axioms">Axioms</a>
+        <a href="#updates">Updates</a>
+        <a href="contribute.html">Contribute</a>
+        <a href="language-math.html">Language & Math</a>
+        <a href="research.html">Math & Universe</a>
+      </nav>
+      <div class="nav-cta">
+        <button class="theme" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">🌓</button>
+        <a class="btn outline" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">View Repo</a>
+        <button class="menu" id="menuBtn" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="wrap">
+      <span class="kicker">Modular Moral Reasoning</span>
+      <h1>Turn philosophy into math, then test it, compare it & explain it.</h1>
+      <p>
+        We’re building a small, transparent engine where ethical theories become modular programs evaluated on shared scenarios.
+        Facts live in causal models. Values live in normative modules. Disagreement is handled by explicit moral uncertainty, no hand-waving.
+      </p>
+      <div class="cta-row">
+        <a class="btn" href="#purpose">Explore the project</a>
+        <a class="btn outline" href="#scenarios">See examples</a>
+        <a class="btn outline" href="results.html">View Results</a>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <span class="pill">Why</span>
+          <h3>Clarity over rhetoric</h3>
+          <p>Debates drift, math commits. We expose assumptions, score actions, & show where theories truly diverge.</p>
+        </div>
+        <div class="card">
+          <span class="pill">How</span>
+          <h3>Modular ethics</h3>
+          <p>Consequentialism, deontology, virtue & more become plug-in evaluators with shared inputs & comparable outputs.</p>
+        </div>
+        <div class="card">
+          <span class="pill">What</span>
+          <h3>Auditable results</h3>
+          <p>Each recommendation ships with a minimal explanation set: the few premises that did the real work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <!-- Purpose -->
+    <section id="purpose">
+      <div class="wrap">
+        <h2>Purpose</h2>
+        <p class="lead">
+          Build a reproducible testbed for ethics that (1) separates facts from values, (2) lets multiple theories run side-by-side on the same scenario, &
+          (3) aggregates disagreement under explicit credences with safeguard constraints.
+        </p>
+        <div class="cta-row" role="group" aria-label="Primary calls">
+          <a class="btn" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn outline" href="paper.html">Methods Paper</a>
+          <a class="btn outline" href="#updates">Project Log</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Framework -->
+    <section id="framework">
+      <div class="wrap">
+        <h2>Framework (small but honest)</h2>
+        <p class="lead">
+          World models carry the facts. Normative modules carry the values. Aggregation handles pluralism. Constraints protect rights.
+        </p>
+        <details>
+          <summary>Formal core (plain math)</summary>
+          <pre><code>// World model and outcomes
+Given a world model M that induces P(O | a, M) over outcomes O, for each action a.
+
+// Consequentialism
+Assume weights w_i ≥ 0 with Σ_i w_i = 1 and a priority/utility map v(·).
+CW_cons(a) = E_M[ Σ_i w_i · v( U_i(O) ) | a ]
+// (If v is prioritarian/priority, risk attitudes live in E_M; avoid double-counting.)
+
+// Deontology (admissibility)
+Admissible(a) iff ∀k: g_k(a, M) ≤ 0
+Let A* = { a : ∀k g_k(a, M) ≤ 0 }  // admissible set
+// Fallback if A* = ∅: minimize lex-ordered violations (or smallest max_k g_k).
+
+// Virtue (trait distance)
+Choose a norm (default L2) on trait space with per-dimension scaling S:
+CW_virtue(a) = - || S ∘ ( T_after(a) - T* ) ||_2
+
+// Moral uncertainty (per-scenario normalization to [0,1])
+Assume credences p_j ≥ 0 with Σ_j p_j = 1 over theories j.
+For each j, define f_j over A*:
+  f_j(x) = ( x - min_{a∈A*} CW_j(a) ) / ( max_{a∈A*} CW_j(a) - min_{a∈A*} CW_j(a) + ε )
+with small ε > 0 to avoid 0/0 on flats.
+
+Aggregate over admissible actions only:
+CW(a) = Σ_j p_j · f_j( CW_j(a) ),  a ∈ A*
+</code></pre>
+        </details>
+
+        <!-- Quick visual examples: inline/display math + flow diagram -->
+        <div class="card" aria-labelledby="viz-math-flow">
+          <h3 id="viz-math-flow">How the pieces fit (at a glance)</h3>
+          <p>The utility is $U = \sum_i w_i \cdot v(U_i)$.</p>
+
+          <p>
+          $$
+          CW(a)=\sum_j p_j\, f_j\big(CW_j(a)\big),\qquad
+          f_j(x)=\frac{x-m_j}{M_j-m_j+\varepsilon}
+          $$
+          </p>
+
+          <div class="mermaid">
+          flowchart TD
+            A[Scenario Inputs] --> B{Admissible?}
+            B -- yes --> C[Theory Modules]
+            C --> D[Normalization]
+            D --> E[Aggregate CW(a)]
+            B -- no --> F[Lex-min constraints]
+          </div>
+        </div>
+
+        <p class="tiny">
+          Notes: Normalization is taken over the admissible set A*. If A* is empty, we select actions by lexicographically minimizing constraint violations.
+          Virtue uses L2 with per-trait scaling S to avoid unit dominance. The world model M determines P(O | a, M), anchoring the expectation.
+        </p>
+      </div>
+    </section>
+
+    <!-- Scenarios -->
+    <section id="scenarios">
+      <div class="wrap">
+        <h2>Example Scenarios</h2>
+        <p class="lead">Two simple dilemmas we’ll use for first runs. Transparent, parameterized, & easy to audit.</p>
+
+        <details open>
+          <summary><strong>Scenario 1:</strong> Clinical triage - one ventilator, two patients</summary>
+          <p class="tiny">ID: <code>triage-vent-v1</code></p>
+          <pre><code>{
+  "agents": [
+    {"id":"A","baseline":{"wellbeing":0.55,"years_left":35},"consent":true,"survival":{"vent":0.80,"no_vent":0.10}},
+    {"id":"B","baseline":{"wellbeing":0.55,"years_left":35},"consent":true,"survival":{"vent":0.60,"no_vent":0.55}}
+  ],
+  "actions":["a1_allocate_A","a2_allocate_B","a3_lottery"],
+  "notes":"Prognosis differences count as relevant; lottery allowed when differences are small."
+}</code></pre>
+        </details>
+
+        <details>
+          <summary><strong>Scenario 2:</strong> Flood evacuation - promise vs numbers</summary>
+          <p class="tiny">ID: <code>evac-promise-v1</code></p>
+          <pre><code>{
+  "context":{"tags":["flood","resource-scarce"]},
+  "agents":["D1(elderly)","D2","D3","D4","D5","R(rescuer_with_promise_to_D1)"],
+  "boat_capacity":3,
+  "prob_survive_if_rescued":0.95,
+  "prob_if_delayed":{"east":0.40,"west":0.60},
+  "actions":["b1_east_now","b2_west_plus_one_east","b3_mixed_break_promise"]
+}</code></pre>
+        </details>
+        <p class="tiny">
+          Sketch: If rescued immediately, survival ≈ 0.95 per passenger. Under delay, East risk 0.40 vs West 0.60.
+          The engine’s expected-lives estimates per action are derived directly from these inputs; showing them here
+          lets readers verify the calculation mirrors the scenario.
+        </p>
+        <p class="tiny"><code>
+A* = { a : ∀k g_k(a,M) ≤ 0 }, f_j(x) = (x - m_j) / (M_j - m_j + ε), m_j = min_{a∈A*} CW_j(a), M_j = max_{a∈A*} CW_j(a)
+</code></p>
+      </div>
+    </section>
+
+    <!-- Axioms -->
+    <section id="axioms">
+      <div class="wrap">
+        <h2>Axiom Ledger v0.1</h2>
+        <ul class="list-axioms">
+          <li><strong>A1.</strong> Persons have equal moral worth.</li>
+          <li><strong>A2.</strong> Comparable goods are explicitly scaled within each scenario.</li>
+          <li><strong>A3.</strong> Uncertainty is modeled; guesses are distributions.</li>
+          <li><strong>A4.</strong> Rights/duties act as side-constraints (lexicographic priority).</li>
+          <li><strong>A5.</strong> Doing vs allowing matters but is not decisive alone.</li>
+          <li><strong>A6.</strong> Consent changes scores & constraint triggers.</li>
+          <li><strong>A7.</strong> Priority to the worse-off via concavity/priority.</li>
+          <li><strong>A8.</strong> Like cases alike; only prognosis-relevant differences justify unequal treatment.</li>
+          <li><strong>A9.</strong> Minimal explanations: identify the few premises that did the work.</li>
+          <li><strong>A10.</strong> Pluralism is explicit; red lines are not aggregative.</li>
+          <li><strong>A11.</strong> Culture tunes parameters, not personhood.</li>
+          <li><strong>A12.</strong> Reversibility check flags unstable rules.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Updates / Log -->
+    <section id="updates">
+      <div class="wrap">
+        <h2>Project Log</h2>
+        <p class="lead">Weekly, concise, reproducible. Each entry links to code, parameters, & results.</p>
+
+        <div class="card">
+          <h3>Week 0 - Scaffold</h3>
+          <p>Drafted axiom ledger, scenario schema, & two seed dilemmas. Next: implement three modules (consequentialist, deontic constraints, virtue distance) & run sensitivity on credences.</p>
+        </div>
+
+        <div class="card">
+          <h3>Week 1 - First Runs</h3>
+          <p>Baseline results for triage & evacuation.
+          Interactive dashboard at <a href="interactive.html">interactive results</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap foot-grid">
+      <div>
+        <div class="tiny">© <span id="y"></span> Ethics Testbed. MIT License.</div>
+        <div class="tiny">Built for transparency, reproducibility, & pluralistic reasoning.</div>
+      </div>
+      <div class="cta-row">
+        <a class="btn outline" href="https://github.com/xartaiusx/ethics.testbed/issues" target="_blank" rel="noopener">Feedback</a>
+        <a class="btn" href="#home">Back to top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts (tiny, no deps) -->
+  <script src="assets/site.js"></script>
+
+  <!-- MathJax v3 (fast, pure client) -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']],
+        tags: 'ams'
+      },
+      options: {
+        // Don’t process code/pre/etc.
+        skipHtmlTags: {'[+]': ['pre','code','kbd','samp']}
+      }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.min.js"></script>
+
+  <!-- Mermaid for diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script> mermaid.initialize({ startOnLoad: true }); </script>
+
+  <!-- JSON-LD (basic site identity) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Ethics Testbed",
+    "url": "https://shotsofrhapsody.com/",
+    "description": "A modular, transparent testbed turning ethical theories into comparable mathematical programs."
+  }
+  </script>
+</body>
+</html>
