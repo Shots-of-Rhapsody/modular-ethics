@@ -18,7 +18,7 @@ We take security concerns seriously, even in a research project.
 If you discover a vulnerability or weakness (technical, data-handling, or logic-related), please follow these steps:
 
 1. **Private Disclosure**  
-   - Send an email to: **[artaius@shotsofrhapsody.com or GitHub security advisory system]**  
+   - Send an email to: **[support@shotsofrhapsody.com or GitHub security advisory system]**  
    - Do not open a public issue until we’ve reviewed & confirmed the report.  
 
 2. **What to Include**  
