@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Collaborate & Support — Ethics Testbed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Fund and collaborate on the Ethics Testbed. Join GitHub Discussions, hop into Discord, contribute scenarios and code, and see a radical transparency ledger of how resources are used.">
+  <link rel="preload" href="assets/site.css" as="style">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="icon" href="Images/favicon.png">
+  <meta property="og:title" content="Collaborate & Support — Ethics Testbed">
+  <meta property="og:description" content="Join the lab. Fund progress. Contribute code, research, and scenarios. Radical transparency by default.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shotsofrhapsody.com/collaborate.html">
+  <meta property="og:image" content="Images/og-banner.png">
+  <style>
+    /* Page-local helpers aligned to your tokens */
+    :root {
+      --jade: #00A86B;
+      --ink: #0b1220;
+      --ink-2: #1f2637;
+      --fog: #f6f7fb;
+      --muted: #6b7280;
+      --radius: 14px;
+      --maxw: 1080px;
+      --ring: rgba(0,168,107,0.25);
+    }
+    .wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: 1rem; }
+    header { display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
+    header a { text-decoration:none; color:var(--ink); }
+    nav { display:flex; gap:14px; flex-wrap:wrap; }
+    .hero {
+      background: radial-gradient(1200px 500px at 50% -20%, rgba(0,168,107,0.25), transparent 70%), var(--ink);
+      color: white; padding: 72px 0 36px;
+    }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 0.2px; margin: 0 0 12px; }
+    .hero p.lede { font-size: clamp(1.1rem, 2vw, 1.25rem); color: #e6f9f2; max-width: 65ch; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+    .btn {
+      display: inline-block; border-radius: var(--radius); padding: 12px 16px; text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.18); backdrop-filter: blur(6px);
+      font-weight: 600;
+    }
+    .btn-primary { background: white; color: var(--ink); border-color: white; }
+    .btn-ghost { color: white; }
+    .btn-inline { display:inline-block; padding:8px 12px; border-radius: 10px; border:1px solid var(--jade); color: var(--ink); text-decoration:none; }
+    .section { padding: 44px 0; }
+    .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .card {
+      background: white; color: var(--ink); border-radius: var(--radius);
+      border: 1px solid #e5e7eb; padding: 18px; box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    }
+    .card h3 { margin: 0 0 6px; font-size: 1.1rem; }
+    .muted { color: var(--muted); }
+    .list { padding-left: 1.1rem; }
+    .kpis { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); }
+    .kpi {
+      border-radius: var(--radius); border: 1px dashed rgba(0,168,107,0.35); padding: 14px;
+      background: linear-gradient(0deg, rgba(0,168,107,0.06), rgba(0,168,107,0.02));
+    }
+    .kpi strong { font-size: 1.3rem; }
+    .callout {
+      border: 1px solid rgba(0,168,107,0.35);
+      background: linear-gradient(0deg, rgba(0,168,107,0.06), rgba(0,168,107,0.02));
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    footer { border-top: 1px solid #e5e7eb; padding: 28px 0; color: var(--muted); }
+    a.inline { color: var(--jade); text-decoration: underline; }
+    details summary { cursor: pointer; font-weight: 700; }
+    details .muted { margin-top: 8px; }
+    /* simple anchor spacing */
+    :target { scroll-margin-top: 80px; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="wrap">
+    <a href="index.html" aria-label="Home" style="font-weight:800;">Ethics Testbed</a>
+    <nav>
+      <a href="paper.html">Paper</a>
+      <a href="language-math.html">Language & Math</a>
+      <a href="interactive.html">Interactive</a>
+      <a href="results.html">Results</a>
+      <a href="research.html">Research</a>
+      <a href="contribute.html">Contribute</a>
+      <a href="collaborate.html" aria-current="page" style="color:var(--jade); font-weight:700;">Collaborate</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <h1>Collaborate and Support the Ethics Testbed</h1>
+      <p class="lede">
+        Help turn transparent moral reasoning into working tools. Fund progress, contribute code and scenarios, join forums, and grow an open community that treats ethics like an auditable system.
+      </p>
+      <div class="cta-row">
+        <!-- Replace the links below with your live endpoints -->
+        <a class="btn btn-primary" href="#funding">Support the Project</a>
+        <a class="btn btn-ghost" href="https://github.com/xartaiusx/ethics.testbed/discussions" target="_blank" rel="noopener">GitHub Discussions</a>
+        <a class="btn btn-ghost" id="join-discord" href="#" rel="noopener">Join Discord</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY SUPPORT -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Why support matters</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Fuel research and development</h3>
+          <p class="muted">Each release needs original research, careful implementation, and strong UX so ideas are testable by anyone.</p>
+        </article>
+        <article class="card">
+          <h3>Grow an open community</h3>
+          <p class="muted">Forums, Discord, and public discussions keep arguments honest and progress visible.</p>
+        </article>
+        <article class="card">
+          <h3>Accelerate useful tools</h3>
+          <p class="muted">The aim is simple and ambitious. Make ethical reasoning tools as usable as a calculator.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAYS TO CONTRIBUTE -->
+  <section id="ways" class="section" style="background: var(--fog);">
+    <div class="wrap">
+      <h2>Ways to contribute</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Direct funding</h3>
+          <p class="muted">Support infrastructure, design, and development time. You can back specific milestones or general development.</p>
+          <ul class="list">
+            <li><a class="inline" href="#funding">One time or monthly support</a></li>
+            <li>Fund a feature such as a fairness evaluator or scenario editor</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Open source engagement</h3>
+          <p class="muted">Use GitHub Discussions for proposals, Issues for bugs, and Pull Requests for code and docs.</p>
+          <ul class="list">
+            <li><a class="inline" href="https://github.com/xartaiusx/ethics.testbed/discussions" target="_blank" rel="noopener">Start a thread</a></li>
+            <li>Add scenarios in <code>data/scenarios.json</code></li>
+            <li>Improve core logic and UI</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Community and outreach</h3>
+          <p class="muted">Help with lectures, podcasts, and documentation. Share the project and invite thoughtful critique.</p>
+          <ul class="list">
+            <li>Host a reading group or demo session</li>
+            <li>Write primers for new contributors</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- RADICAL TRANSPARENCY -->
+  <section id="transparency" class="section">
+    <div class="wrap">
+      <h2>Radical transparency in our funding</h2>
+      <div class="callout">
+        <p class="muted">Every contribution to Ethics Testbed is visible, accountable, and purposeful. Donations are treated as real fuel that keeps the project alive and evolving.</p>
+      </div>
+
+      <div class="grid" style="margin-top:18px;">
+        <article class="card">
+          <h3>Public ledger on GitHub</h3>
+          <p class="muted">
+            All incoming funds and outgoing expenses are tracked openly in this repository. You can see where funds come from, how they are allocated, and what they produce.
+          </p>
+          <!-- Replace this link with your actual ledger file when committed -->
+          <a class="btn-inline" href="https://github.com/xartaiusx/ethics.testbed/tree/main/finance" target="_blank" rel="noopener">View the ledger</a>
+        </article>
+
+        <article class="card">
+          <h3>Open discussions</h3>
+          <p class="muted">
+            Decisions about resource use are debated in public threads. Nothing is hidden behind closed doors. The community helps shape priorities and spending.
+          </p>
+          <div class="cta-row" style="margin-top:6px;">
+            <a class="btn-inline" href="https://github.com/xartaiusx/ethics.testbed/discussions" target="_blank" rel="noopener">GitHub Discussions</a>
+            <a class="btn-inline" id="join-discord-2" href="#" rel="noopener">Community Discord</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Traceable outcomes</h3>
+          <p class="muted">
+            For each expense, we connect results to the investment, whether it is new research, improved tools, or expanded community features.
+          </p>
+          <details>
+            <summary>How this works in practice</summary>
+            <div class="muted">
+              Each funded task is linked to a GitHub Issue or Discussion with acceptance criteria and artifacts. When complete, results are posted and cross-linked to the ledger entry for verification.
+            </div>
+          </details>
+        </article>
+      </div>
+
+      <p class="muted" style="margin-top:16px;">
+        This structure guarantees that resources are not misused or quietly diverted. They are openly tracked and directly reinvested into the growth and evolution of the project. By funding Ethics Testbed, you are not only donating. You are joining a living record of collaborative progress, where transparency is part of the code.
+      </p>
+    </div>
+  </section>
+
+  <!-- FUNDING OPTIONS -->
+  <section id="funding" class="section" style="background: var(--fog);">
+    <div class="wrap">
+      <h2>Support the project</h2>
+      <p class="muted">Choose the channel that fits your workflow. If you need an invoice or company paperwork, reach out and we will handle it.</p>
+
+      <div class="kpis" style="margin-top: 10px;">
+        <div class="kpi">
+          <strong>Milestone funding</strong>
+          <div class="muted">Back specific deliverables such as a new evaluator, a scenario editor, or a visualization module. Each funded milestone is linked to a public Issue and ledger entry.</div>
+        </div>
+        <div class="kpi">
+          <strong>Monthly support</strong>
+          <div class="muted">Sustain maintenance, design, security reviews, and documentation. Monthly support is tracked as recurring entries in the ledger.</div>
+        </div>
+        <div class="kpi">
+          <strong>In kind</strong>
+          <div class="muted">Cloud credits, datasets, research assistance, and design support reduce costs and speed up delivery. Valuations are recorded in the ledger for full clarity.</div>
+        </div>
+      </div>
+
+      <div class="cta-row" style="margin-top:16px;">
+        <!-- Replace with your live payment links -->
+        <a class="btn btn-primary" href="mailto:funding@shotsofrhapsody.com?subject=Ethics%20Testbed%20Support">Contact for funding</a>
+        <!-- <a class="btn" href="https://github.com/sponsors/xartaiusx" target="_blank" rel="noopener">GitHub Sponsors</a> -->
+        <!-- <a class="btn" href="https://opencollective.com/ethics.testbed" target="_blank" rel="noopener">OpenCollective</a> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPARENCY PRACTICES QUICK LINKS -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Transparency practices</h2>
+      <ul class="list">
+        <li>Open planning in <a class="inline" href="https://github.com/xartaiusx/ethics.testbed/discussions" target="_blank" rel="noopener">Discussions</a></li>
+        <li>Milestones and issues tracked in GitHub and linked to ledger entries</li>
+        <li>Security policy in <code>SECURITY.md</code> and contribution guide in <a class="inline" href="contribute.html">contribute.html</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" style="background: var(--fog);">
+    <div class="wrap">
+      <h2>Contact</h2>
+      <p class="muted">For partnerships or institutional collaboration, email <a class="inline" href="mailto:funding@shotsofrhapsody.com">funding@shotsofrhapsody.com</a>. If your organization requires vendor setup, NDAs, or data processing agreements, note it in the subject line and we will respond with the correct packet.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <small>© <span id="y"></span> Ethics Testbed. Built in the open.</small>
+    </div>
+  </footer>
+
+  <script>
+    // year stamp
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Discord link handling: set once here so it is easy to rotate invites
+    // Replace DISCORD_INVITE with your real invite URL
+    const DISCORD_INVITE = "https://discord.gg/XU5xaajkEv";
+    const d1 = document.getElementById('join-discord');
+    const d2 = document.getElementById('join-discord-2');
+    [d1, d2].forEach(a => { if (a) { a.href = DISCORD_INVITE; a.target = "_blank"; }});
+
+    // Optional: gentle focus ring for keyboard nav, consistent with your tokens
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Tab') document.documentElement.style.setProperty('--ring', 'rgba(0,168,107,0.35)');
+    });
+  </script>
+</body>
+</html>
