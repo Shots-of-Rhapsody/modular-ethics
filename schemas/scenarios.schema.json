@@ -1,0 +1,340 @@
+{
+  "$id": "https://xartaiusx.github.io/ethics.testbed/schemas/scenarios.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ethics Testbed Scenarios",
+  "type": "object",
+  "additionalProperties": false,
+
+  "properties": {
+    "meta": { "$ref": "#/$defs/Meta" },
+    "defaults": { "$ref": "#/$defs/Defaults" },
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/Scenario" }
+    }
+  },
+  "required": ["meta", "scenarios"],
+
+  "$defs": {
+    "Meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": { "type": "string" },
+        "ledger_version": { "type": "string" },
+        "generated_at": {
+          "type": "string",
+          "description": "ISO 8601 date or datetime",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}([Tt ].+)?$"
+        },
+        "notes": { "type": "string" }
+      },
+      "required": ["ledger_version"]
+    },
+
+    "Defaults": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "units": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "wellbeing": { "type": "string" },
+            "years_left": { "type": "string" },
+            "probabilities": { "type": "string" }
+          }
+        },
+        "objectives": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ObjectiveEnum" },
+          "uniqueItems": true
+        },
+        "utility_model": { "$ref": "#/$defs/UtilityModel" },
+        "params": { "$ref": "#/$defs/Params" },
+        "constraints": { "$ref": "#/$defs/Constraints" },
+        "validators": { "$ref": "#/$defs/Validators" }
+      }
+    },
+
+    "ObjectiveEnum": {
+      "type": "string",
+      "enum": ["maximize_lives_saved", "maximize_qalys_saved", "respect_constraints"]
+    },
+
+    "UtilityModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": { "type": "string", "enum": ["QALY"] },
+        "formula": { "type": "string" },
+        "normalize": { "type": "boolean" }
+      },
+      "required": ["type"]
+    },
+
+    "Params": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "weights_equal": { "type": "boolean" },
+        "priority_fn": {
+          "type": "string",
+          "enum": ["sqrt", "linear", "log", "none"]
+        },
+        "equity_weight": { "type": "number", "minimum": 0 },
+        "random_seed": {
+          "anyOf": [
+            { "type": "integer" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+
+    "Constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "no_intentional_harm_innocent": { "type": "boolean" },
+        "treat_like_cases_alike": { "type": "boolean" },
+        "respect_informed_consent": { "type": "boolean" },
+        "keep_credible_promises": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "theta_lives": { "type": "number", "minimum": 0 }
+          },
+          "required": ["enabled"]
+        }
+      }
+    },
+
+    "Validators": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "prob_range": {
+          "type": "array",
+          "items": { "type": "number", "minimum": 0, "maximum": 1 },
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "Expected [min, max] range for probabilities"
+        },
+        "nonnegative_years_left": { "type": "boolean" },
+        "require_action_ids_unique": { "type": "boolean" }
+      }
+    },
+
+    "Scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "context": { "$ref": "#/$defs/Context" },
+        "actions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/Action" }
+        },
+        "constraints": { "$ref": "#/$defs/Constraints" },
+        "params": { "$ref": "#/$defs/Params" },
+        "objectives": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ObjectiveEnum" },
+          "uniqueItems": true
+        },
+
+        /* Variant-specific fields (optional; enforced by oneOf below) */
+        "agents": { "type": "array", "items": { "$ref": "#/$defs/Agent" } },
+        "groups": { "type": "array", "items": { "$ref": "#/$defs/Group" } },
+        "resources": { "$ref": "#/$defs/Resources" },
+        "probabilities": { "$ref": "#/$defs/EvacProbabilities" },
+        "docks": { "$ref": "#/$defs/Docks" },
+        "vaccine": { "$ref": "#/$defs/Vaccine" }
+      },
+      "required": ["id", "context", "actions"],
+
+      "oneOf": [
+        { "$ref": "#/$defs/ScenarioTriage" },
+        { "$ref": "#/$defs/ScenarioEvacuation" },
+        { "$ref": "#/$defs/ScenarioVaccines" }
+      ]
+    },
+
+    "Context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "domain": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      },
+      "required": ["domain"]
+    },
+
+    "Action": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "desc": { "type": "string", "minLength": 1 },
+        "randomization": {
+          "type": "object",
+          "description": "Optional explicit randomization schema for this action.",
+          "additionalProperties": {
+            "anyOf": [
+              { "type": "number", "minimum": 0, "maximum": 1 },
+              { "type": "string" }
+            ]
+          }
+        }
+      },
+      "required": ["id", "desc"]
+    },
+
+    "Agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+
+        /* triage-style baseline */
+        "baseline": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "wellbeing": { "type": "number", "minimum": 0, "maximum": 1 },
+            "years_left": { "type": "number", "minimum": 0 }
+          }
+        },
+        "consent": { "type": "boolean" },
+        "survival": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "vent": { "type": "number", "minimum": 0, "maximum": 1 },
+            "no_vent": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+
+        /* evacuation-style attributes */
+        "role": { "type": "string" },
+        "traits": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "promised_first": { "type": "boolean" }
+      },
+      "required": ["id"]
+    },
+
+    "Group": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "population": { "type": "integer", "minimum": 0 },
+        "years_left": { "type": "number", "minimum": 0 },
+        "p_infect": { "type": "number", "minimum": 0, "maximum": 1 },
+        "ifr": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "required": ["id", "label", "population"]
+    },
+
+    "Resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "boat_capacity": { "type": "integer", "minimum": 0 }
+      }
+    },
+
+    "EvacProbabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "prob_survive_if_rescued": { "type": "number", "minimum": 0, "maximum": 1 },
+        "prob_if_delayed": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "east": { "type": "number", "minimum": 0, "maximum": 1 },
+            "west": { "type": "number", "minimum": 0, "maximum": 1 }
+          },
+          "required": ["east", "west"]
+        }
+      },
+      "required": ["prob_survive_if_rescued"]
+    },
+
+    "Docks": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "east": { "type": "array", "items": { "type": "string" } },
+        "west": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["east", "west"]
+    },
+
+    "Vaccine": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "doses": { "type": "integer", "minimum": 0 },
+        "ve_death": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "required": ["doses"]
+    },
+
+    /* ----- Scenario variants ------------------------------------------------ */
+
+    "ScenarioTriage": {
+      "type": "object",
+      "required": ["agents"],
+      "properties": {
+        "agents": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/Agent" }
+        }
+      }
+    },
+
+    "ScenarioEvacuation": {
+      "type": "object",
+      "required": ["agents", "resources", "probabilities", "docks"],
+      "properties": {
+        "agents": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/Agent" }
+        },
+        "resources": { "$ref": "#/$defs/Resources" },
+        "probabilities": { "$ref": "#/$defs/EvacProbabilities" },
+        "docks": { "$ref": "#/$defs/Docks" }
+      }
+    },
+
+    "ScenarioVaccines": {
+      "type": "object",
+      "required": ["groups", "vaccine"],
+      "properties": {
+        "groups": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/Group" }
+        },
+        "vaccine": { "$ref": "#/$defs/Vaccine" }
+      }
+    }
+  }
+}
