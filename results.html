@@ -2,52 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <link rel="stylesheet" href="assets/site.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interactive Results - Ethics Testbed</title>
   <meta name="description" content="Adjust credences, promise thresholds, and virtue weights. See how recommendations change." />
   <meta name="theme-color" content="#00A86B" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css" />
-
-  <style>
-    :root{ --jade:#00A86B; --muted:#6b7280; --radius:14px; --maxw:1080px; }
-    body{ margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:#fafcff; color:#111827; }
-    header{ position:sticky; top:0; backdrop-filter:saturate(120%) blur(10px); background:#ffffffc7; border-bottom:1px solid #e5e7eb; }
-    .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 20px; }
-    .nav-container{ max-width:var(--maxw); margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; height:64px;}
-    .site-nav ul{display:flex; gap:14px; list-style:none; padding:0; margin:0;}
-    .site-nav a{ color:#111827; text-decoration:none; font-weight:600; }
-    .nav-cta{ display:flex; gap:10px; align-items:center;}
-    .btn{ display:inline-block; font-weight:700; padding:10px 16px; border-radius:999px; background:var(--jade); color:#fff; text-decoration:none; box-shadow:0 6px 18px -8px rgba(0,168,107,.25), 0 2px 6px -2px rgba(0,168,107,.25); }
-    .btn.outline{ background:#fff; color:#0b1220; border:1px solid #e5e7eb; }
-    .menu,.theme{ background:transparent; border:1px solid #e5e7eb; border-radius:10px; height:36px; padding:0 10px; cursor:pointer; }
-    h1,h2{ font-family:"Playfair Display", Georgia, serif; }
-    h1{ margin:14px 0; font-size:clamp(28px,4vw,40px); }
-    h2{ margin:20px 0 10px; font-size:clamp(22px,3vw,30px); }
-    .muted{ color:var(--muted); }
-
-    .grid{ display:grid; gap:16px; grid-template-columns:1fr; }
-    @media (min-width:1024px){ .grid{ grid-template-columns:360px 1fr; } }
-
-    .card{ background:white; border:1px solid #e5e7eb; border-radius:var(--radius); padding:16px; box-shadow:0 12px 34px -24px rgba(0,0,0,.2); }
-    .row{ display:grid; gap:10px; grid-template-columns: 1fr auto; align-items:center; }
-    .ctrl{ display:grid; gap:8px; margin-bottom:14px; }
-    .ctrl label{ font-size:12px; color:#374151; display:flex; justify-content:space-between; align-items:center; }
-    input[type="range"]{ width:100%; }
-    .hr{ height:1px; background:#e5e7eb; margin:12px 0; }
-
-    table{ width:100%; border-collapse:collapse; }
-    th,td{ padding:8px 10px; border-bottom:1px solid #e5e7eb; font-size:14px; vertical-align:top; }
-    th{ text-align:left; background:#f8fafc; }
-    code{ background:#0d1117; color:#e5e7eb; padding:2px 6px; border-radius:8px; font-size:12px; }
-    .pill{ display:inline-block; padding:4px 8px; border-radius:999px; background:#00a86b1a; color:#047857; font-weight:700; font-size:12px; }
-    .pill.bad{ background:#fee2e2; color:#991b1b; }
-    .badge{ font-size:12px; padding:2px 8px; border-radius:999px; background:#eef2ff; color:#3730a3; }
-    footer{ margin:30px 0 60px; color:var(--muted); }
-    .table-wrap{ overflow:auto; border-radius:10px; border:1px solid #eef2ff; }
-    .empty{ padding:20px; border:1px dashed #e5e7eb; border-radius:12px; text-align:center; color:#6b7280;}
-  </style>
 </head>
 <body>
 <header>
@@ -65,7 +26,6 @@
         <li><a href="/contact/">Contact</a></li>
       </ul>
     </nav>
-
     <div class="nav-cta">
       <button class="theme" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">🌓</button>
       <a class="btn outline" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">View Repo</a>
@@ -75,12 +35,12 @@
 </header>
 
 <main class="wrap">
-  <h1>Results (Live)</h1>
+  <h1 class="page-title">Results (Live)</h1>
   <p class="muted">Adjust parameters on the left. The tables recompute instantly. Deontic constraints gate actions before aggregation.</p>
 
-  <div class="grid">
+  <div class="grid grid-results">
     <!-- Controls -->
-    <div class="card" id="controls">
+    <div class="card" id="controls" aria-label="Controls">
       <h2>Controls</h2>
 
       <div class="ctrl">
@@ -99,10 +59,16 @@
         <small class="muted">Credences renormalize so the three sum to 1.</small>
       </div>
 
+      <div class="bar" aria-hidden="true">
+        <span class="c" id="bar_c" style="width:50%"></span>
+        <span class="r" id="bar_r" style="width:25%"></span>
+        <span class="v" id="bar_v" style="width:25%"></span>
+      </div>
+
       <div class="hr"></div>
 
       <div class="ctrl">
-        <label>Promise constraint enabled <span class="badge" id="lab_promise">ON</span></label>
+        <label>Promise constraint <span class="badge" id="lab_promise">ON</span></label>
         <div class="row">
           <input id="promise_enabled" type="checkbox" checked />
           <small class="muted">Scenario: <code>evac-promise-v1</code></small>
@@ -136,17 +102,15 @@
     </div>
 
     <!-- Results -->
-    <div id="results" style="display:grid; gap:16px; grid-template-columns:1fr;">
-      <div class="card">
-        <div class="empty">Loading scenarios…</div>
-      </div>
+    <div id="results" class="results-list">
+      <div class="card"><div class="empty">Loading scenarios…</div></div>
     </div>
   </div>
 
   <h2>Notes</h2>
   <ul class="muted">
     <li>Consequentialism reports normalized expected outcomes (life-years in triage, survivors in evacuation).</li>
-    <li><strong>Rawls (maximin)</strong> scores an action by the welfare of the worst-off individual (min over persons); normalized within each scenario.</li>
+    <li><strong>Rawls (maximin)</strong> scores an action by the welfare of the worst-off individual; normalized within each scenario.</li>
     <li>Virtue proxy combines honesty (promise-keeping), compassion (normalized outcomes), &amp; fairness (lottery/split bonus when options are close). Weights tune their influence.</li>
     <li>Promise rule: if enabled, breaking a credible promise is inadmissible unless expected harm avoided meets θ.</li>
   </ul>
@@ -169,7 +133,7 @@
   const state = JSON.parse(JSON.stringify(defaults));
   document.getElementById('y').textContent = (new Date()).getFullYear();
 
-  // ---------- UI bindings ----------
+  // ---------- UI ----------
   const ui = {
     p_cons: document.getElementById('p_cons'),
     p_rawls: document.getElementById('p_rawls'),
@@ -191,50 +155,55 @@
     lab_fairness: document.getElementById('lab_fairness'),
 
     reset: document.getElementById('reset'),
+
+    bar_c: document.getElementById('bar_c'),
+    bar_r: document.getElementById('bar_r'),
+    bar_v: document.getElementById('bar_v'),
   };
 
   // ---------- Helpers ----------
+  function fmt(x){
+    if (x === null || x === undefined || Number.isNaN(x)) return '—';
+    if (typeof x === 'number') return x.toFixed(3);
+    return String(x);
+  }
+  function clamp01(x){ return Math.max(0, Math.min(1, x)); }
+
   function renormCredences() {
     let c = parseFloat(ui.p_cons.value);
     let r = parseFloat(ui.p_rawls.value);
     let v = parseFloat(ui.p_virtue.value);
     const s = c + r + v;
 
-    if (!isFinite(c) || !isFinite(r) || !isFinite(v) || s <= 0) {
-      c = 1; r = 0; v = 0;
-    } else {
-      c /= s; r /= s; v /= s;
-    }
+    if (!isFinite(c) || !isFinite(r) || !isFinite(v) || s <= 0) { c = 1; r = 0; v = 0; }
+    else { c /= s; r /= s; v /= s; }
 
-    state.credences.p_cons   = c;
-    state.credences.p_rawls  = r;
-    state.credences.p_virtue = v;
+    state.credences.p_cons = c; state.credences.p_rawls = r; state.credences.p_virtue = v;
 
-    ui.lab_pcons.textContent   = c.toFixed(2);
-    ui.lab_prawls.textContent  = r.toFixed(2);
+    ui.lab_pcons.textContent = c.toFixed(2);
+    ui.lab_prawls.textContent = r.toFixed(2);
     ui.lab_pvirtue.textContent = v.toFixed(2);
+
+    ui.bar_c.style.width = (clamp01(c) * 100).toFixed(1) + '%';
+    ui.bar_r.style.width = (clamp01(r) * 100).toFixed(1) + '%';
+    ui.bar_v.style.width = (clamp01(v) * 100).toFixed(1) + '%';
   }
 
   function syncPromise() {
     state.promise.enabled = !!ui.promise_enabled.checked;
     state.promise.theta_lives = parseFloat(ui.theta_lives.value);
     ui.lab_promise.textContent = state.promise.enabled ? 'ON' : 'OFF';
+    ui.lab_promise.classList.toggle('off', !state.promise.enabled);
     ui.lab_theta.textContent = (isFinite(state.promise.theta_lives) ? state.promise.theta_lives : 0).toFixed(2);
   }
 
   function syncVirtueWeights() {
-    state.virtueWeights.honesty   = parseFloat(ui.w_honesty.value);
-    state.virtueWeights.compassion= parseFloat(ui.w_compassion.value);
-    state.virtueWeights.fairness  = parseFloat(ui.w_fairness.value);
-    ui.lab_honesty.textContent    = (isFinite(state.virtueWeights.honesty)?state.virtueWeights.honesty:0).toFixed(2);
-    ui.lab_compassion.textContent = (isFinite(state.virtueWeights.compassion)?state.virtueWeights.compassion:0).toFixed(2);
-    ui.lab_fairness.textContent   = (isFinite(state.virtueWeights.fairness)?state.virtueWeights.fairness:0).toFixed(2);
-  }
-
-  function fmt(x){
-    if (x === null || x === undefined || Number.isNaN(x)) return '—';
-    if (typeof x === 'number') return x.toFixed(3);
-    return String(x);
+    state.virtueWeights.honesty    = parseFloat(ui.w_honesty.value);
+    state.virtueWeights.compassion = parseFloat(ui.w_compassion.value);
+    state.virtueWeights.fairness   = parseFloat(ui.w_fairness.value);
+    ui.lab_honesty.textContent     = (isFinite(state.virtueWeights.honesty)?state.virtueWeights.honesty:0).toFixed(2);
+    ui.lab_compassion.textContent  = (isFinite(state.virtueWeights.compassion)?state.virtueWeights.compassion:0).toFixed(2);
+    ui.lab_fairness.textContent    = (isFinite(state.virtueWeights.fairness)?state.virtueWeights.fairness:0).toFixed(2);
   }
 
   // ---------- Data loading (robust) ----------
@@ -242,15 +211,13 @@
   const container = document.getElementById('results');
 
   async function loadScenarios() {
-    // Avoid stale caches during authoring
     const url1 = `data/scenarios.json?v=${Date.now()}`;
-    const url2 = `data/scenarios.min.json?v=${Date.now()}`; // fallback if present
+    const url2 = `data/scenarios.min.json?v=${Date.now()}`;
 
     async function tryLoad(url){
       const res = await fetch(url, {cache:'no-store'});
       if (!res.ok) throw new Error(`Fetch failed: ${url} (${res.status})`);
       const raw = await res.json();
-      // Accept either {scenarios:[...]} or bare [...]
       if (Array.isArray(raw)) return raw;
       if (Array.isArray(raw.scenarios)) return raw.scenarios;
       if (Array.isArray(raw.items)) return raw.items;
@@ -260,9 +227,8 @@
     try {
       scenarios = await tryLoad(url1);
     } catch(_e1) {
-      try {
-        scenarios = await tryLoad(url2);
-      } catch(e2) {
+      try { scenarios = await tryLoad(url2); }
+      catch(e2) {
         console.error(e2);
         container.innerHTML = `<div class="card"><div class="empty">Could not load scenarios. ${e2.message}</div></div>`;
         scenarios = [];
@@ -271,31 +237,35 @@
   }
 
   // ---------- Rendering ----------
-  function renderScenario(scn, evald) {
+  function renderScenario(scn, ev) {
     const card = document.createElement('div');
     card.className = 'card';
 
-    // Build inadmissible explanation list
-    let inadmissible = [];
+    const ranking = Array.isArray(ev?.ranking) ? ev.ranking : [];
+    const bestId = ranking[0]?.[0] ?? null;
+    const bestScore = ranking[0]?.[1];
+
+    const inadmissible = [];
     try {
-      inadmissible = [...(evald.admissibility?.entries?.() ?? [])]
-        .filter(([,v]) => v && v.admissible === false)
-        .map(([k,v]) => `${k} — ${(v?.reasons ?? []).join('; ')}`);
-    } catch { inadmissible = []; }
+      for (const [k,v] of (ev?.admissibility?.entries?.() ?? [])) {
+        if (v && v.admissible === false) inadmissible.push(`${k} — ${(v.reasons ?? []).join('; ')}`);
+      }
+    } catch {}
 
     const actions = (scn.actions || []).map(a => a.id);
-    const row = id => {
-      const consRaw  = evald?.consRaw?.get?.(id);
-      const consNorm = evald?.consNorm?.get?.(id);
-      const rawlsRaw = evald?.rawlsRaw?.get?.(id);
-      const rawlsNorm= evald?.rawlsNorm?.get?.(id);
-      const virtRaw  = evald?.virtueRaw?.get?.(id);
-      const virtNorm = evald?.virtueNorm?.get?.(id);
-      const agg      = evald?.aggregate?.get?.(id);
-      const adm      = evald?.admissibility?.get?.(id);
+    const rowHtml = id => {
+      const consRaw  = ev?.consRaw?.get?.(id);
+      const consNorm = ev?.consNorm?.get?.(id);
+      const rawlsRaw = ev?.rawlsRaw?.get?.(id);
+      const rawlsNorm= ev?.rawlsNorm?.get?.(id);
+      const virtRaw  = ev?.virtueRaw?.get?.(id);
+      const virtNorm = ev?.virtueNorm?.get?.(id);
+      const agg      = ev?.aggregate?.get?.(id);
+      const adm      = ev?.admissibility?.get?.(id);
+      const isBest   = id === bestId;
 
       return `
-        <tr>
+        <tr class="${isBest ? 'best' : ''}">
           <td><code>${id}</code></td>
           <td>${fmt(consRaw)}</td>
           <td>${consNorm == null ? '—' : Number(consNorm).toFixed(3)}</td>
@@ -308,18 +278,16 @@
         </tr>`;
     };
 
-    const rankStr = (evald?.ranking ?? [])
-      .map(([a,s]) => `<code>${a}</code> (${Number(s).toFixed(3)})`)
-      .join(' &gt; ');
-
-    const expl = Array.isArray(evald?.explanations) ? evald.explanations.join(' ') : '';
-
     card.innerHTML = `
       <h2>${scn.id ?? 'Scenario'}</h2>
       <p class="muted">${scn.context?.domain ?? ''} ${scn.context?.tags?.length ? '· ' + scn.context.tags.join(', ') : ''}</p>
 
-      <div class="table-wrap">
-        <table>
+      <p><strong>Top recommendation:</strong>
+        ${bestId ? `<code>${bestId}</code> <span class="muted">(${Number(bestScore ?? NaN).toFixed(3)})</span>` : '<span class="muted">—</span>'}
+      </p>
+
+      <div class="table-wrap" role="region" aria-label="${scn.id ?? 'Scenario'} results" tabindex="0">
+        <table class="table-results">
           <thead>
             <tr>
               <th>Action</th>
@@ -334,14 +302,14 @@
             </tr>
           </thead>
           <tbody>
-            ${(actions.length ? actions.map(row).join('') : `<tr><td colspan="9" class="muted">No actions defined.</td></tr>`)}
+            ${actions.length ? actions.map(rowHtml).join('') : `<tr><td colspan="9" class="muted">No actions defined.</td></tr>`}
           </tbody>
         </table>
       </div>
 
-      <p><strong>Ranking:</strong> ${rankStr || '<span class="muted">—</span>'}</p>
+      ${ranking.length ? `<p><strong>Ranking:</strong> ${ranking.map(([a,s]) => `<code>${a}</code> (${Number(s).toFixed(3)})`).join(' &gt; ')}</p>` : ''}
       ${inadmissible.length ? `<p><strong>Inadmissible:</strong> ${inadmissible.join(' | ')}</p>` : ''}
-      ${expl ? `<p><strong>Explanation set:</strong> ${expl}</p>` : ''}
+      ${Array.isArray(ev?.explanations) && ev.explanations.length ? `<p><strong>Explanation set:</strong> ${ev.explanations.join(' ')}</p>` : ''}
     `;
     return card;
   }
@@ -390,7 +358,6 @@
 
   ui.reset.addEventListener('click', () => {
     Object.assign(state, JSON.parse(JSON.stringify(defaults)));
-    // reset inputs
     ui.p_cons.value = defaults.credences.p_cons;
     ui.p_rawls.value = defaults.credences.p_rawls;
     ui.p_virtue.value = defaults.credences.p_virtue;
