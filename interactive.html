@@ -185,24 +185,32 @@
     if (!isFinite(c) || !isFinite(r) || !isFinite(v) || s <= 0) { c = 1; r = 0; v = 0; }
     else { c /= s; r /= s; v /= s; }
 
+    // Write normalized values back into state AND sliders so the thumbs match the labels/bars.
     state.credences.p_cons = c; state.credences.p_rawls = r; state.credences.p_virtue = v;
+    ui.p_cons.value = c.toFixed(2);
+    ui.p_rawls.value = r.toFixed(2);
+    ui.p_virtue.value = v.toFixed(2);
 
     ui.lab_pcons.textContent = c.toFixed(2);
     ui.lab_prawls.textContent = r.toFixed(2);
     ui.lab_pvirtue.textContent = v.toFixed(2);
 
-    // Update mini-bar widths
+    // Update mini-bar widths (guaranteed to sum to ~100%)
     ui.bar_c.style.width = (clamp01(c) * 100).toFixed(1) + '%';
     ui.bar_r.style.width = (clamp01(r) * 100).toFixed(1) + '%';
     ui.bar_v.style.width = (clamp01(v) * 100).toFixed(1) + '%';
   }
+
   function syncPromise() {
     state.promise.enabled = !!ui.promise_enabled.checked;
     state.promise.theta_lives = parseFloat(ui.theta_lives.value);
     ui.lab_promise.textContent = state.promise.enabled ? 'ON' : 'OFF';
     ui.lab_promise.classList.toggle('off', !state.promise.enabled);
-    ui.lab_theta.textContent = (isFinite(state.promise.theta_lives) ? state.promise.theta_lives : 0).toFixed(2);
+    const t = isFinite(state.promise.theta_lives) ? state.promise.theta_lives : 0;
+    ui.lab_theta.textContent = t.toFixed(2);
+    ui.theta_lives.value = t.toFixed(2); // keep thumb and label in sync
   }
+
   function syncVirtueWeights() {
     state.virtueWeights.honesty    = parseFloat(ui.w_honesty.value);
     state.virtueWeights.compassion = parseFloat(ui.w_compassion.value);
@@ -210,6 +218,10 @@
     ui.lab_honesty.textContent     = (isFinite(state.virtueWeights.honesty)?state.virtueWeights.honesty:0).toFixed(2);
     ui.lab_compassion.textContent  = (isFinite(state.virtueWeights.compassion)?state.virtueWeights.compassion:0).toFixed(2);
     ui.lab_fairness.textContent    = (isFinite(state.virtueWeights.fairness)?state.virtueWeights.fairness:0).toFixed(2);
+    // Also keep input thumbs snapped to two decimals so labels and thumbs always agree
+    ui.w_honesty.value    = parseFloat(ui.lab_honesty.textContent);
+    ui.w_compassion.value = parseFloat(ui.lab_compassion.textContent);
+    ui.w_fairness.value   = parseFloat(ui.lab_fairness.textContent);
   }
 
   // ---------- Scenario loading (robust) ----------
@@ -248,7 +260,6 @@
   const recDiv = document.getElementById('rec');
   const scoresDiv = document.getElementById('scores');
 
-  // Deterministic color per action id (no hardcoding)
   function hashCode(str){
     let h=0; for(let i=0;i<str.length;i++){ h=((h<<5)-h)+str.charCodeAt(i); h|=0; }
     return Math.abs(h);
@@ -342,7 +353,7 @@
     }
     recDiv.innerHTML = parts.join('') || '<div class="empty">No scenarios evaluated.</div>';
 
-    // Score tables for every scenario (not just two)
+    // Score tables for every scenario
     const tables = [];
     for (const scn of scenarios) {
       const ev = safeEvaluateScenario(scn, state);
