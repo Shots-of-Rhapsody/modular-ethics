@@ -1,0 +1,55 @@
+name: Deploy Ethics Testbed to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]           # adjust if your default branch differs
+  pull_request:                  # gives you preview deployments on PRs
+  workflow_dispatch:             # manual run
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Prepare static artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Static (HTML/CSS/JS). Just stage the files.
+      # Exclude .github to avoid publishing workflows.
+      - name: Stage site files
+        run: |
+          mkdir -p public
+          rsync -a \
+            --exclude '.git*' \
+            --exclude '.github' \
+            ./ public/
+
+          # Ensure .nojekyll is present so underscore-prefixed paths are not stripped.
+          # (Safe even if it already exists.)
+          touch public/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    if: github.event_name != 'pull_request'   # PRs get preview deployments automatically
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
