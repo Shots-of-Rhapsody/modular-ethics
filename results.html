@@ -1,41 +1,52 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="assets/site.css">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interactive Results - Ethics Testbed</title>
-  <meta name="description" content="Adjust credences, promise thresholds, and virtue weights. See how recommendations change.">
-  <meta name="theme-color" content="#00A86B">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Adjust credences, promise thresholds, and virtue weights. See how recommendations change." />
+  <meta name="theme-color" content="#00A86B" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+
   <style>
     :root{ --jade:#00A86B; --muted:#6b7280; --radius:14px; --maxw:1080px; }
     body{ margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:#fafcff; color:#111827; }
     header{ position:sticky; top:0; backdrop-filter:saturate(120%) blur(10px); background:#ffffffc7; border-bottom:1px solid #e5e7eb; }
     .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 20px; }
-    .nav{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+    .nav-container{ max-width:var(--maxw); margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; height:64px;}
+    .site-nav ul{display:flex; gap:14px; list-style:none; padding:0; margin:0;}
+    .site-nav a{ color:#111827; text-decoration:none; font-weight:600; }
+    .nav-cta{ display:flex; gap:10px; align-items:center;}
+    .btn{ display:inline-block; font-weight:700; padding:10px 16px; border-radius:999px; background:var(--jade); color:#fff; text-decoration:none; box-shadow:0 6px 18px -8px rgba(0,168,107,.25), 0 2px 6px -2px rgba(0,168,107,.25); }
+    .btn.outline{ background:#fff; color:#0b1220; border:1px solid #e5e7eb; }
+    .menu,.theme{ background:transparent; border:1px solid #e5e7eb; border-radius:10px; height:36px; padding:0 10px; cursor:pointer; }
     h1,h2{ font-family:"Playfair Display", Georgia, serif; }
     h1{ margin:14px 0; font-size:clamp(28px,4vw,40px); }
     h2{ margin:20px 0 10px; font-size:clamp(22px,3vw,30px); }
-    .kicker{ display:inline-flex; gap:8px; padding:6px 10px; border-radius:999px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--jade); background:#00a86b1a; }
+    .muted{ color:var(--muted); }
+
     .grid{ display:grid; gap:16px; grid-template-columns:1fr; }
     @media (min-width:1024px){ .grid{ grid-template-columns:360px 1fr; } }
+
     .card{ background:white; border:1px solid #e5e7eb; border-radius:var(--radius); padding:16px; box-shadow:0 12px 34px -24px rgba(0,0,0,.2); }
+    .row{ display:grid; gap:10px; grid-template-columns: 1fr auto; align-items:center; }
+    .ctrl{ display:grid; gap:8px; margin-bottom:14px; }
+    .ctrl label{ font-size:12px; color:#374151; display:flex; justify-content:space-between; align-items:center; }
+    input[type="range"]{ width:100%; }
+    .hr{ height:1px; background:#e5e7eb; margin:12px 0; }
+
     table{ width:100%; border-collapse:collapse; }
-    th,td{ padding:8px 10px; border-bottom:1px solid #e5e7eb; font-size:14px; }
+    th,td{ padding:8px 10px; border-bottom:1px solid #e5e7eb; font-size:14px; vertical-align:top; }
     th{ text-align:left; background:#f8fafc; }
     code{ background:#0d1117; color:#e5e7eb; padding:2px 6px; border-radius:8px; font-size:12px; }
     .pill{ display:inline-block; padding:4px 8px; border-radius:999px; background:#00a86b1a; color:#047857; font-weight:700; font-size:12px; }
-    .muted{ color:var(--muted); }
-    .btn{ display:inline-block; font-weight:700; padding:10px 16px; border-radius:999px; background:var(--jade); color:#fff; text-decoration:none; box-shadow:0 6px 18px -8px rgba(0,168,107,.25), 0 2px 6px -2px rgba(0,168,107,.25); }
-    .row{ display:grid; gap:10px; grid-template-columns: 1fr auto; align-items:center; }
-    .ctrl{ display:grid; gap:8px; margin-bottom:14px; }
-    .ctrl label{ font-size:12px; color:#374151; display:flex; justify-content:space-between; }
-    input[type="range"]{ width:100%; }
-    .hr{ height:1px; background:#e5e7eb; margin:12px 0; }
-    footer{ margin:30px 0 60px; color:var(--muted); }
+    .pill.bad{ background:#fee2e2; color:#991b1b; }
     .badge{ font-size:12px; padding:2px 8px; border-radius:999px; background:#eef2ff; color:#3730a3; }
+    footer{ margin:30px 0 60px; color:var(--muted); }
+    .table-wrap{ overflow:auto; border-radius:10px; border:1px solid #eef2ff; }
+    .empty{ padding:20px; border:1px dashed #e5e7eb; border-radius:12px; text-align:center; color:#6b7280;}
   </style>
 </head>
 <body>
@@ -57,198 +68,255 @@
 
     <div class="nav-cta">
       <button class="theme" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">🌓</button>
-      <a class="btn outline" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">
-        View Repo
-      </a>
+      <a class="btn outline" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">View Repo</a>
       <button class="menu" id="menuBtn" aria-label="Open menu">☰</button>
     </div>
   </div>
 </header>
 
-  <main class="wrap">
-    <h1>Results (Live)</h1>
-    <p class="muted">Adjust parameters on the left. The tables recompute instantly. Deontic constraints gate actions before aggregation.</p>
+<main class="wrap">
+  <h1>Results (Live)</h1>
+  <p class="muted">Adjust parameters on the left. The tables recompute instantly. Deontic constraints gate actions before aggregation.</p>
 
-    <div class="grid">
-      <!-- Controls -->
-      <div class="card" id="controls">
-        <h2>Controls</h2>
+  <div class="grid">
+    <!-- Controls -->
+    <div class="card" id="controls">
+      <h2>Controls</h2>
 
-        <div class="ctrl">
-          <label>Consequentialism weight <span><code id="lab_pcons">0.50</code></span></label>
-          <input id="p_cons" type="range" min="0" max="1" step="0.01" value="0.50">
-        </div>
-
-        <div class="ctrl">
-          <label>Rawls weight <span><code id="lab_prawls">0.25</code></span></label>
-          <input id="p_rawls" type="range" min="0" max="1" step="0.01" value="0.25">
-        </div>
-
-        <div class="ctrl">
-          <label>Virtue weight <span><code id="lab_pvirtue">0.25</code></span></label>
-          <input id="p_virtue" type="range" min="0" max="1" step="0.01" value="0.25">
-          <small class="muted">Credences renormalize so the three sum to 1.</small>
-        </div>
-
-        <div class="hr"></div>
-
-        <div class="ctrl">
-          <label>Promise constraint enabled <span class="badge" id="lab_promise">ON</span></label>
-          <div class="row">
-            <input id="promise_enabled" type="checkbox" checked>
-            <small class="muted">Scenario: <code>evac-promise-v1</code></small>
-          </div>
-        </div>
-
-        <div class="ctrl">
-          <label>Promise override threshold θ (Δ lives) <span><code id="lab_theta">1.50</code></span></label>
-          <input id="theta_lives" type="range" min="0" max="3" step="0.05" value="1.50">
-        </div>
-
-        <div class="hr"></div>
-
-        <h3>Virtue trait weights</h3>
-        <div class="ctrl">
-          <label>Honesty <span><code id="lab_honesty">1.00</code></span></label>
-          <input id="w_honesty" type="range" min="0" max="3" step="0.05" value="1.00">
-        </div>
-        <div class="ctrl">
-          <label>Compassion <span><code id="lab_compassion">1.00</code></span></label>
-          <input id="w_compassion" type="range" min="0" max="3" step="0.05" value="1.00">
-        </div>
-        <div class="ctrl">
-          <label>Fairness <span><code id="lab_fairness">1.00</code></span></label>
-          <input id="w_fairness" type="range" min="0" max="3" step="0.05" value="1.00">
-        </div>
-
-        <div class="hr"></div>
-
-        <button class="btn" id="reset">Reset</button>
+      <div class="ctrl">
+        <label>Consequentialism weight <span><code id="lab_pcons">0.50</code></span></label>
+        <input id="p_cons" type="range" min="0" max="1" step="0.01" value="0.50" />
       </div>
 
-      <!-- Results -->
-        <div id="results" style="display:grid; gap:16px; grid-template-columns:1fr;"></div>
+      <div class="ctrl">
+        <label>Rawls weight <span><code id="lab_prawls">0.25</code></span></label>
+        <input id="p_rawls" type="range" min="0" max="1" step="0.01" value="0.25" />
+      </div>
+
+      <div class="ctrl">
+        <label>Virtue weight <span><code id="lab_pvirtue">0.25</code></span></label>
+        <input id="p_virtue" type="range" min="0" max="1" step="0.01" value="0.25" />
+        <small class="muted">Credences renormalize so the three sum to 1.</small>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="ctrl">
+        <label>Promise constraint enabled <span class="badge" id="lab_promise">ON</span></label>
+        <div class="row">
+          <input id="promise_enabled" type="checkbox" checked />
+          <small class="muted">Scenario: <code>evac-promise-v1</code></small>
+        </div>
+      </div>
+
+      <div class="ctrl">
+        <label>Promise override threshold θ (Δ lives) <span><code id="lab_theta">1.50</code></span></label>
+        <input id="theta_lives" type="range" min="0" max="3" step="0.05" value="1.50" />
+      </div>
+
+      <div class="hr"></div>
+
+      <h3>Virtue trait weights</h3>
+      <div class="ctrl">
+        <label>Honesty <span><code id="lab_honesty">1.00</code></span></label>
+        <input id="w_honesty" type="range" min="0" max="3" step="0.05" value="1.00" />
+      </div>
+      <div class="ctrl">
+        <label>Compassion <span><code id="lab_compassion">1.00</code></span></label>
+        <input id="w_compassion" type="range" min="0" max="3" step="0.05" value="1.00" />
+      </div>
+      <div class="ctrl">
+        <label>Fairness <span><code id="lab_fairness">1.00</code></span></label>
+        <input id="w_fairness" type="range" min="0" max="3" step="0.05" value="1.00" />
+      </div>
+
+      <div class="hr"></div>
+
+      <button class="btn" id="reset">Reset</button>
     </div>
 
-    <h2>Notes</h2>
-    <ul class="muted">
-      <li>Consequentialism reports normalized expected outcomes (life-years in triage, survivors in evacuation).</li>
-      <li><strong>Rawls (maximin)</strong> scores an action by the welfare of the worst-off individual (min over persons); normalized within each scenario.</li>
-      <li>Virtue proxy combines honesty (promise-keeping), compassion (normalized outcomes), & fairness (lottery/split bonus when options are close). Weights tune their influence.</li>
-      <li>Promise rule: if enabled, breaking a credible promise is inadmissible unless expected harm avoided meets θ.</li>
-    </ul>
+    <!-- Results -->
+    <div id="results" style="display:grid; gap:16px; grid-template-columns:1fr;">
+      <div class="card">
+        <div class="empty">Loading scenarios…</div>
+      </div>
+    </div>
+  </div>
 
-    <p><a class="btn" href="index.html">Back to Home</a></p>
-  </main>
+  <h2>Notes</h2>
+  <ul class="muted">
+    <li>Consequentialism reports normalized expected outcomes (life-years in triage, survivors in evacuation).</li>
+    <li><strong>Rawls (maximin)</strong> scores an action by the welfare of the worst-off individual (min over persons); normalized within each scenario.</li>
+    <li>Virtue proxy combines honesty (promise-keeping), compassion (normalized outcomes), &amp; fairness (lottery/split bonus when options are close). Weights tune their influence.</li>
+    <li>Promise rule: if enabled, breaking a credible promise is inadmissible unless expected harm avoided meets θ.</li>
+  </ul>
 
-  <footer class="wrap">
-    © <span id="y"></span> Ethics Testbed · MIT License
-  </footer>
+  <p><a class="btn" href="index.html">Back to Home</a></p>
+</main>
 
-  <script src="js/engine.js"></script>
-  <script>
-    // Defaults now include Rawls
-    const defaults = {
-      credences: { p_cons: 0.5, p_rawls: 0.25, p_virtue: 0.25 },
-      promise: { enabled: true, theta_lives: 1.5 },
-      virtueWeights: { honesty: 1.0, compassion: 1.0, fairness: 1.0 }
-    };
-    const state = JSON.parse(JSON.stringify(defaults));
-    document.getElementById('y').textContent = (new Date()).getFullYear();
+<footer class="wrap">
+  © <span id="y"></span> Ethics Testbed · MIT License
+</footer>
 
-    // UI bindings (added p_rawls)
-    const ui = {
-      p_cons: document.getElementById('p_cons'),
-      p_rawls: document.getElementById('p_rawls'),
-      p_virtue: document.getElementById('p_virtue'),
-      lab_pcons: document.getElementById('lab_pcons'),
-      lab_prawls: document.getElementById('lab_prawls'),
-      lab_pvirtue: document.getElementById('lab_pvirtue'),
+<script src="js/engine.js"></script>
+<script>
+  // ---------- Defaults ----------
+  const defaults = {
+    credences: { p_cons: 0.5, p_rawls: 0.25, p_virtue: 0.25 },
+    promise:   { enabled: true, theta_lives: 1.5 },
+    virtueWeights: { honesty: 1.0, compassion: 1.0, fairness: 1.0 }
+  };
+  const state = JSON.parse(JSON.stringify(defaults));
+  document.getElementById('y').textContent = (new Date()).getFullYear();
 
-      promise_enabled: document.getElementById('promise_enabled'),
-      theta_lives: document.getElementById('theta_lives'),
-      lab_promise: document.getElementById('lab_promise'),
-      lab_theta: document.getElementById('lab_theta'),
+  // ---------- UI bindings ----------
+  const ui = {
+    p_cons: document.getElementById('p_cons'),
+    p_rawls: document.getElementById('p_rawls'),
+    p_virtue: document.getElementById('p_virtue'),
+    lab_pcons: document.getElementById('lab_pcons'),
+    lab_prawls: document.getElementById('lab_prawls'),
+    lab_pvirtue: document.getElementById('lab_pvirtue'),
 
-      w_honesty: document.getElementById('w_honesty'),
-      w_compassion: document.getElementById('w_compassion'),
-      w_fairness: document.getElementById('w_fairness'),
-      lab_honesty: document.getElementById('lab_honesty'),
-      lab_compassion: document.getElementById('lab_compassion'),
-      lab_fairness: document.getElementById('lab_fairness'),
+    promise_enabled: document.getElementById('promise_enabled'),
+    theta_lives: document.getElementById('theta_lives'),
+    lab_promise: document.getElementById('lab_promise'),
+    lab_theta: document.getElementById('lab_theta'),
 
-      reset: document.getElementById('reset')
-    };
+    w_honesty: document.getElementById('w_honesty'),
+    w_compassion: document.getElementById('w_compassion'),
+    w_fairness: document.getElementById('w_fairness'),
+    lab_honesty: document.getElementById('lab_honesty'),
+    lab_compassion: document.getElementById('lab_compassion'),
+    lab_fairness: document.getElementById('lab_fairness'),
 
-    // Renormalize three credences to sum to 1
-    function renormCredences() {
-      let c = parseFloat(ui.p_cons.value);
-      let r = parseFloat(ui.p_rawls.value);
-      let v = parseFloat(ui.p_virtue.value);
-      const s = c + r + v;
-      if (s <= 0) { c = 1; r = 0; v = 0; }
-      else { c /= s; r /= s; v /= s; }
-      state.credences.p_cons = c;
-      state.credences.p_rawls = r;
-      state.credences.p_virtue = v;
-      ui.lab_pcons.textContent = c.toFixed(2);
-      ui.lab_prawls.textContent = r.toFixed(2);
-      ui.lab_pvirtue.textContent = v.toFixed(2);
+    reset: document.getElementById('reset'),
+  };
+
+  // ---------- Helpers ----------
+  function renormCredences() {
+    let c = parseFloat(ui.p_cons.value);
+    let r = parseFloat(ui.p_rawls.value);
+    let v = parseFloat(ui.p_virtue.value);
+    const s = c + r + v;
+
+    if (!isFinite(c) || !isFinite(r) || !isFinite(v) || s <= 0) {
+      c = 1; r = 0; v = 0;
+    } else {
+      c /= s; r /= s; v /= s;
     }
 
-    function syncPromise() {
-      state.promise.enabled = ui.promise_enabled.checked;
-      state.promise.theta_lives = parseFloat(ui.theta_lives.value);
-      ui.lab_promise.textContent = state.promise.enabled ? 'ON' : 'OFF';
-      ui.lab_theta.textContent = state.promise.theta_lives.toFixed(2);
+    state.credences.p_cons   = c;
+    state.credences.p_rawls  = r;
+    state.credences.p_virtue = v;
+
+    ui.lab_pcons.textContent   = c.toFixed(2);
+    ui.lab_prawls.textContent  = r.toFixed(2);
+    ui.lab_pvirtue.textContent = v.toFixed(2);
+  }
+
+  function syncPromise() {
+    state.promise.enabled = !!ui.promise_enabled.checked;
+    state.promise.theta_lives = parseFloat(ui.theta_lives.value);
+    ui.lab_promise.textContent = state.promise.enabled ? 'ON' : 'OFF';
+    ui.lab_theta.textContent = (isFinite(state.promise.theta_lives) ? state.promise.theta_lives : 0).toFixed(2);
+  }
+
+  function syncVirtueWeights() {
+    state.virtueWeights.honesty   = parseFloat(ui.w_honesty.value);
+    state.virtueWeights.compassion= parseFloat(ui.w_compassion.value);
+    state.virtueWeights.fairness  = parseFloat(ui.w_fairness.value);
+    ui.lab_honesty.textContent    = (isFinite(state.virtueWeights.honesty)?state.virtueWeights.honesty:0).toFixed(2);
+    ui.lab_compassion.textContent = (isFinite(state.virtueWeights.compassion)?state.virtueWeights.compassion:0).toFixed(2);
+    ui.lab_fairness.textContent   = (isFinite(state.virtueWeights.fairness)?state.virtueWeights.fairness:0).toFixed(2);
+  }
+
+  function fmt(x){
+    if (x === null || x === undefined || Number.isNaN(x)) return '—';
+    if (typeof x === 'number') return x.toFixed(3);
+    return String(x);
+  }
+
+  // ---------- Data loading (robust) ----------
+  let scenarios = [];
+  const container = document.getElementById('results');
+
+  async function loadScenarios() {
+    // Avoid stale caches during authoring
+    const url1 = `data/scenarios.json?v=${Date.now()}`;
+    const url2 = `data/scenarios.min.json?v=${Date.now()}`; // fallback if present
+
+    async function tryLoad(url){
+      const res = await fetch(url, {cache:'no-store'});
+      if (!res.ok) throw new Error(`Fetch failed: ${url} (${res.status})`);
+      const raw = await res.json();
+      // Accept either {scenarios:[...]} or bare [...]
+      if (Array.isArray(raw)) return raw;
+      if (Array.isArray(raw.scenarios)) return raw.scenarios;
+      if (Array.isArray(raw.items)) return raw.items;
+      throw new Error('Unrecognized scenarios format');
     }
 
-    function syncVirtueWeights() {
-      state.virtueWeights.honesty = parseFloat(ui.w_honesty.value);
-      state.virtueWeights.compassion = parseFloat(ui.w_compassion.value);
-      state.virtueWeights.fairness = parseFloat(ui.w_fairness.value);
-      ui.lab_honesty.textContent = state.virtueWeights.honesty.toFixed(2);
-      ui.lab_compassion.textContent = state.virtueWeights.compassion.toFixed(2);
-      ui.lab_fairness.textContent = state.virtueWeights.fairness.toFixed(2);
+    try {
+      scenarios = await tryLoad(url1);
+    } catch(_e1) {
+      try {
+        scenarios = await tryLoad(url2);
+      } catch(e2) {
+        console.error(e2);
+        container.innerHTML = `<div class="card"><div class="empty">Could not load scenarios. ${e2.message}</div></div>`;
+        scenarios = [];
+      }
     }
+  }
 
-    // Load scenarios and render
-    let scenarios = [];
-    const container = document.getElementById('results');
+  // ---------- Rendering ----------
+  function renderScenario(scn, evald) {
+    const card = document.createElement('div');
+    card.className = 'card';
 
-    async function loadScenarios() {
-      const res = await fetch('data/scenarios.json');
-      if (!res.ok) throw new Error('Failed to load scenarios.json');
-      scenarios = (await res.json()).scenarios;
-    }
+    // Build inadmissible explanation list
+    let inadmissible = [];
+    try {
+      inadmissible = [...(evald.admissibility?.entries?.() ?? [])]
+        .filter(([,v]) => v && v.admissible === false)
+        .map(([k,v]) => `${k} — ${(v?.reasons ?? []).join('; ')}`);
+    } catch { inadmissible = []; }
 
-    function fmt(x){ return (typeof x === 'number') ? x.toFixed(3) : (x ?? '—'); }
+    const actions = (scn.actions || []).map(a => a.id);
+    const row = id => {
+      const consRaw  = evald?.consRaw?.get?.(id);
+      const consNorm = evald?.consNorm?.get?.(id);
+      const rawlsRaw = evald?.rawlsRaw?.get?.(id);
+      const rawlsNorm= evald?.rawlsNorm?.get?.(id);
+      const virtRaw  = evald?.virtueRaw?.get?.(id);
+      const virtNorm = evald?.virtueNorm?.get?.(id);
+      const agg      = evald?.aggregate?.get?.(id);
+      const adm      = evald?.admissibility?.get?.(id);
 
-    function renderScenario(scn, evald) {
-      const card = document.createElement('div');
-      card.className = 'card';
-
-      const inadmissible = [...evald.admissibility.entries()]
-        .filter(([,v])=>!v.admissible)
-        .map(([k,v])=>`${k} — ${v.reasons.join('; ')}`);
-
-      const actions = scn.actions.map(a=>a.id);
-      const row = id => `
+      return `
         <tr>
           <td><code>${id}</code></td>
-          <td>${fmt(evald.consRaw.get(id))}</td>
-          <td>${(evald.consNorm.get(id)??null) === null ? '—' : evald.consNorm.get(id).toFixed(3)}</td>
-          <td>${fmt(evald.rawlsRaw.get(id))}</td>
-          <td>${(evald.rawlsNorm.get(id)??null) === null ? '—' : evald.rawlsNorm.get(id).toFixed(3)}</td>
-          <td>${evald.virtueRaw.get(id).toFixed(3)}</td>
-          <td>${evald.virtueNorm.get(id).toFixed(3)}</td>
-          <td>${(evald.aggregate.get(id)??null) === null ? '—' : evald.aggregate.get(id).toFixed(3)}</td>
-          <td>${evald.admissibility.get(id).admissible ? '<span class="pill">Yes</span>' : '<span class="pill" style="background:#fee2e2;color:#991b1b">No</span>'}</td>
+          <td>${fmt(consRaw)}</td>
+          <td>${consNorm == null ? '—' : Number(consNorm).toFixed(3)}</td>
+          <td>${fmt(rawlsRaw)}</td>
+          <td>${rawlsNorm == null ? '—' : Number(rawlsNorm).toFixed(3)}</td>
+          <td>${virtRaw == null ? '—' : Number(virtRaw).toFixed(3)}</td>
+          <td>${virtNorm == null ? '—' : Number(virtNorm).toFixed(3)}</td>
+          <td>${agg == null ? '—' : Number(agg).toFixed(3)}</td>
+          <td>${adm && adm.admissible !== false ? '<span class="pill">Yes</span>' : '<span class="pill bad">No</span>'}</td>
         </tr>`;
+    };
 
-      card.innerHTML = `
-        <h2>${scn.id}</h2>
-        <p class="muted">${scn.context?.domain ?? ''} · ${scn.context?.tags?.join(', ') ?? ''}</p>
+    const rankStr = (evald?.ranking ?? [])
+      .map(([a,s]) => `<code>${a}</code> (${Number(s).toFixed(3)})`)
+      .join(' &gt; ');
+
+    const expl = Array.isArray(evald?.explanations) ? evald.explanations.join(' ') : '';
+
+    card.innerHTML = `
+      <h2>${scn.id ?? 'Scenario'}</h2>
+      <p class="muted">${scn.context?.domain ?? ''} ${scn.context?.tags?.length ? '· ' + scn.context.tags.join(', ') : ''}</p>
 
       <div class="table-wrap">
         <table>
@@ -266,58 +334,84 @@
             </tr>
           </thead>
           <tbody>
-            ${actions.map(row).join('')}
+            ${(actions.length ? actions.map(row).join('') : `<tr><td colspan="9" class="muted">No actions defined.</td></tr>`)}
           </tbody>
         </table>
       </div>
 
-        <p><strong>Ranking:</strong> ${
-          evald.ranking.map(([a,s])=>`<code>${a}</code> (${s.toFixed(3)})`).join(' > ')
-        }</p>
+      <p><strong>Ranking:</strong> ${rankStr || '<span class="muted">—</span>'}</p>
+      ${inadmissible.length ? `<p><strong>Inadmissible:</strong> ${inadmissible.join(' | ')}</p>` : ''}
+      ${expl ? `<p><strong>Explanation set:</strong> ${expl}</p>` : ''}
+    `;
+    return card;
+  }
 
-        ${inadmissible.length ? `<p><strong>Inadmissible:</strong> ${inadmissible.join(' | ')}</p>` : ''}
+  function renderScenarioError(scn, err) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <h2>${scn?.id ?? 'Scenario'}</h2>
+      <p class="muted">${scn?.context?.domain ?? ''}</p>
+      <div class="empty">This scenario could not be evaluated: ${err?.message ?? err}</div>
+    `;
+    return card;
+  }
 
-        <p><strong>Explanation set:</strong> ${evald.explanations.join(' ')} </p>
-      `;
-      return card;
+  function rerun() {
+    const host = container;
+    host.innerHTML = '';
+    if (!Array.isArray(scenarios) || scenarios.length === 0) {
+      host.innerHTML = `<div class="card"><div class="empty">No scenarios found.</div></div>`;
+      return;
     }
 
-    function rerun() {
-      container.innerHTML = '';
-      for (const scn of scenarios) {
+    for (const scn of scenarios) {
+      try {
         const ev = window.EthicsEngine.evaluateScenario(scn, state);
-        container.appendChild(renderScenario(scn, ev));
+        host.appendChild(renderScenario(scn, ev));
+      } catch (err) {
+        console.error('Scenario evaluation failed:', scn?.id, err);
+        host.appendChild(renderScenarioError(scn, err));
       }
     }
+  }
 
-    // Wire events (now also listen to p_rawls)
-    ui.p_cons.addEventListener('input', () => { renormCredences(); rerun(); });
-    ui.p_rawls.addEventListener('input', () => { renormCredences(); rerun(); });
-    ui.p_virtue.addEventListener('input', () => { renormCredences(); rerun(); });
+  // ---------- Wire events ----------
+  ui.p_cons.addEventListener('input', () => { renormCredences(); rerun(); });
+  ui.p_rawls.addEventListener('input', () => { renormCredences(); rerun(); });
+  ui.p_virtue.addEventListener('input', () => { renormCredences(); rerun(); });
 
-    ui.promise_enabled.addEventListener('change', () => { syncPromise(); rerun(); });
-    ui.theta_lives.addEventListener('input', () => { syncPromise(); rerun(); });
+  ui.promise_enabled.addEventListener('change', () => { syncPromise(); rerun(); });
+  ui.theta_lives.addEventListener('input', () => { syncPromise(); rerun(); });
 
-    ui.w_honesty.addEventListener('input', () => { syncVirtueWeights(); rerun(); });
-    ui.w_compassion.addEventListener('input', () => { syncVirtueWeights(); rerun(); });
-    ui.w_fairness.addEventListener('input', () => { syncVirtueWeights(); rerun(); });
+  ui.w_honesty.addEventListener('input', () => { syncVirtueWeights(); rerun(); });
+  ui.w_compassion.addEventListener('input', () => { syncVirtueWeights(); rerun(); });
+  ui.w_fairness.addEventListener('input', () => { syncVirtueWeights(); rerun(); });
 
-    ui.reset.addEventListener('click', () => {
-      Object.assign(state, JSON.parse(JSON.stringify(defaults)));
-      // reset inputs
-      ui.p_cons.value = 0.5; ui.p_rawls.value = 0.25; ui.p_virtue.value = 0.25;
-      ui.promise_enabled.checked = true; ui.theta_lives.value = 1.5;
-      ui.w_honesty.value = 1.0; ui.w_compassion.value = 1.0; ui.w_fairness.value = 1.0;
-      renormCredences(); syncPromise(); syncVirtueWeights(); rerun();
-    });
+  ui.reset.addEventListener('click', () => {
+    Object.assign(state, JSON.parse(JSON.stringify(defaults)));
+    // reset inputs
+    ui.p_cons.value = defaults.credences.p_cons;
+    ui.p_rawls.value = defaults.credences.p_rawls;
+    ui.p_virtue.value = defaults.credences.p_virtue;
 
-    // Boot
-    (async function main(){
-      renormCredences(); syncPromise(); syncVirtueWeights();
-      await loadScenarios();
-      rerun();
-    })();
-  </script>
-  <script src="assets/site.js"></script>
+    ui.promise_enabled.checked = defaults.promise.enabled;
+    ui.theta_lives.value = defaults.promise.theta_lives;
+
+    ui.w_honesty.value = defaults.virtueWeights.honesty;
+    ui.w_compassion.value = defaults.virtueWeights.compassion;
+    ui.w_fairness.value = defaults.virtueWeights.fairness;
+
+    renormCredences(); syncPromise(); syncVirtueWeights(); rerun();
+  });
+
+  // ---------- Boot ----------
+  (async function main(){
+    renormCredences(); syncPromise(); syncVirtueWeights();
+    await loadScenarios();
+    rerun();
+  })();
+</script>
+<script src="assets/site.js"></script>
 </body>
 </html>
