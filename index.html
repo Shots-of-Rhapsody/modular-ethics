@@ -8,18 +8,31 @@
   <title>Ethics Testbed - Modular Moral Reasoning</title>
   <meta name="description" content="A modular, transparent testbed that turns ethical theories into comparable mathematical programs & runs them on shared scenarios.">
   <meta name="theme-color" content="#00A86B">
+  <meta name="color-scheme" content="light dark">
+  <link rel="canonical" href="https://shotsofrhapsody.com/">
+  <meta name="robots" content="index,follow">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Ethics Testbed - Modular Moral Reasoning">
   <meta property="og:description" content="Turn philosophy into math. Compare theories, surface assumptions, & run scenarios with moral uncertainty.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ethics.testbed/ethics.testbed/">
-  <meta property="og:image" content="https://ethics.testbed/ethics.testbed/og-image.png">
+  <meta property="og:url" content="https://shotsofrhapsody.com/">
+  <meta property="og:image" content="https://shotsofrhapsody.com/og-image.png">
+  <meta property="og:image:alt" content="Ethics Testbed — modular moral reasoning">
+  <meta property="og:site_name" content="Ethics Testbed">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ethics Testbed - Modular Moral Reasoning">
+  <meta name="twitter:description" content="Turn philosophy into math. Compare theories, surface assumptions, & run scenarios with moral uncertainty.">
+  <meta name="twitter:image" content="https://shotsofrhapsody.com/og-image.png">
 
   <!-- Fonts (safe, fast) -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
+  <!-- Optional: favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -139,10 +152,30 @@ Aggregate over admissible actions only:
 CW(a) = Σ_j p_j · f_j( CW_j(a) ),  a ∈ A*
 </code></pre>
         </details>
+
+        <!-- Quick visual examples: inline/display math + flow diagram -->
+        <div class="card" aria-labelledby="viz-math-flow">
+          <h3 id="viz-math-flow">How the pieces fit (at a glance)</h3>
+          <p>The utility is $U = \sum_i w_i \cdot v(U_i)$.</p>
+
+          <p>
+          $$
+          CW(a)=\sum_j p_j\, f_j\big(CW_j(a)\big),\qquad
+          f_j(x)=\frac{x-m_j}{M_j-m_j+\varepsilon}
+          $$
+          </p>
+
+          <!-- Mermaid diagram will be rendered here via JS (string source) -->
+          <div id="engine-diagram" class="diagram" aria-label="Engine flow diagram"></div>
+          <noscript>
+            <p class="tiny">Diagram requires JavaScript (Mermaid) to render.</p>
+          </noscript>
+        </div>
+
         <p class="tiny">
-  Notes: Normalization is taken over the admissible set A*. If A* is empty, we select actions by lexicographically minimizing constraint violations.
-  Virtue uses L2 with per-trait scaling S to avoid unit dominance. The world model M determines P(O | a, M), anchoring the expectation.
-</p>
+          Notes: Normalization is taken over the admissible set A*. If A* is empty, we select actions by lexicographically minimizing constraint violations.
+          Virtue uses L2 with per-trait scaling S to avoid unit dominance. The world model M determines P(O | a, M), anchoring the expectation.
+        </p>
       </div>
     </section>
 
@@ -178,11 +211,11 @@ CW(a) = Σ_j p_j · f_j( CW_j(a) ),  a ∈ A*
 }</code></pre>
         </details>
         <p class="tiny">
-  Sketch: If rescued immediately, survival ≈ 0.95 per passenger. Under delay, East risk 0.40 vs West 0.60.
-  The engine’s expected-lives estimates per action are derived directly from these inputs; showing them here
-  lets readers verify the calculation mirrors the scenario.
-</p>
-<p class="tiny"><code>
+          Sketch: If rescued immediately, survival ≈ 0.95 per passenger. Under delay, East risk 0.40 vs West 0.60.
+          The engine’s expected-lives estimates per action are derived directly from these inputs; showing them here
+          lets readers verify the calculation mirrors the scenario.
+        </p>
+        <p class="tiny"><code>
 A* = { a : ∀k g_k(a,M) ≤ 0 }, f_j(x) = (x - m_j) / (M_j - m_j + ε), m_j = min_{a∈A*} CW_j(a), M_j = max_{a∈A*} CW_j(a)
 </code></p>
       </div>
@@ -245,5 +278,64 @@ A* = { a : ∀k g_k(a,M) ≤ 0 }, f_j(x) = (x - m_j) / (M_j - m_j + ε), m_j
 
   <!-- Scripts (tiny, no deps) -->
   <script src="assets/site.js"></script>
+
+  <!-- MathJax v3 (fast, pure client) -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']],
+        tags: 'ams'
+      },
+      options: {
+        skipHtmlTags: {'[+]': ['pre','code','kbd','samp']},
+        ignoreHtmlClass: 'mermaid'
+      }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.min.js"></script>
+
+  <!-- Mermaid for diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    // Render Mermaid from a JS string to avoid any HTML/minifier interference.
+    document.addEventListener('DOMContentLoaded', function () {
+      try {
+        mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
+        const graph = [
+          'flowchart TD',
+          '  A[Scenario Inputs] --> B{Admissible?}',
+          '  B -->|yes| C[Theory Modules]',
+          '  C --> D[Normalization]',
+          '  D --> E[Aggregate CW(a)]',
+          '  B -->|no| F[Lex-min constraints]'
+        ].join('\\n');
+
+        const container = document.getElementById('engine-diagram');
+        const id = 'mermaid-engine-diagram';
+        mermaid.render(id, graph).then(({ svg }) => {
+          container.innerHTML = svg;
+        }).catch(err => {
+          console.error('Mermaid render error:', err);
+          container.innerHTML = '<pre>Diagram render error.</pre>';
+        });
+      } catch (e) {
+        console.error('Mermaid init error:', e);
+        const container = document.getElementById('engine-diagram');
+        if (container) container.innerHTML = '<pre>Diagram unavailable.</pre>';
+      }
+    });
+  </script>
+
+  <!-- JSON-LD (basic site identity) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Ethics Testbed",
+    "url": "https://shotsofrhapsody.com/",
+    "description": "A modular, transparent testbed turning ethical theories into comparable mathematical programs."
+  }
+  </script>
 </body>
 </html>

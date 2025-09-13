@@ -93,6 +93,9 @@
                 <option>Philosophy</option>
                 <option>Drama</option>
                 <option>Mystery</option>
+                <!-- Added genres for new essays/guides -->
+                <option>Essay</option>
+                <option>Guide</option>
               </select>
               <select id="status" aria-label="Filter by status">
                 <option value="">Any status</option>
@@ -171,7 +174,7 @@
     <div class="wrap foot-grid">
       <div>
         <div class="tiny">© <span id="y"></span> Ethics Testbed. MIT License.</div>
-        <div class="tiny">Built for clarity, reproducibility, & imagination.</div>
+        <div class="tiny">Built for clarity, reproducibility & imagination.</div>
       </div>
       <div class="cta-row">
         <a class="btn outline" href="https://github.com/xartaiusx/ethics.testbed/issues" target="_blank" rel="noopener">Feedback</a>
@@ -209,7 +212,7 @@
             body: [
               'They sealed the seams with a patience that felt religious.',
               'Water finds every gap. So does grief.',
-              'The question was not whether it would float—but whether it would be the same.'
+              'The question was not whether it would float but whether it would be the same.'
             ]},
           { id: 'ch3', title: 'Harbor',    words: 1800, published: '2025-09-01',
             body: [
@@ -222,7 +225,7 @@
       {
         id: 'axiom-garden',
         title: 'Axiom Garden',
-        author: 'Kai Song',
+        author: 'Ethics Testbed',
         genres: ['Speculative','Philosophy'],
         tags: ['ethics','systems','pluralism'],
         status: 'Completed',
@@ -240,7 +243,7 @@
           { id: 'ax2', title: 'Graft',  words: 2050, published: '2025-07-10',
             body: [
               'Two principles refused to share soil.',
-              'She grafted them together, and the scar tasted like compromise.',
+              'She grafted them together & the scar tasted like compromise.',
               'By dusk, the bees had learned a new path.'
             ]},
           { id: 'ax3', title: 'Fruit',  words: 2300, published: '2025-07-18',
@@ -269,6 +272,133 @@
               'Cabin 3A rehearsed a choice with the rigor of confession.',
               'Steel remembers pressure long after the boots leave.'
             ]},
+        ]
+      },
+
+      /* ---------- New short essays & guides (single-chapter, concise) ---------- */
+      {
+        id: 'systems-without-cynicism',
+        title: 'How to Think in Systems Without Losing Your Humanity',
+        author: 'Ethics Testbed',
+        genres: ['Essay','Philosophy'],
+        tags: ['systems','ethics','practice','hope'],
+        status: 'Completed',
+        updated: '2025-09-12',
+        subs: 1680,
+        cover: 'assets/covers/systems.jpg',
+        blurb: 'Simple moves that help you see the whole while staying kind, useful, and sane.',
+        chapters: [
+          { id: 'swc1', title: 'Field Notes', words: 950, published: '2025-09-12', body: [
+            'Systems thinking is a fancy phrase for noticing how parts lean on each other. It is also an invitation to forget the people inside the diagram. The antidote is simple. Hold two pictures at once. The first is a map of stocks, flows, and feedback loops. The second is a sketch of a person who is tired and still trying.',
+            'Start shallow. Ask what repeats. Ask what changes when you push. Small experiments beat large theories when the world refuses to sit still. Write what you expect to happen before you test. Compare the result to the expectation. This is how humility becomes a method and not a mood.',
+            'Trace incentives with curiosity, not contempt. People respond to structures the way water responds to terrain. If you want different behavior, reshape the slope or build a channel. Blame maps to design better rivers. Praise people for paddling upstream while the fix is under construction.',
+            'Prefer levers over lectures. A lever is a rule, default, or tiny interface change that shifts outcomes for everyone without fanfare. Remove one click from a form. Make the safe choice the easy one. Publish a checklist. Celebrate the boring tools that reduce harm at scale.',
+            'Zoom out to see delays. A good action can look useless today and vital in six months. A bad action can look brilliant for a week and then send a bill that arrives with interest. Track the lag explicitly. Do not let the short term bully the long term.',
+            'Zoom in to find edges. Every system has places where the graph meets skin. A queue that wastes an hour is not a statistic. It is a missed dinner, a tighter budget, and a headache tomorrow. Interview the edges, then adjust the center.',
+            'Use two metrics. One that the system optimizes and one that protects what you refuse to trade away. Throughput and dignity. Accuracy and repair time. Revenue and fairness audits. Publish both. Dual metrics keep you honest when growth starts to glare.',
+            'Finally, keep room for grace. Models help us see. They do not absolve us from care. You can be rigorous and gentle at the same time. In fact the first needs the second to remain trustworthy.'
+          ] }
+        ]
+      },
+      {
+        id: 'radical-transparency-practice',
+        title: 'Radical Transparency, Practically',
+        author: 'Ethics Testbed',
+        genres: ['Guide','Essay'],
+        tags: ['funding','open-source','process','community'],
+        status: 'Completed',
+        updated: '2025-09-12',
+        subs: 1342,
+        cover: 'assets/covers/transparency.jpg',
+        blurb: 'A three part habit for making openness normal instead of noisy.',
+        chapters: [
+          { id: 'rtp1', title: 'Three Habits', words: 760, published: '2025-09-12', body: [
+            'Transparency is not a press release. It is a routine. Keep it small and keep it scheduled so it survives busy weeks.',
+            'First habit. Public ledger. Log every incoming dollar and every outgoing dollar in a simple table. Add a one line purpose field and a link to the outcome. People do not want a mystery. They want a receipt that points to a result.',
+            'Second habit. Open discussions. Move decisions from private channels to threads where anyone can read and reply. Summarize the choice, the options you rejected, and the principle that guided the final call. Invite critique without inviting chaos by setting a closing date for comments.',
+            'Third habit. Traceable outcomes. When you spend, ship something visible. It can be a small pull request, a bug fix, a new dataset, or a clearer doc. Attach the expense to the artifact. Over time this builds a public chain from funding to value.',
+            'You do not need a committee to start. You need a calendar reminder and a template. Openness becomes culture when it is cheaper to continue than to stop.'
+          ] }
+        ]
+      },
+      {
+        id: 'five-minute-ethics',
+        title: 'Five Minute Ethics Warmups',
+        author: 'Ethics Testbed',
+        genres: ['Guide','Philosophy'],
+        tags: ['practice','teams','habits'],
+        status: 'Completed',
+        updated: '2025-09-12',
+        subs: 990,
+        cover: 'assets/covers/warmup.jpg',
+        blurb: 'Tiny exercises for teams who want clearer judgment and kinder defaults.',
+        chapters: [
+          { id: 'fme1', title: 'Exercises', words: 720, published: '2025-09-12', body: [
+            'One. Reverse the headline. Take your current claim and write the opposite. Ask what would have to be true for the opposite to win. This protects you from fragile certainty.',
+            'Two. Stake a tiny bet. Before you deploy, write a forecast with a number and a date. After the date, score it. Forecasting turns opinion into skin in the game.',
+            'Three. Ask the fifth user. List who benefits first, second, and third. Then write a single sentence for a person who arrives late to the party. Design one improvement for them.',
+            'Four. Name the cost you accept. Every choice has a tradeoff. Write the one you are willing to carry and why. Hidden costs grow teeth.',
+            'Five. Borrow a rule. Import a norm from medicine, aviation, or accounting. Checklists, two person reviews, or post incident notes. High reliability fields have already paid tuition. Use their receipts.'
+          ] }
+        ]
+      },
+      {
+        id: 'scientists-guide-to-uncertainty',
+        title: 'A Scientist’s Guide to Uncertainty for Everyday Decisions',
+        author: 'Ethics Testbed',
+        genres: ['Essay','Philosophy'],
+        tags: ['bayesian','probability','decision-making'],
+        status: 'Completed',
+        updated: '2025-09-12',
+        subs: 877,
+        cover: 'assets/covers/uncertainty.jpg',
+        blurb: 'Think in probabilities, act with thresholds, and stay kind to your future self.',
+        chapters: [
+          { id: 'sgu1', title: 'Everyday Bayes', words: 880, published: '2025-09-12', body: [
+            'Start with a prior which is a fancy way to say your initial hunch. Make it explicit. Then ask what observation would move you a lot. That is your sensitive test.',
+            'Use likelihood as a story about surprise. If the data would be common under your model, do not move much. If it would be weird, move more. You do not need equations to update. You need honesty about how shocked you are.',
+            'Act with thresholds. Decide in advance what probability is enough to try, enough to continue, and enough to stop. This short circuits decision thrash when the moment arrives.',
+            'Keep track of regret. Choose the option that would leave the kindest audit trail for your future self if it fails. That person will review your notes with less bitterness if you were clear about the rules you used.'
+          ] }
+        ]
+      },
+      {
+        id: 'creative-constraint',
+        title: 'Creative Constraint: Make Tiny Things',
+        author: 'A. M. Taís',
+        genres: ['Essay','Speculative'],
+        tags: ['craft','motivation','shipping'],
+        status: 'Completed',
+        updated: '2025-09-12',
+        subs: 1022,
+        cover: 'assets/covers/tiny.jpg',
+        blurb: 'Momentum loves small containers. Here is how to ship more without burning out.',
+        chapters: [
+          { id: 'cc1', title: 'Tiny Wins', words: 760, published: '2025-09-12', body: [
+            'Set a daily container that fits into the gaps of a real life. One paragraph. One figure. One test. The goal is not to finish a masterpiece. The goal is to build a habit of finishing.',
+            'Reduce scope until it looks silly and then reduce it again. Pride will complain. Ship anyway. Pride can file an issue for the next release.',
+            'Collect a shelf of small artifacts. Zettels, sketches, snippets, audio notes. When you feel stuck, browse the shelf. Your past self has already left you handles you can grab.'
+          ] }
+        ]
+      },
+      {
+        id: 'personal-research-loop',
+        title: 'Build a Personal Research Loop',
+        author: 'Ethics Testbed',
+        genres: ['Guide','Essay'],
+        tags: ['method','learning','notes','replication'],
+        status: 'Completed',
+        updated: '2025-09-12',
+        subs: 931,
+        cover: 'assets/covers/loop.jpg',
+        blurb: 'A lightweight loop that turns curiosity into durable knowledge.',
+        chapters: [
+          { id: 'prl1', title: 'Loop', words: 820, published: '2025-09-12', body: [
+            'Capture. Save highlights with a one line summary written in your own words. If you cannot explain it simply, you did not capture it yet.',
+            'Connect. Link new notes to two old notes. Connection builds memory like mycelium builds forests.',
+            'Create. Turn notes into a public artifact. A paragraph, a chart, a checklist. Shipping makes knowledge compound.',
+            'Critique. Write one reason you might be wrong and one piece of follow up evidence to look for. Curiosity survives criticism when criticism is contained.'
+          ] }
         ]
       }
     ];
@@ -531,7 +661,7 @@
       {
         "@type": "CreativeWorkSeries",
         "name": "Axiom Garden",
-        "author": {"@type":"Person","name":"Kai Song"},
+        "author": {"@type":"Person","name":"Ethics Testbed"},
         "genre": ["Speculative","Philosophy"]
       },
       {
@@ -539,6 +669,42 @@
         "name": "Railcar Logic",
         "author": {"@type":"Person","name":"R. D. Elms"},
         "genre": ["Mystery","Philosophy"]
+      },
+      {
+        "@type": "CreativeWork",
+        "name": "How to Think in Systems Without Losing Your Humanity",
+        "author": {"@type":"Person","name":"Ethics Testbed"},
+        "genre": ["Essay","Philosophy"]
+      },
+      {
+        "@type": "CreativeWork",
+        "name": "Radical Transparency, Practically",
+        "author": {"@type":"Organization","name":"Ethics Testbed"},
+        "genre": ["Guide","Essay"]
+      },
+      {
+        "@type": "CreativeWork",
+        "name": "Five Minute Ethics Warmups",
+        "author": {"@type":"Organization","name":"Ethics Testbed"},
+        "genre": ["Guide","Philosophy"]
+      },
+      {
+        "@type": "CreativeWork",
+        "name": "A Scientist’s Guide to Uncertainty for Everyday Decisions",
+        "author": {"@type":"Person","name":"Ethics Testbed"},
+        "genre": ["Essay","Philosophy"]
+      },
+      {
+        "@type": "CreativeWork",
+        "name": "Creative Constraint: Make Tiny Things",
+        "author": {"@type":"Person","name":"A. M. Taís"},
+        "genre": ["Essay","Speculative"]
+      },
+      {
+        "@type": "CreativeWork",
+        "name": "Build a Personal Research Loop",
+        "author": {"@type":"Organization","name":"Ethics Testbed"},
+        "genre": ["Guide","Essay"]
       }
     ]
   }
