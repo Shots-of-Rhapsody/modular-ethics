@@ -8,40 +8,6 @@
   <meta name="theme-color" content="#00A86B" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root{ --jade:#00A86B; --muted:#6b7280; --radius:14px; --maxw:1200px; }
-    body{ margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:#fafcff; color:#111827; }
-    header{ position:sticky; top:0; backdrop-filter:saturate(120%) blur(10px); background:#ffffffc7; border-bottom:1px solid #e5e7eb; }
-    .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 20px; }
-    .nav-container{ max-width:var(--maxw); margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; height:64px; }
-    .site-nav ul{display:flex; gap:14px; list-style:none; padding:0; margin:0;}
-    .site-nav a{ color:#111827; text-decoration:none; font-weight:600; }
-    .nav-cta{ display:flex; gap:10px; align-items:center;}
-    .btn{ display:inline-block; font-weight:700; padding:10px 16px; border-radius:999px; background:var(--jade); color:#fff; text-decoration:none; box-shadow:0 6px 18px -8px rgba(0,168,107,.25), 0 2px 6px -2px rgba(0,168,107,.25); }
-    .btn.ghost{ background:transparent; color:var(--jade); border:1px solid var(--jade); }
-    .menu,.theme{ background:transparent; border:1px solid #e5e7eb; border-radius:10px; height:36px; padding:0 10px; cursor:pointer; }
-    h1,h2{ font-family:"Playfair Display", Georgia, serif; }
-    h1{ margin:16px 0; font-size:clamp(28px,4vw,40px); }
-    h2{ margin:18px 0 10px; font-size:clamp(22px,3vw,30px); }
-    .muted{ color:var(--muted); }
-    .grid{ display:grid; gap:16px; grid-template-columns:1fr; }
-    @media (min-width:1100px){ .grid{ grid-template-columns:360px 1fr; } }
-    .card{ background:white; border:1px solid #e5e7eb; border-radius:var(--radius); padding:16px; box-shadow:0 12px 34px -24px rgba(0,0,0,.2); }
-    .row{ display:grid; gap:10px; grid-template-columns: 1fr auto; align-items:center; }
-    .ctrl{ display:grid; gap:8px; margin-bottom:14px; }
-    .ctrl label{ font-size:12px; color:#374151; display:flex; justify-content:space-between; }
-    input[type="range"]{ width:100%; }
-    .badge{ font-size:12px; padding:2px 8px; border-radius:999px; background:#eef2ff; color:#3730a3; }
-    .hr{ height:1px; background:#e5e7eb; margin:12px 0; }
-    canvas{ width:100%; height:auto; image-rendering: crisp-edges; border-radius:12px; border:1px solid #e5e7eb; background:#fff; }
-    .legend{ display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; align-items:center; }
-    .swatch{ width:14px; height:14px; border-radius:3px; display:inline-block; border:1px solid #0001; }
-    code{ background:#0d1117; color:#e5e7eb; padding:2px 6px; border-radius:8px; font-size:12px; }
-    table{ width:100%; border-collapse:collapse; margin-top:14px; }
-    th,td{ padding:8px 10px; border-bottom:1px solid #e5e7eb; font-size:14px; text-align:left; vertical-align:top; }
-    th{ background:#f8fafc; }
-    .empty{ padding:12px; border:1px dashed #e5e7eb; border-radius:12px; color:#6b7280; text-align:center; }
-  </style>
 </head>
 <body>
 <header>
@@ -61,19 +27,19 @@
     </nav>
     <div class="nav-cta">
       <button class="theme" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">🌓</button>
-      <a class="btn ghost" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">View Repo</a>
+      <a class="btn outline" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">View Repo</a>
       <button class="menu" id="menuBtn" aria-label="Open menu">☰</button>
     </div>
   </div>
 </header>
 
 <main class="wrap">
-  <h1>Exports & Sensitivity</h1>
+  <h1 class="page-title">Exports & Sensitivity</h1>
   <p class="muted">
     Tune credences across Consequentialism, Rawls, and Virtue; toggle the promise rule; export runs; and see sensitivity across p<sub>cons</sub> and θ.
   </p>
 
-  <div class="grid">
+  <div class="grid grid-results">
     <!-- Controls -->
     <div class="card" id="controls">
       <h2>Controls</h2>
@@ -92,10 +58,17 @@
         <small class="muted">Scalar credences renormalize so the three sum to 1.</small>
       </div>
 
+      <!-- Credence mini-bar -->
+      <div class="bar sp-2" aria-hidden="true">
+        <span class="c" id="bar_c" style="width:50%"></span>
+        <span class="r" id="bar_r" style="width:25%"></span>
+        <span class="v" id="bar_v" style="width:25%"></span>
+      </div>
+
       <div class="hr"></div>
 
       <div class="ctrl">
-        <label>Promise constraint enabled <span class="badge" id="lab_promise">ON</span></label>
+        <label>Promise constraint <span class="badge" id="lab_promise">ON</span></label>
         <div class="row">
           <input id="promise_enabled" type="checkbox" checked />
           <small class="muted">Affects <code>evac-promise-v1</code></small>
@@ -127,7 +100,7 @@
 
       <div class="row">
         <button class="btn" id="exportRun">Download current run (JSON)</button>
-        <a class="btn ghost" href="results.html">Table view</a>
+        <a class="btn outline" href="results.html">Table view</a>
       </div>
     </div>
 
@@ -137,21 +110,22 @@
       <p class="muted">
         Heatmap of the <strong>evacuation</strong> recommendation across p<sub>cons</sub> (x) and θ (y), holding p<sub>rawls</sub> fixed (virtue = 1 − p<sub>cons</sub> − p<sub>rawls</sub>).
       </p>
+
       <canvas id="chart" width="800" height="520" aria-label="Sensitivity heatmap"></canvas>
       <div class="legend" id="legend"><span class="muted">Legend builds after scenarios load…</span></div>
 
-      <h2 style="margin-top:18px">Current Recommendation</h2>
+      <h2 class="sp-3">Current Recommendation</h2>
       <div id="rec"><div class="empty">Loading…</div></div>
 
-      <h2 style="margin-top:18px">Current Scores</h2>
+      <h2 class="sp-3">Current Scores</h2>
       <div id="scores"><div class="empty">Loading…</div></div>
     </div>
   </div>
 
-  <p style="margin-top:18px"><a class="btn" href="index.html">Back to Home</a></p>
+  <p class="sp-3"><a class="btn" href="index.html">Back to Home</a></p>
 </main>
 
-<footer class="wrap" style="margin:30px 0 60px; color:#6b7280">
+<footer class="wrap">
   © <span id="y"></span> Ethics Testbed · MIT License
 </footer>
 
@@ -187,10 +161,21 @@
     lab_compassion: document.getElementById('lab_compassion'),
     lab_fairness: document.getElementById('lab_fairness'),
 
-    exportRun: document.getElementById('exportRun')
+    exportRun: document.getElementById('exportRun'),
+
+    bar_c: document.getElementById('bar_c'),
+    bar_r: document.getElementById('bar_r'),
+    bar_v: document.getElementById('bar_v'),
   };
 
   // ---------- Math helpers ----------
+  function fmt(x){
+    if (x === null || x === undefined || Number.isNaN(x)) return '—';
+    if (typeof x === 'number') return x.toFixed(3);
+    return String(x);
+  }
+  function clamp01(x){ return Math.max(0, Math.min(1, x)); }
+
   function renormCredences() {
     let c = parseFloat(ui.p_cons.value);
     let r = parseFloat(ui.p_rawls.value);
@@ -201,14 +186,21 @@
     else { c /= s; r /= s; v /= s; }
 
     state.credences.p_cons = c; state.credences.p_rawls = r; state.credences.p_virtue = v;
+
     ui.lab_pcons.textContent = c.toFixed(2);
     ui.lab_prawls.textContent = r.toFixed(2);
     ui.lab_pvirtue.textContent = v.toFixed(2);
+
+    // Update mini-bar widths
+    ui.bar_c.style.width = (clamp01(c) * 100).toFixed(1) + '%';
+    ui.bar_r.style.width = (clamp01(r) * 100).toFixed(1) + '%';
+    ui.bar_v.style.width = (clamp01(v) * 100).toFixed(1) + '%';
   }
   function syncPromise() {
     state.promise.enabled = !!ui.promise_enabled.checked;
     state.promise.theta_lives = parseFloat(ui.theta_lives.value);
     ui.lab_promise.textContent = state.promise.enabled ? 'ON' : 'OFF';
+    ui.lab_promise.classList.toggle('off', !state.promise.enabled);
     ui.lab_theta.textContent = (isFinite(state.promise.theta_lives) ? state.promise.theta_lives : 0).toFixed(2);
   }
   function syncVirtueWeights() {
@@ -218,11 +210,6 @@
     ui.lab_honesty.textContent     = (isFinite(state.virtueWeights.honesty)?state.virtueWeights.honesty:0).toFixed(2);
     ui.lab_compassion.textContent  = (isFinite(state.virtueWeights.compassion)?state.virtueWeights.compassion:0).toFixed(2);
     ui.lab_fairness.textContent    = (isFinite(state.virtueWeights.fairness)?state.virtueWeights.fairness:0).toFixed(2);
-  }
-  function fmt(x){
-    if (x === null || x === undefined || Number.isNaN(x)) return '—';
-    if (typeof x === 'number') return x.toFixed(3);
-    return String(x);
   }
 
   // ---------- Scenario loading (robust) ----------
@@ -274,7 +261,7 @@
   function drawLegendForEvac(evacScenario){
     if (!evacScenario) { legend.innerHTML = `<span class="muted">Evacuation scenario not found.</span>`; return; }
     const ids = (evacScenario.actions||[]).map(a=>a.id);
-    legend.innerHTML = ids.map(id => `<span><span class="swatch" style="background:${colorFor(id)};"></span> <code>${id}</code></span>`).join(' ');
+    legend.innerHTML = ids.map(id => `<span><span class="swatch" style="width:14px;height:14px;display:inline-block;border-radius:3px;border:1px solid #0001;background:${colorFor(id)};"></span> <code>${id}</code></span>`).join(' ');
   }
 
   // ---------- Engine wrappers ----------
@@ -373,11 +360,15 @@
           <td>${fmt(ev.aggregate?.get?.(id))}</td>
         </tr>`;
       tables.push(`
-        <table>
-          <thead><tr><th colspan="5">${scn.id ? `<code>${scn.id}</code>` : 'Scenario'}</th></tr>
-                 <tr><th>Action</th><th>Cons</th><th>Rawls</th><th>Virtue</th><th>Aggregate</th></tr></thead>
-          <tbody>${acts.length ? acts.map(row).join('') : `<tr><td colspan="5" class="muted">No actions defined.</td></tr>`}</tbody>
-        </table>
+        <div class="table-wrap sp-2">
+          <table class="table-results">
+            <thead>
+              <tr><th colspan="5">${scn.id ? `<code>${scn.id}</code>` : 'Scenario'}</th></tr>
+              <tr><th>Action</th><th>Cons</th><th>Rawls</th><th>Virtue</th><th>Aggregate</th></tr>
+            </thead>
+            <tbody>${acts.length ? acts.map(row).join('') : `<tr><td colspan="5" class="muted">No actions defined.</td></tr>`}</tbody>
+          </table>
+        </div>
       `);
     }
     scoresDiv.innerHTML = tables.join('');
