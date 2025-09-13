@@ -1,10 +1,4 @@
 {
-  "$schema": "../schemas/scenarios.schema.json",
-  "meta": { "ledger_version": "0.1", "notes": "Seed scenarios for first runs." },
-  "scenarios": []
-}
-
-{
   "meta": {
     "schema_version": "1.0",
     "ledger_version": "0.1",
