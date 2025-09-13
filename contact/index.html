@@ -1,91 +1,83 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <base href="/ethics.testbed/">
-  <link rel="stylesheet" href="assets/site.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contact - Ethics Testbed</title>
+  <title>Contact — Ethics Testbed</title>
   <meta name="description" content="Get in touch with the Ethics Testbed project team. Reach out for collaboration, feedback, or inquiries.">
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <!-- Header -->
-<header>
-  <div class="nav-container">
-    <nav class="site-nav">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/contribute.html">Contribute</a></li>
-        <li><a href="/interactive.html">Interactive</a></li>
-        <li><a href="/language-math.html">Language &amp; Math</a></li>
-        <li><a href="/paper.html">Paper</a></li>
-        <li><a href="/research.html">Research</a></li>
-        <li><a href="/results.html">Results</a></li>
-        <li><a href="/stories.html">Stories</a></li>
-        <li><a href="/contact/">Contact</a></li>
-        <li><a href="/testing-index.html">Testing Index</a></li>
-      </ul>
-    </nav>
+  <header>
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true"></div>
+        Ethics Testbed
+      </div>
 
-    <div class="nav-cta">
-      <button class="theme" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">🌓</button>
-      <a class="btn outline" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">
-        View Repo
-      </a>
-      <button class="menu" id="menuBtn" aria-label="Open menu">☰</button>
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/contribute.html">Contribute</a></li>
+          <li><a href="/interactive.html">Interactive</a></li>
+          <li><a href="/language-math.html">Language &amp; Math</a></li>
+          <li><a href="/paper.html">Paper</a></li>
+          <li><a href="/research.html">Research</a></li>
+          <li><a href="/results.html">Results</a></li>
+          <li><a href="/stories.html">Stories</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/testing-index.html">Testing Index</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-cta">
+        <button class="theme" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">🌓</button>
+        <a class="btn outline" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">View Repo</a>
+        <button class="menu" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-  <!-- Hero -->
   <section class="hero" id="home">
     <div class="wrap">
       <span class="kicker">Contact</span>
       <h1>Get in Touch</h1>
-      <p class="lead">
-        We welcome collaboration, critique & curiosity. Reach out to connect with the team behind Ethics Testbed.
-      </p>
+      <p class="lead">We welcome collaboration, critique, and curiosity. Reach out to connect with the team behind Ethics Testbed.</p>
     </div>
   </section>
 
-  <!-- Main Content -->
   <main id="main">
     <section id="contact" class="wrap">
       <h2>Contact Information</h2>
-      <p>Whether you're interested in research, collaboration, or feedback, feel free to reach us through the channels below:</p>
-      <ul>
-        <li><strong>Ethics Testbed Project</strong></li>
-        <li><strong>Shots of Rhapsody LLC</strong></li>
-        <li>1001 Bishop St. STE 2685A, Honolulu, HI 96813 USA</li>
-        <li>Email: <a href="mailto:Artaius@ShotsOfRhapsody.com">Artaius@ShotsOfRhapsody.com</a></li>
-        <li>GitHub: <a href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">xartaiusx/ethics.testbed</a></li>
-      </ul>
+      <p>Whether you are interested in research, collaboration, or feedback, you can reach us through the channels below:</p>
+
+      <address class="lead" style="font-style: normal;">
+        <strong>Ethics Testbed Project</strong><br>
+        <strong>Shots of Rhapsody LLC</strong><br>
+        1001 Bishop St. STE 2685A, Honolulu, HI 96813 USA<br>
+        Email: <a href="mailto:Artaius@ShotsOfRhapsody.com">Artaius@ShotsOfRhapsody.com</a><br>
+        GitHub: <a href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">xartaiusx/ethics.testbed</a>
+      </address>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer>
     <div class="wrap foot-grid">
       <div>
-        <div class="tiny">© <span id="year"></span> Ethics Testbed. MIT License.</div>
-        <div class="tiny">Built for transparency, reproducibility & pluralistic reasoning.</div>
+        <div class="tiny">© <span id="y"></span> Ethics Testbed. MIT License.</div>
+        <div class="tiny">Built for transparency, reproducibility, and pluralistic reasoning.</div>
       </div>
       <div class="cta-row">
         <a class="btn outline" href="mailto:TaiSong@ShotsOfRhapsody.com">Email Us</a>
-        <a class="btn" href="index.html">Back to Home</a>
+        <a class="btn" href="/">Back to Home</a>
       </div>
     </div>
   </footer>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-  <script src="assets/site.js"></script>
+  <script src="/assets/site.js"></script>
 </body>
 </html>

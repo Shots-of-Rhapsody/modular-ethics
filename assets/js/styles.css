@@ -1,15 +1,98 @@
-/* Minimal, clean styling */
-:root { --maxw: 900px; --pad: 1rem; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-* { box-sizing: border-box; }
-body { margin: 0; color: #0f172a; background: #fafafa; }
-a { color: #0f62fe; text-decoration: none; }
-a:hover { text-decoration: underline; }
-.container { max-width: var(--maxw); padding: 0 var(--pad); margin: 0 auto; }
-.nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; }
-.brand { font-weight: 700; color: inherit; }
-.menu { list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0; }
-.hero { padding: 10vh 0; }
-.hero h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 0.5rem 0; }
-.hero p { font-size: 1.1rem; max-width: 60ch; }
-.btn { display: inline-block; padding: 0.6rem 1rem; border-radius: 999px; background: #0f62fe; color: white; font-weight: 600; }
-footer { padding: 3rem 0; font-size: 0.9rem; color: #475569; }
+/* styles.css — scoped, conflict-free minimal page styles
+   Apply to pages using <body class="minimal">. Safe alongside site.css. */
+
+/* Fallbacks in case site.css is absent */
+:root {
+  --maxw: var(--maxw, 900px);
+  --pad: 1rem;
+  --jade: var(--jade, #00A86B);
+  --fg: var(--fg, #111827);
+}
+
+/* Base (scoped) */
+body.minimal {
+  color: var(--fg);
+  /* inherit background and font from site.css */
+}
+
+/* Layout */
+body.minimal .container {
+  max-width: var(--maxw);
+  padding: 0 var(--pad);
+  margin: 0 auto;
+}
+
+/* Header */
+body.minimal .nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+body.minimal .brand {
+  font-weight: 700;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Menu */
+body.minimal .menu {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+body.minimal .menu a {
+  color: inherit;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+body.minimal .menu a:hover {
+  text-decoration: underline;
+}
+
+/* Hero */
+body.minimal .hero {
+  padding: 10vh 0;
+}
+
+body.minimal .hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0 0 0.5rem 0;
+  font-family: "Playfair Display", Georgia, serif; /* aligns with site.css */
+}
+
+body.minimal .hero p {
+  font-size: 1.1rem;
+  max-width: 60ch;
+  color: var(--muted);
+}
+
+/* Buttons */
+body.minimal .btn {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: var(--jade);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 6px 18px -8px rgba(0,168,107,0.25);
+}
+
+body.minimal .btn:hover {
+  filter: brightness(1.05);
+  text-decoration: none;
+}
+
+/* Footer */
+body.minimal footer {
+  padding: 3rem 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+  border-top: 1px dashed rgba(107, 114, 128, 0.20);
+}

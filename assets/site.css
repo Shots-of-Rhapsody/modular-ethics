@@ -1,10 +1,10 @@
-/* ==========================================================================
-   Ethics Testbed — Universal Styles
+/* =============================================================================
+   Ethics Testbed — Unified Styles (rev)
    ========================================================================== */
 
 /* ----- Design tokens ----- */
 :root {
-  --jade: #00A86B; /* brand */
+  --jade: #00A86B;
   --ink: #0b1220;
   --ink-2: #1f2637;
   --fog: #f6f7fb;
@@ -12,6 +12,13 @@
   --ring: rgba(0,168,107,0.25);
   --radius: 14px;
   --maxw: 1080px;
+
+  /* text + surfaces */
+  --fg: #111827;
+  --bg: #ffffff;
+  --bg-2: #fafcff;
+  --border: rgba(107, 114, 128, 0.20);
+  --shadow: 0 12px 34px -24px rgba(0,0,0,.25);
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -19,6 +26,12 @@
     --ink-2: #111827;
     --fog: #0b0f14;
     --muted: #9aa4b2;
+
+    --fg: #e5e7eb;
+    --bg: #0b0f14;
+    --bg-2: #0c1720;
+    --border: rgba(154, 164, 178, 0.20);
+    --shadow: 0 10px 28px -22px rgba(0,0,0,.5);
   }
   body { color-scheme: dark; }
 }
@@ -28,35 +41,124 @@
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
+  line-height: 1.55;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  color: #111827;
-  background: linear-gradient(180deg, #ffffff 0%, #fafcff 100%);
+  color: var(--fg);
+  background:
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
 }
 @media (prefers-color-scheme: dark) {
-  body { color: #e5e7eb; background: radial-gradient(1200px 600px at 20% -10%, #0c1720, transparent), #0b0f14; }
+  body {
+    background:
+      radial-gradient(1200px 600px at 20% -10%, var(--bg-2), transparent),
+      var(--bg);
+  }
 }
+
 a { color: var(--jade); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
-/* ----- Header / Nav ----- */
-header {
-  position: sticky; top: 0; z-index: 40;
-  backdrop-filter: saturate(120%) blur(10px);
-  background: color-mix(in srgb, var(--fog) 80%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--muted) 20%, transparent);
+/* Focus visibility */
+:where(a, button, summary, [tabindex]) {
+  outline: none;
 }
-.nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: 0.2px; }
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--jade);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* =============================================================================
+   Header / Navigation (horizontal, non-overlay)
+   ========================================================================== */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  width: 100%;
+  backdrop-filter: saturate(120%) blur(10px);
+  background:
+    color-mix(in srgb, var(--fog) 85%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+
+/* container: supports both old .nav and new .nav-container */
+.nav, .nav-container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+}
+
+/* brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
 .brand-logo {
   width: 28px; height: 28px; border-radius: 8px;
   background: conic-gradient(from 180deg at 50% 50%, #00a86b, #00c38a, #00a86b);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--jade) 20%, #ffffff);
 }
-.nav-links { display: none; gap: 18px; }
-.nav-links a { font-weight: 600; color: inherit; opacity: 0.85; }
-.nav-cta { display: flex; gap: 10px; align-items: center; }
 
+/* nav links: works for both .site-nav ul and legacy .nav-links */
+.site-nav ul, .nav-links {
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.site-nav li { margin: 0; }
+.site-nav a, .nav-links a {
+  font-weight: 600;
+  color: inherit;
+  opacity: 0.90;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+}
+.site-nav a:hover, .nav-links a:hover { opacity: 1; text-decoration: none; }
+
+/* CTA cluster on the right */
+.nav-cta { display: flex; gap: 10px; align-items: center; }
+.menu { display: inline-flex; background: transparent; border: 0; font-size: 20px; cursor: pointer; }
+.theme { display: inline-flex; background: transparent; border: 0; font-size: 18px; cursor: pointer; }
+
+/* desktop vs mobile */
+@media (max-width: 860px) {
+  .site-nav ul, .nav-links {
+    display: none;
+  }
+  .site-nav ul.is-open, .nav-links.is-open {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: absolute;
+    top: calc(64px + 1px);
+    left: 0; right: 0;
+    background: color-mix(in srgb, var(--fog) 92%, transparent);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+  }
+}
+@media (min-width: 861px) {
+  .menu { display: none; }
+}
+
+/* buttons */
 .btn {
   appearance: none; border: 0; cursor: pointer;
   font: inherit; font-weight: 700;
@@ -66,18 +168,19 @@ header {
   box-shadow: 0 6px 18px -8px var(--ring), 0 2px 6px -2px var(--ring);
 }
 .btn:hover { transform: translateY(-1px); }
+.btn:focus-visible { outline: 2px solid var(--jade); outline-offset: 2px; }
 .btn.outline {
   background: transparent; color: var(--jade); border: 1.5px solid var(--jade);
   box-shadow: none;
 }
-.menu { display: inline-flex; background: transparent; border: 0; font-size: 20px; }
-.theme { display: inline-flex; background: transparent; border: 0; font-size: 18px; }
-@media (min-width: 860px) {
-  .nav-links { display: flex; }
-  .menu { display: none; }
-}
 
-/* ----- Hero ----- */
+/* guard against accidental full-viewport nav from other styles */
+.site-nav, .site-nav ul, .site-nav li { position: static; height: auto; width: auto; }
+
+/* =============================================================================
+   Hero
+   ========================================================================== */
+
 .hero { position: relative; overflow: clip; padding: 88px 0 54px; }
 .hero h1 {
   font-family: "Playfair Display", Georgia, serif;
@@ -95,7 +198,10 @@ header {
 .hero p { max-width: 780px; font-size: 18px; line-height: 1.6; color: var(--muted); }
 .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
 
-/* ----- Grid & Cards ----- */
+/* =============================================================================
+   Grid & Cards
+   ========================================================================== */
+
 .grid {
   display: grid; gap: 18px; margin: 42px 0 0;
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -103,11 +209,15 @@ header {
 @media (min-width: 920px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 
 .card {
-  background: linear-gradient(180deg, color-mix(in srgb, #fff 85%, var(--jade) 5%), color-mix(in srgb, #fff 95%, transparent));
-  border: 1px solid color-mix(in srgb, var(--muted) 14%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, #fff 85%, var(--jade) 5%),
+    color-mix(in srgb, #fff 95%, transparent)
+  );
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 18px 18px 16px;
-  box-shadow: 0 12px 34px -24px rgba(0,0,0,.25);
+  box-shadow: var(--shadow);
 }
 @media (prefers-color-scheme: dark) {
   .card { background: linear-gradient(180deg, #0f1520, #0b0f14); }
@@ -115,7 +225,10 @@ header {
 .card h3 { margin: 8px 0 8px; font-size: 18px; }
 .card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
 
-/* ----- Sections / Headings ----- */
+/* =============================================================================
+   Sections / Headings
+   ========================================================================== */
+
 section { padding: 58px 0; }
 section h2 {
   font-family: "Playfair Display", Georgia, serif;
@@ -123,7 +236,10 @@ section h2 {
 }
 .lead { color: var(--muted); max-width: 820px; }
 
-/* ----- Details / Disclosure ----- */
+/* =============================================================================
+   Details / Disclosure
+   ========================================================================== */
+
 details {
   background: color-mix(in srgb, var(--jade) 6%, transparent);
   border: 1px solid color-mix(in srgb, var(--jade) 22%, transparent);
@@ -131,7 +247,10 @@ details {
 }
 summary { cursor: pointer; font-weight: 700; }
 
-/* ----- Code blocks ----- */
+/* =============================================================================
+   Code blocks
+   ========================================================================== */
+
 pre, code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   background: #0d1117; color: #e5e7eb;
@@ -139,8 +258,12 @@ pre, code {
 pre {
   border-radius: 12px; padding: 14px; overflow-x: auto; border: 1px solid #1f2937;
 }
+code { border-radius: 8px; padding: 2px 6px; }
 
-/* ----- Pills / Lists ----- */
+/* =============================================================================
+   Pills / Lists
+   ========================================================================== */
+
 .pill {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 6px 10px; border-radius: 999px;
@@ -151,19 +274,40 @@ pre {
 .list-axioms { display: grid; gap: 10px; margin-top: 12px; }
 .list-axioms li { padding-left: 8px; }
 
-/* ----- Footer ----- */
+/* =============================================================================
+   Footer
+   ========================================================================== */
+
 footer {
   margin-top: 40px; padding: 40px 0 60px; color: var(--muted);
-  border-top: 1px dashed color-mix(in srgb, var(--muted) 24%, transparent);
+  border-top: 1px dashed var(--border);
 }
 .foot-grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
 @media (min-width: 720px) { .foot-grid { grid-template-columns: 1fr auto; align-items: center; } }
 .tiny { font-size: 12px; opacity: .8; }
 
-/* ----- Accessibility: Skip link ----- */
-.skip { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
-.skip:focus { left: 12px; top: 12px; width: auto; height: auto; background: #fff; padding: 8px 12px; border-radius: 8px; outline: 2px solid var(--jade); }
+/* =============================================================================
+   Accessibility: Skip link
+   ========================================================================== */
 
-/* ----- Utilities (site-wide helpers) ----- */
+.skip {
+  position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+}
+.skip:focus {
+  left: 12px; top: 12px; width: auto; height: auto;
+  background: #fff; color: #111;
+  padding: 8px 12px; border-radius: 8px; outline: 2px solid var(--jade);
+}
+
+/* =============================================================================
+   Utilities
+   ========================================================================== */
+
 .muted { color: var(--muted); }
-code { border-radius: 8px; padding: 2px 6px; }
+
+/* Spacing helpers */
+.sp-0 { margin: 0 !important; }
+.sp-1 { margin-top: 0.25rem !important; }
+.sp-2 { margin-top: 0.5rem !important; }
+.sp-3 { margin-top: 1rem !important; }
+.sp-4 { margin-top: 1.5rem !important; }

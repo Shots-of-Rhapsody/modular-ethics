@@ -3,13 +3,56 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Not Found</title>
-  <link rel="stylesheet" href="/assets/css/styles.css">
+  <title>404 — Page Not Found</title>
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <!-- optional: include styles.css if you want minimal overrides -->
 </head>
 <body>
-  <main class="container" style="padding: 20vh 0;">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header>
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        Ethics Testbed
+      </div>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/contribute.html">Contribute</a></li>
+          <li><a href="/interactive.html">Interactive</a></li>
+          <li><a href="/language-math.html">Language &amp; Math</a></li>
+          <li><a href="/paper.html">Paper</a></li>
+          <li><a href="/research.html">Research</a></li>
+          <li><a href="/results.html">Results</a></li>
+          <li><a href="/stories.html">Stories</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/testing-index.html">Testing Index</a></li>
+        </ul>
+      </nav>
+      <div class="nav-cta">
+        <button class="theme" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">🌓</button>
+        <a class="btn outline" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">View Repo</a>
+        <button class="menu" id="menuBtn" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="wrap hero" style="text-align:center; padding:12vh 0;">
     <h1>404</h1>
-    <p>Page not found. <a href="/">Back home</a>.</p>
+    <p class="lead">Sorry, the page you’re looking for doesn’t exist or has been moved.</p>
+    <div class="cta-row">
+      <a class="btn" href="/">Back Home</a>
+      <a class="btn outline" href="/research.html">Research</a>
+    </div>
   </main>
+
+  <footer>
+    <div class="foot-grid wrap">
+      <p class="tiny">&copy; <span id="y"></span> Ethics Testbed</p>
+    </div>
+  </footer>
+
+  <script src="/assets/site.js"></script>
 </body>
 </html>
