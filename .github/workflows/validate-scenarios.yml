@@ -14,6 +14,7 @@ jobs:
   validate:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
 
@@ -26,12 +27,16 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install ajv-cli globally
-        run: npm install -g ajv-cli
+      # Quick JSON syntax sanity checks (helpful error messages if quotes/commas are off)
+      - name: Sanity check JSON (schema)
+        shell: bash
+        run: node -e "JSON.parse(require('fs').readFileSync('schemas/scenarios.schema.json','utf8'))"
 
+      - name: Sanity check JSON (data)
+        shell: bash
+        run: node -e "JSON.parse(require('fs').readFileSync('data/scenarios.json','utf8'))"
+
+      # Validate with ajv using npx (no global install; consistent on Ubuntu/Windows)
       - name: Validate scenarios.json against schema
-        run: |
-          ajv validate \
-            -s schemas/scenarios.schema.json \
-            -d data/scenarios.json \
-            --spec=draft2020
+        shell: bash
+        run: npx -y ajv-cli@6.0.0 validate -s schemas/scenarios.schema.json -d data/scenarios.json --spec=draft2020

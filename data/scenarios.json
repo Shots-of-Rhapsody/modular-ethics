@@ -1,7 +1,7 @@
 {
-  "$schema": "./schemas/scenarios.schema.json",
+  "$schema": "../schemas/scenarios.schema.json",
   "meta": { "ledger_version": "0.1", "notes": "Seed scenarios for first runs." },
-  "scenarios": [ /* ... */ ]
+  "scenarios": []
 }
 
 {
