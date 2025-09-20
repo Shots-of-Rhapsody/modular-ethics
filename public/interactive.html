@@ -2,457 +2,471 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="/assets/bundle.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Interactive - Exports & Sensitivity | Ethics Testbed</title>
+  <title>Interactive — Exports & Sensitivity | Ethics Testbed</title>
   <meta name="theme-color" content="#00A86B" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- CSS bundle -->
+  <link rel="preload" href="/assets/bundle.css" as="style" />
+  <link rel="stylesheet" href="/assets/bundle.css" />
 </head>
 <body>
 
-    <!-- Header -->
-<header>
-  <div class="nav-container">
-    <!-- Brand -->
-    <a class="brand" href="/">
-      <span class="brand-logo" aria-hidden="true"></span>
-      <span class="brand-name">Ethics Testbed</span>
-    </a>
-
-    <!-- Navigation -->
-    <nav class="site-nav">
-      <!-- Mobile toggle -->
-      <button class="menu" aria-label="Menu" onclick="
-        const list = this.nextElementSibling;
-        list.classList.toggle('is-open');
-      ">☰</button>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/contribute.html">Contribute</a></li>
-        <li><a href="/interactive.html">Interactive</a></li>
-        <li><a href="/language-math.html">Language &amp; Math</a></li>
-        <li><a href="/paper.html">Paper</a></li>
-        <li><a href="/research.html">Research</a></li>
-        <li><a href="/results.html">Results</a></li>
-        <li><a href="/stories.html">Stories</a></li>
-        <li><a href="/contact.html">Contact</a></li>
-      </ul>
-    </nav>
-
-    <!-- Right CTA: Repo link -->
-    <div class="nav-cta">
-      <a class="btn outline icon" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true">
-          <path fill="currentColor" d="M8 0a8 8 0 0 0-2.53 15.6c.4.07.55-.17.55-.38v-1.33c-2.23.49-2.7-1.07-2.7-1.07-.36-.9-.9-1.14-.9-1.14-.73-.49.06-.48.06-.48.8.06 1.22.83 1.22.83.72 1.22 1.88.86 2.34.66.07-.52.28-.86.5-1.05-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.58.82-2.13-.08-.2-.36-1.01.08-2.11 0 0 .67-.21 2.2.81a7.6 7.6 0 0 1 2-.27 7.6 7.6 0 0 1 2 .27c1.53-1.02 2.2-.81 2.2-.81.44 1.1.16 1.9.08 2.11.51.55.82 1.26.82 2.13 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.47v2.18c0 .21.15.46.55.38A8 8 0 0 0 8 0z"/>
-        </svg>
-        <span class="sr-only">View Repo</span>
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <!-- Brand -->
+      <a class="brand" href="/index.html">
+        <span class="brand-logo" aria-hidden="true"></span>
+        <span class="brand-name">Ethics Testbed</span>
       </a>
+
+      <!-- Navigation -->
+      <nav class="site-nav">
+        <!-- Mobile toggle -->
+        <button
+          class="menu"
+          aria-label="Menu"
+          aria-controls="site-links"
+          aria-expanded="false"
+          onclick="
+            const list = document.getElementById('site-links');
+            const open = list.classList.toggle('is-open');
+            this.setAttribute('aria-expanded', String(open));
+          "
+        >☰</button>
+        <ul id="site-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/contribute.html">Contribute</a></li>
+          <li><a href="/interactive.html" aria-current="page">Interactive</a></li>
+          <li><a href="/language-math.html">Language &amp; Math</a></li>
+          <li><a href="/paper.html">Paper</a></li>
+          <li><a href="/research.html">Research</a></li>
+          <li><a href="/results.html">Results</a></li>
+          <li><a href="/stories.html">Stories</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Right CTA: Repo link -->
+      <div class="nav-cta">
+        <a class="btn outline icon" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true">
+            <path fill="currentColor" d="M8 0a8 8 0 0 0-2.53 15.6c.4.07.55-.17.55-.38v-1.33c-2.23.49-2.7-1.07-2.7-1.07-.36-.9-.9-1.14-.9-1.14-.73-.49.06-.48.06-.48.8.06 1.22.83 1.22.83.72 1.22 1.88.86 2.34.66.07-.52.28-.86.5-1.05-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.58.82-2.13-.08-.2-.36-1.01.08-2.11 0 0 .67-.21 2.2.81a7.6 7.6 0 0 1 2-.27 7.6 7.6 0 0 1 2 .27c1.53-1.02 2.2-.81 2.2-.81.44 1.1.16 1.9.08 2.11.51.55.82 1.26.82 2.13 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.47v2.18c0 .21.15.46.55.38A8 8 0 0 0 8 0z"/>
+          </svg>
+          <span class="sr-only">View Repo</span>
+        </a>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<main class="wrap">
-  <h1 class="page-title">Exports & Sensitivity</h1>
-  <p class="muted">
-    Tune credences across Consequentialism, Rawls, and Virtue; toggle the promise rule; export runs; and see sensitivity across p<sub>cons</sub> and θ.
-  </p>
+  <main class="wrap">
+    <h1 class="page-title">Exports & Sensitivity</h1>
+    <p class="muted">
+      Tune credences across Consequentialism, Rawls, and Virtue; toggle the promise rule; export runs; and see sensitivity across p<sub>cons</sub> and θ.
+    </p>
 
-  <div class="grid grid-results">
-    <!-- Controls -->
-    <div class="card" id="controls">
-      <h2>Controls</h2>
+    <div class="grid grid-results">
+      <!-- Controls -->
+      <div class="card" id="controls">
+        <h2>Controls</h2>
 
-      <div class="ctrl">
-        <label>Consequentialism weight <span><code id="lab_pcons">0.50</code></span></label>
-        <input id="p_cons" type="range" min="0" max="1" step="0.01" value="0.50" />
-      </div>
-      <div class="ctrl">
-        <label>Rawls weight <span><code id="lab_prawls">0.25</code></span></label>
-        <input id="p_rawls" type="range" min="0" max="1" step="0.01" value="0.25" />
-      </div>
-      <div class="ctrl">
-        <label>Virtue weight <span><code id="lab_pvirtue">0.25</code></span></label>
-        <input id="p_virtue" type="range" min="0" max="1" step="0.01" value="0.25" />
-        <small class="muted">Scalar credences renormalize so the three sum to 1.</small>
-      </div>
+        <div class="ctrl">
+          <label>Consequentialism weight <span><code id="lab_pcons">0.50</code></span></label>
+          <input id="p_cons" type="range" min="0" max="1" step="0.01" value="0.50" />
+        </div>
+        <div class="ctrl">
+          <label>Rawls weight <span><code id="lab_prawls">0.25</code></span></label>
+          <input id="p_rawls" type="range" min="0" max="1" step="0.01" value="0.25" />
+        </div>
+        <div class="ctrl">
+          <label>Virtue weight <span><code id="lab_pvirtue">0.25</code></span></label>
+          <input id="p_virtue" type="range" min="0" max="1" step="0.01" value="0.25" />
+          <small class="muted">Scalar credences renormalize so the three sum to 1.</small>
+        </div>
 
-      <!-- Credence mini-bar -->
-      <div class="bar sp-2" aria-hidden="true">
-        <span class="c" id="bar_c" style="width:50%"></span>
-        <span class="r" id="bar_r" style="width:25%"></span>
-        <span class="v" id="bar_v" style="width:25%"></span>
-      </div>
+        <!-- Credence mini-bar -->
+        <div class="bar sp-2" aria-hidden="true">
+          <span class="c" id="bar_c" style="width:50%"></span>
+          <span class="r" id="bar_r" style="width:25%"></span>
+          <span class="v" id="bar_v" style="width:25%"></span>
+        </div>
 
-      <div class="hr"></div>
+        <div class="hr"></div>
 
-      <div class="ctrl">
-        <label>Promise constraint <span class="badge" id="lab_promise">ON</span></label>
+        <div class="ctrl">
+          <label>Promise constraint <span class="badge" id="lab_promise">ON</span></label>
+          <div class="row">
+            <input id="promise_enabled" type="checkbox" checked />
+            <small class="muted">Affects <code>evac-promise-v1</code></small>
+          </div>
+        </div>
+
+        <div class="ctrl">
+          <label>Promise override threshold θ (Δ lives) <span><code id="lab_theta">1.50</code></span></label>
+          <input id="theta_lives" type="range" min="0" max="3" step="0.05" value="1.50" />
+        </div>
+
+        <div class="hr"></div>
+
+        <h3>Virtue trait weights</h3>
+        <div class="ctrl">
+          <label>Honesty <span><code id="lab_honesty">1.00</code></span></label>
+          <input id="w_honesty" type="range" min="0" max="3" step="0.05" value="1.00" />
+        </div>
+        <div class="ctrl">
+          <label>Compassion <span><code id="lab_compassion">1.00</code></span></label>
+          <input id="w_compassion" type="range" min="0" max="3" step="0.05" value="1.00" />
+        </div>
+        <div class="ctrl">
+          <label>Fairness <span><code id="lab_fairness">1.00</code></span></label>
+          <input id="w_fairness" type="range" min="0" max="3" step="0.05" value="1.00" />
+        </div>
+
+        <div class="hr"></div>
+
         <div class="row">
-          <input id="promise_enabled" type="checkbox" checked />
-          <small class="muted">Affects <code>evac-promise-v1</code></small>
+          <button class="btn" id="exportRun">Download current run (JSON)</button>
+          <a class="btn outline" href="/results.html">Table view</a>
         </div>
       </div>
 
-      <div class="ctrl">
-        <label>Promise override threshold θ (Δ lives) <span><code id="lab_theta">1.50</code></span></label>
-        <input id="theta_lives" type="range" min="0" max="3" step="0.05" value="1.50" />
-      </div>
+      <!-- Viz + output -->
+      <div class="card">
+        <h2>Sensitivity Map</h2>
+        <p class="muted">
+          Heatmap of the <strong>evacuation</strong> recommendation across p<sub>cons</sub> (x) and θ (y), holding p<sub>rawls</sub> fixed (virtue = 1 − p<sub>cons</sub> − p<sub>rawls</sub>).
+        </p>
 
-      <div class="hr"></div>
+        <canvas id="chart" width="800" height="520" aria-label="Sensitivity heatmap"></canvas>
+        <div class="legend" id="legend"><span class="muted">Legend builds after scenarios load…</span></div>
 
-      <h3>Virtue trait weights</h3>
-      <div class="ctrl">
-        <label>Honesty <span><code id="lab_honesty">1.00</code></span></label>
-        <input id="w_honesty" type="range" min="0" max="3" step="0.05" value="1.00" />
-      </div>
-      <div class="ctrl">
-        <label>Compassion <span><code id="lab_compassion">1.00</code></span></label>
-        <input id="w_compassion" type="range" min="0" max="3" step="0.05" value="1.00" />
-      </div>
-      <div class="ctrl">
-        <label>Fairness <span><code id="lab_fairness">1.00</code></span></label>
-        <input id="w_fairness" type="range" min="0" max="3" step="0.05" value="1.00" />
-      </div>
+        <h2 class="sp-3">Current Recommendation</h2>
+        <div id="rec"><div class="empty">Loading…</div></div>
 
-      <div class="hr"></div>
-
-      <div class="row">
-        <button class="btn" id="exportRun">Download current run (JSON)</button>
-        <a class="btn outline" href="results.html">Table view</a>
+        <h2 class="sp-3">Current Scores</h2>
+        <div id="scores"><div class="empty">Loading…</div></div>
       </div>
     </div>
 
-    <!-- Viz + output -->
-    <div class="card">
-      <h2>Sensitivity Map</h2>
-      <p class="muted">
-        Heatmap of the <strong>evacuation</strong> recommendation across p<sub>cons</sub> (x) and θ (y), holding p<sub>rawls</sub> fixed (virtue = 1 − p<sub>cons</sub> − p<sub>rawls</sub>).
-      </p>
+    <p class="sp-3"><a class="btn" href="/index.html">Back to Home</a></p>
+  </main>
 
-      <canvas id="chart" width="800" height="520" aria-label="Sensitivity heatmap"></canvas>
-      <div class="legend" id="legend"><span class="muted">Legend builds after scenarios load…</span></div>
+  <footer class="wrap">
+    © <span id="y"></span> Ethics Testbed · MIT License
+  </footer>
 
-      <h2 class="sp-3">Current Recommendation</h2>
-      <div id="rec"><div class="empty">Loading…</div></div>
+  <!-- Page logic as an ES module; import engine directly -->
+  <script type="module">
+    import { evaluateScenario } from "/src/js/engine/core.js";
 
-      <h2 class="sp-3">Current Scores</h2>
-      <div id="scores"><div class="empty">Loading…</div></div>
-    </div>
-  </div>
-
-  <p class="sp-3"><a class="btn" href="index.html">Back to Home</a></p>
-</main>
-
-<footer class="wrap">
-  © <span id="y"></span> Ethics Testbed · MIT License
-</footer>
-
-<script src="js/engine.js"></script>
-<script>
-  // ---------- Defaults & state ----------
-  const defaults = {
-    credences: { p_cons: 0.5, p_rawls: 0.25, p_virtue: 0.25 },
-    promise:   { enabled: true, theta_lives: 1.5 },
-    virtueWeights: { honesty: 1.0, compassion: 1.0, fairness: 1.0 }
-  };
-  const state = JSON.parse(JSON.stringify(defaults));
-  document.getElementById('y').textContent = (new Date()).getFullYear();
-
-  // ---------- UI refs ----------
-  const ui = {
-    p_cons: document.getElementById('p_cons'),
-    p_rawls: document.getElementById('p_rawls'),
-    p_virtue: document.getElementById('p_virtue'),
-    lab_pcons: document.getElementById('lab_pcons'),
-    lab_prawls: document.getElementById('lab_prawls'),
-    lab_pvirtue: document.getElementById('lab_pvirtue'),
-
-    promise_enabled: document.getElementById('promise_enabled'),
-    theta_lives: document.getElementById('theta_lives'),
-    lab_promise: document.getElementById('lab_promise'),
-    lab_theta: document.getElementById('lab_theta'),
-
-    w_honesty: document.getElementById('w_honesty'),
-    w_compassion: document.getElementById('w_compassion'),
-    w_fairness: document.getElementById('w_fairness'),
-    lab_honesty: document.getElementById('lab_honesty'),
-    lab_compassion: document.getElementById('lab_compassion'),
-    lab_fairness: document.getElementById('lab_fairness'),
-
-    exportRun: document.getElementById('exportRun'),
-
-    bar_c: document.getElementById('bar_c'),
-    bar_r: document.getElementById('bar_r'),
-    bar_v: document.getElementById('bar_v'),
-  };
-
-  // ---------- Math helpers ----------
-  function fmt(x){
-    if (x === null || x === undefined || Number.isNaN(x)) return '—';
-    if (typeof x === 'number') return x.toFixed(3);
-    return String(x);
-  }
-  function clamp01(x){ return Math.max(0, Math.min(1, x)); }
-
-  function renormCredences() {
-    let c = parseFloat(ui.p_cons.value);
-    let r = parseFloat(ui.p_rawls.value);
-    let v = parseFloat(ui.p_virtue.value);
-    const s = c + r + v;
-
-    if (!isFinite(c) || !isFinite(r) || !isFinite(v) || s <= 0) { c = 1; r = 0; v = 0; }
-    else { c /= s; r /= s; v /= s; }
-
-    // Write normalized values back into state AND sliders so the thumbs match the labels/bars.
-    state.credences.p_cons = c; state.credences.p_rawls = r; state.credences.p_virtue = v;
-    ui.p_cons.value = c.toFixed(2);
-    ui.p_rawls.value = r.toFixed(2);
-    ui.p_virtue.value = v.toFixed(2);
-
-    ui.lab_pcons.textContent = c.toFixed(2);
-    ui.lab_prawls.textContent = r.toFixed(2);
-    ui.lab_pvirtue.textContent = v.toFixed(2);
-
-    // Update mini-bar widths (guaranteed to sum to ~100%)
-    ui.bar_c.style.width = (clamp01(c) * 100).toFixed(1) + '%';
-    ui.bar_r.style.width = (clamp01(r) * 100).toFixed(1) + '%';
-    ui.bar_v.style.width = (clamp01(v) * 100).toFixed(1) + '%';
-  }
-
-  function syncPromise() {
-    state.promise.enabled = !!ui.promise_enabled.checked;
-    state.promise.theta_lives = parseFloat(ui.theta_lives.value);
-    ui.lab_promise.textContent = state.promise.enabled ? 'ON' : 'OFF';
-    ui.lab_promise.classList.toggle('off', !state.promise.enabled);
-    const t = isFinite(state.promise.theta_lives) ? state.promise.theta_lives : 0;
-    ui.lab_theta.textContent = t.toFixed(2);
-    ui.theta_lives.value = t.toFixed(2); // keep thumb and label in sync
-  }
-
-  function syncVirtueWeights() {
-    state.virtueWeights.honesty    = parseFloat(ui.w_honesty.value);
-    state.virtueWeights.compassion = parseFloat(ui.w_compassion.value);
-    state.virtueWeights.fairness   = parseFloat(ui.w_fairness.value);
-    ui.lab_honesty.textContent     = (isFinite(state.virtueWeights.honesty)?state.virtueWeights.honesty:0).toFixed(2);
-    ui.lab_compassion.textContent  = (isFinite(state.virtueWeights.compassion)?state.virtueWeights.compassion:0).toFixed(2);
-    ui.lab_fairness.textContent    = (isFinite(state.virtueWeights.fairness)?state.virtueWeights.fairness:0).toFixed(2);
-    // Also keep input thumbs snapped to two decimals so labels and thumbs always agree
-    ui.w_honesty.value    = parseFloat(ui.lab_honesty.textContent);
-    ui.w_compassion.value = parseFloat(ui.lab_compassion.textContent);
-    ui.w_fairness.value   = parseFloat(ui.lab_fairness.textContent);
-  }
-
-  // ---------- Scenario loading (robust) ----------
-  let scenarios = [];
-  async function loadScenarios() {
-    const url1 = `data/scenarios.json?v=${Date.now()}`;
-    const url2 = `data/scenarios.min.json?v=${Date.now()}`;
-
-    async function tryLoad(url){
-      const res = await fetch(url, {cache:'no-store'});
-      if (!res.ok) throw new Error(`Fetch failed: ${url} (${res.status})`);
-      const raw = await res.json();
-      if (Array.isArray(raw)) return raw;
-      if (Array.isArray(raw.scenarios)) return raw.scenarios;
-      if (Array.isArray(raw.items)) return raw.items;
-      throw new Error('Unrecognized scenarios format');
-    }
-
-    try {
-      scenarios = await tryLoad(url1);
-    } catch(_e1) {
-      try { scenarios = await tryLoad(url2); }
-      catch(e2) {
-        console.error(e2);
-        scenarios = [];
-        document.getElementById('rec').innerHTML = `<div class="empty">Could not load scenarios. ${e2.message}</div>`;
-        document.getElementById('scores').innerHTML = '';
-      }
-    }
-  }
-
-  // ---------- Drawing utils ----------
-  const canvas = document.getElementById('chart');
-  const ctx = canvas.getContext('2d');
-  const legend = document.getElementById('legend');
-  const recDiv = document.getElementById('rec');
-  const scoresDiv = document.getElementById('scores');
-
-  function hashCode(str){
-    let h=0; for(let i=0;i<str.length;i++){ h=((h<<5)-h)+str.charCodeAt(i); h|=0; }
-    return Math.abs(h);
-  }
-  function colorFor(key){
-    const h = hashCode(String(key)) % 360;
-    return `hsl(${h} 60% 55%)`;
-  }
-
-  function drawLegendForEvac(evacScenario){
-    if (!evacScenario) { legend.innerHTML = `<span class="muted">Evacuation scenario not found.</span>`; return; }
-    const ids = (evacScenario.actions||[]).map(a=>a.id);
-    legend.innerHTML = ids.map(id => `<span><span class="swatch" style="width:14px;height:14px;display:inline-block;border-radius:3px;border:1px solid #0001;background:${colorFor(id)};"></span> <code>${id}</code></span>`).join(' ');
-  }
-
-  // ---------- Engine wrappers ----------
-  function safeEvaluateScenario(scn, settings){
-    try { return window.EthicsEngine.evaluateScenario(scn, settings); }
-    catch (e){ console.error('Evaluate failed:', scn?.id, e); return null; }
-  }
-
-  function topAction(ev){
-    return (ev?.ranking && ev.ranking[0] && ev.ranking[0][0]) ? ev.ranking[0][0] : null;
-  }
-
-  // Evaluate evacuation across grid of p_cons × θ; hold p_rawls fixed; p_virtue = max(0, 1 - p_cons - p_rawls)
-  function renderSensitivity() {
-    if (!Array.isArray(scenarios) || scenarios.length === 0) {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.font = '14px Inter,sans-serif'; ctx.fillStyle = '#6b7280';
-      ctx.fillText('No scenarios available.', 20, 30);
-      return;
-    }
-
-    const evac = scenarios.find(s=>s.id==="evac-promise-v1" || /evac/i.test(s.id||''));
-    drawLegendForEvac(evac);
-
-    const W = canvas.width, H = canvas.height;
-    const padL = 54, padB = 42, padT = 20, padR = 16;
-    const plotW = W - padL - padR, plotH = H - padT - padB;
-    ctx.clearRect(0,0,W,H);
-
-    const NX = 50, NY = 50;
-    const pRawlsFix = state.credences.p_rawls;
-
-    for (let iy=0; iy<NY; iy++) {
-      const theta = 3 * (iy/(NY-1));
-      for (let ix=0; ix<NX; ix++) {
-        const pCons = ix/(NX-1);
-        const pVirt = Math.max(0, 1 - pCons - pRawlsFix);
-        const settings = {
-          credences: { p_cons: pCons, p_rawls: pRawlsFix, p_virtue: pVirt },
-          promise: { enabled: state.promise.enabled, theta_lives: state.promise.enabled ? theta : state.promise.theta_lives },
-          virtueWeights: state.virtueWeights
-        };
-        const ev = evac ? safeEvaluateScenario(evac, settings) : null;
-        const a = topAction(ev);
-        const color = a ? colorFor(a) : '#9ca3af';
-        const x = padL + Math.floor(ix*plotW/NX);
-        const y = padT + Math.floor((NY-1-iy)*plotH/NY);
-        const cw = Math.ceil(plotW/NX)+1;
-        const ch = Math.ceil(plotH/NY)+1;
-        ctx.fillStyle = color; ctx.fillRect(x, y, cw, ch);
-      }
-    }
-
-    // Axes
-    ctx.strokeStyle = '#111827'; ctx.lineWidth = 1; ctx.strokeRect(padL, padT, plotW, plotH);
-    ctx.fillStyle = '#111827'; ctx.font = '12px Inter, system-ui, sans-serif';
-    for (let t=0; t<=10; t+=2) {
-      const p = t/10, x = padL + p*plotW;
-      ctx.beginPath(); ctx.moveTo(x, padT+plotH); ctx.lineTo(x, padT+plotH+6); ctx.stroke();
-      ctx.fillText(p.toFixed(1), x-8, padT+plotH+20);
-    }
-    ctx.fillText('p_cons (virtue = 1 − p_cons − p_rawls)', padL + plotW/2 - 110, H-8);
-    for (let t=0; t<=6; t+=1) {
-      const th = (t/2), y = padT + (1 - th/3)*plotH;
-      ctx.beginPath(); ctx.moveTo(padL-6, y); ctx.lineTo(padL, y); ctx.stroke();
-      ctx.fillText(th.toFixed(1), 8, y+4);
-    }
-    ctx.save(); ctx.translate(12, padT + plotH/2); ctx.rotate(-Math.PI/2);
-    ctx.fillText('θ (Δ lives to override promise)', -90, 0);
-    ctx.restore();
-
-    // Current recommendations across *all* scenarios
-    const parts = [];
-    for (const scn of scenarios) {
-      const ev = safeEvaluateScenario(scn, state);
-      const best = topAction(ev) || '—';
-      parts.push(`<p>${scn.id ? `<code>${scn.id}</code>` : 'Scenario'}: <code>${best}</code></p>`);
-    }
-    recDiv.innerHTML = parts.join('') || '<div class="empty">No scenarios evaluated.</div>';
-
-    // Score tables for every scenario
-    const tables = [];
-    for (const scn of scenarios) {
-      const ev = safeEvaluateScenario(scn, state);
-      if (!ev) {
-        tables.push(`<div class="empty">Could not evaluate <code>${scn.id||'scenario'}</code>.</div>`);
-        continue;
-      }
-      const acts = (scn.actions||[]).map(a=>a.id);
-      const row = (id) => `
-        <tr>
-          <td><code>${id}</code></td>
-          <td>${fmt(ev.consNorm?.get?.(id))}</td>
-          <td>${fmt(ev.rawlsNorm?.get?.(id))}</td>
-          <td>${fmt(ev.virtueNorm?.get?.(id))}</td>
-          <td>${fmt(ev.aggregate?.get?.(id))}</td>
-        </tr>`;
-      tables.push(`
-        <div class="table-wrap sp-2">
-          <table class="table-results">
-            <thead>
-              <tr><th colspan="5">${scn.id ? `<code>${scn.id}</code>` : 'Scenario'}</th></tr>
-              <tr><th>Action</th><th>Cons</th><th>Rawls</th><th>Virtue</th><th>Aggregate</th></tr>
-            </thead>
-            <tbody>${acts.length ? acts.map(row).join('') : `<tr><td colspan="5" class="muted">No actions defined.</td></tr>`}</tbody>
-          </table>
-        </div>
-      `);
-    }
-    scoresDiv.innerHTML = tables.join('');
-  }
-
-  // ---------- Export current run ----------
-  function download(filename, obj) {
-    const blob = new Blob([JSON.stringify(obj, null, 2)], {type: 'application/json'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
-    URL.revokeObjectURL(url);
-  }
-  function runAll() {
-    const results = [];
-    for (const scn of scenarios) {
-      const ev = safeEvaluateScenario(scn, state);
-      if (!ev) { results.push({ scenarioId: scn.id, error: 'evaluation_failed' }); continue; }
-      results.push({
-        scenarioId: scn.id,
-        ranking: ev.ranking,
-        admissibility: Array.from(ev.admissibility?.entries?.() ?? []),
-        explanations: ev.explanations ?? []
-      });
-    }
-    return {
-      timestamp: new Date().toISOString(),
-      ledger_version: "0.1",
-      settings: JSON.parse(JSON.stringify(state)),
-      scenarios: scenarios.map(s => s.id),
-      results
+    // ---------- Defaults & state ----------
+    const defaults = {
+      credences: { p_cons: 0.5, p_rawls: 0.25, p_virtue: 0.25 },
+      promise:   { enabled: true, theta_lives: 1.5 },
+      virtueWeights: { honesty: 1.0, compassion: 1.0, fairness: 1.0 }
     };
-  }
-  ui.exportRun.addEventListener('click', () => {
-    const bundle = runAll();
-    download(`ethics-testbed-run-${new Date().toISOString().slice(0,10)}.json`, bundle);
-  });
+    const state = JSON.parse(JSON.stringify(defaults));
+    document.getElementById('y').textContent = (new Date()).getFullYear();
 
-  // ---------- Bind UI ----------
-  ['p_cons','p_rawls','p_virtue'].forEach(id => {
-    document.getElementById(id).addEventListener('input', () => { renormCredences(); renderSensitivity(); });
-  });
-  document.getElementById('promise_enabled').addEventListener('change', () => { syncPromise(); renderSensitivity(); });
-  document.getElementById('theta_lives').addEventListener('input', () => { syncPromise(); renderSensitivity(); });
-  ['w_honesty','w_compassion','w_fairness'].forEach(id => {
-    document.getElementById(id).addEventListener('input', () => { syncVirtueWeights(); renderSensitivity(); });
-  });
+    // ---------- UI refs ----------
+    const ui = {
+      p_cons: document.getElementById('p_cons'),
+      p_rawls: document.getElementById('p_rawls'),
+      p_virtue: document.getElementById('p_virtue'),
+      lab_pcons: document.getElementById('lab_pcons'),
+      lab_prawls: document.getElementById('lab_prawls'),
+      lab_pvirtue: document.getElementById('lab_pvirtue'),
 
-  // ---------- Boot ----------
-  (async function main(){
-    renormCredences(); syncPromise(); syncVirtueWeights();
-    await loadScenarios();
-    renderSensitivity();
-  })();
-</script>
-<script src="/src/js/index.js"></script>
+      promise_enabled: document.getElementById('promise_enabled'),
+      theta_lives: document.getElementById('theta_lives'),
+      lab_promise: document.getElementById('lab_promise'),
+      lab_theta: document.getElementById('lab_theta'),
+
+      w_honesty: document.getElementById('w_honesty'),
+      w_compassion: document.getElementById('w_compassion'),
+      w_fairness: document.getElementById('w_fairness'),
+      lab_honesty: document.getElementById('lab_honesty'),
+      lab_compassion: document.getElementById('lab_compassion'),
+      lab_fairness: document.getElementById('lab_fairness'),
+
+      exportRun: document.getElementById('exportRun'),
+
+      bar_c: document.getElementById('bar_c'),
+      bar_r: document.getElementById('bar_r'),
+      bar_v: document.getElementById('bar_v'),
+    };
+
+    // ---------- Math helpers ----------
+    function fmt(x){
+      if (x === null || x === undefined || Number.isNaN(x)) return '—';
+      if (typeof x === 'number') return x.toFixed(3);
+      return String(x);
+    }
+    function clamp01(x){ return Math.max(0, Math.min(1, x)); }
+
+    function renormCredences() {
+      let c = parseFloat(ui.p_cons.value);
+      let r = parseFloat(ui.p_rawls.value);
+      let v = parseFloat(ui.p_virtue.value);
+      const s = c + r + v;
+
+      if (!isFinite(c) || !isFinite(r) || !isFinite(v) || s <= 0) { c = 1; r = 0; v = 0; }
+      else { c /= s; r /= s; v /= s; }
+
+      state.credences.p_cons = c; state.credences.p_rawls = r; state.credences.p_virtue = v;
+      ui.p_cons.value = c.toFixed(2);
+      ui.p_rawls.value = r.toFixed(2);
+      ui.p_virtue.value = v.toFixed(2);
+
+      ui.lab_pcons.textContent = c.toFixed(2);
+      ui.lab_prawls.textContent = r.toFixed(2);
+      ui.lab_pvirtue.textContent = v.toFixed(2);
+
+      ui.bar_c.style.width = (clamp01(c) * 100).toFixed(1) + '%';
+      ui.bar_r.style.width = (clamp01(r) * 100).toFixed(1) + '%';
+      ui.bar_v.style.width = (clamp01(v) * 100).toFixed(1) + '%';
+    }
+
+    function syncPromise() {
+      state.promise.enabled = !!ui.promise_enabled.checked;
+      state.promise.theta_lives = parseFloat(ui.theta_lives.value);
+      ui.lab_promise.textContent = state.promise.enabled ? 'ON' : 'OFF';
+      ui.lab_promise.classList.toggle('off', !state.promise.enabled);
+      const t = isFinite(state.promise.theta_lives) ? state.promise.theta_lives : 0;
+      ui.lab_theta.textContent = t.toFixed(2);
+      ui.theta_lives.value = t.toFixed(2);
+    }
+
+    function syncVirtueWeights() {
+      state.virtueWeights.honesty    = parseFloat(ui.w_honesty.value);
+      state.virtueWeights.compassion = parseFloat(ui.w_compassion.value);
+      state.virtueWeights.fairness   = parseFloat(ui.w_fairness.value);
+      ui.lab_honesty.textContent     = (isFinite(state.virtueWeights.honesty)?state.virtueWeights.honesty:0).toFixed(2);
+      ui.lab_compassion.textContent  = (isFinite(state.virtueWeights.compassion)?state.virtueWeights.compassion:0).toFixed(2);
+      ui.lab_fairness.textContent    = (isFinite(state.virtueWeights.fairness)?state.virtueWeights.fairness:0).toFixed(2);
+      ui.w_honesty.value    = parseFloat(ui.lab_honesty.textContent);
+      ui.w_compassion.value = parseFloat(ui.lab_compassion.textContent);
+      ui.w_fairness.value   = parseFloat(ui.lab_fairness.textContent);
+    }
+
+    // ---------- Scenario loading (root-absolute + fallbacks) ----------
+    let scenarios = [];
+    async function loadScenarios() {
+      const stamp = Date.now();
+      const urls = [
+        `/src/data/scenarios.json?v=${stamp}`,
+        `/data/scenarios.json?v=${stamp}`,
+        `./src/data/scenarios.json?v=${stamp}`,
+        `./data/scenarios.json?v=${stamp}`
+      ];
+
+      async function tryLoad(url){
+        const res = await fetch(url, {cache:'no-store'});
+        if (!res.ok) throw new Error(`Fetch failed: ${url} (${res.status})`);
+        const raw = await res.json();
+        if (Array.isArray(raw)) return raw;
+        if (Array.isArray(raw.scenarios)) return raw.scenarios;
+        if (Array.isArray(raw.items)) return raw.items;
+        throw new Error('Unrecognized scenarios format');
+      }
+
+      let lastErr = null;
+      for (const u of urls) {
+        try { scenarios = await tryLoad(u); return; }
+        catch (e) { lastErr = e; }
+      }
+      console.error(lastErr);
+      scenarios = [];
+      document.getElementById('rec').innerHTML = `<div class="empty">Could not load scenarios. ${lastErr?.message || ''}</div>`;
+      document.getElementById('scores').innerHTML = '';
+    }
+
+    // ---------- Engine wrappers ----------
+    function safeEvaluateScenario(scn, settings){
+      try { return evaluateScenario(scn, settings); }
+      catch (e){ console.error('Evaluate failed:', scn?.id, e); return null; }
+    }
+    function topAction(ev){
+      return (ev?.ranking && ev.ranking[0] && ev.ranking[0][0]) ? ev.ranking[0][0] : null;
+    }
+
+    // ---------- Drawing utils ----------
+    const canvas = document.getElementById('chart');
+    const ctx = canvas.getContext('2d');
+    const legend = document.getElementById('legend');
+    const recDiv = document.getElementById('rec');
+    const scoresDiv = document.getElementById('scores');
+
+    function hashCode(str){
+      let h=0; for(let i=0;i<str.length;i++){ h=((h<<5)-h)+str.charCodeAt(i); h|=0; }
+      return Math.abs(h);
+    }
+    function colorFor(key){
+      const h = hashCode(String(key)) % 360;
+      return `hsl(${h} 60% 55%)`;
+    }
+    function drawLegendForEvac(evacScenario){
+      if (!evacScenario) { legend.innerHTML = `<span class="muted">Evacuation scenario not found.</span>`; return; }
+      const ids = (evacScenario.actions||[]).map(a=>a.id);
+      legend.innerHTML = ids.map(id => `<span><span class="swatch" style="width:14px;height:14px;display:inline-block;border-radius:3px;border:1px solid #0001;background:${colorFor(id)};"></span> <code>${id}</code></span>`).join(' ');
+    }
+
+    // Evaluate evacuation across grid of p_cons × θ; hold p_rawls fixed; p_virtue = max(0, 1 - p_cons - p_rawls)
+    function renderSensitivity() {
+      if (!Array.isArray(scenarios) || scenarios.length === 0) {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.font = '14px Inter,sans-serif'; ctx.fillStyle = '#6b7280';
+        ctx.fillText('No scenarios available.', 20, 30);
+        return;
+      }
+
+      const evac = scenarios.find(s=>s.id==="evac-promise-v1" || /evac/i.test(s.id||''));
+      drawLegendForEvac(evac);
+
+      const W = canvas.width, H = canvas.height;
+      const padL = 54, padB = 42, padT = 20, padR = 16;
+      const plotW = W - padL - padR, plotH = H - padT - padB;
+      ctx.clearRect(0,0,W,H);
+
+      const NX = 50, NY = 50;
+      const pRawlsFix = state.credences.p_rawls;
+
+      for (let iy=0; iy<NY; iy++) {
+        const theta = 3 * (iy/(NY-1));
+        for (let ix=0; ix<NX; ix++) {
+          const pCons = ix/(NX-1);
+          const pVirt = Math.max(0, 1 - pCons - pRawlsFix);
+          const settings = {
+            credences: { p_cons: pCons, p_rawls: pRawlsFix, p_virtue: pVirt },
+            promise: { enabled: state.promise.enabled, theta_lives: state.promise.enabled ? theta : state.promise.theta_lives },
+            virtueWeights: state.virtueWeights
+          };
+          const ev = evac ? safeEvaluateScenario(evac, settings) : null;
+          const a = topAction(ev);
+          const color = a ? colorFor(a) : '#9ca3af';
+          const x = padL + Math.floor(ix*plotW/NX);
+          const y = padT + Math.floor((NY-1-iy)*plotH/NY);
+          const cw = Math.ceil(plotW/NX)+1;
+          const ch = Math.ceil(plotH/NY)+1;
+          ctx.fillStyle = color; ctx.fillRect(x, y, cw, ch);
+        }
+      }
+
+      // Axes
+      ctx.strokeStyle = '#111827'; ctx.lineWidth = 1; ctx.strokeRect(padL, padT, plotW, plotH);
+      ctx.fillStyle = '#111827'; ctx.font = '12px Inter, system-ui, sans-serif';
+      for (let t=0; t<=10; t+=2) {
+        const p = t/10, x = padL + p*plotW;
+        ctx.beginPath(); ctx.moveTo(x, padT+plotH); ctx.lineTo(x, padT+plotH+6); ctx.stroke();
+        ctx.fillText(p.toFixed(1), x-8, padT+plotH+20);
+      }
+      ctx.fillText('p_cons (virtue = 1 − p_cons − p_rawls)', padL + plotW/2 - 110, H-8);
+      for (let t=0; t<=6; t+=1) {
+        const th = (t/2), y = padT + (1 - th/3)*plotH;
+        ctx.beginPath(); ctx.moveTo(padL-6, y); ctx.lineTo(padL, y); ctx.stroke();
+        ctx.fillText(th.toFixed(1), 8, y+4);
+      }
+      ctx.save(); ctx.translate(12, padT + plotH/2); ctx.rotate(-Math.PI/2);
+      ctx.fillText('θ (Δ lives to override promise)', -90, 0);
+      ctx.restore();
+
+      // Current recommendations across all scenarios
+      const parts = [];
+      for (const scn of scenarios) {
+        const ev = safeEvaluateScenario(scn, state);
+        const best = topAction(ev) || '—';
+        parts.push(`<p>${scn.id ? `<code>${scn.id}</code>` : 'Scenario'}: <code>${best}</code></p>`);
+      }
+      recDiv.innerHTML = parts.join('') || '<div class="empty">No scenarios evaluated.</div>';
+
+      // Score tables
+      const tables = [];
+      for (const scn of scenarios) {
+        const ev = safeEvaluateScenario(scn, state);
+        if (!ev) {
+          tables.push(`<div class="empty">Could not evaluate <code>${scn.id||'scenario'}</code>.</div>`);
+          continue;
+        }
+        const acts = (scn.actions||[]).map(a=>a.id);
+        const row = (id) => `
+          <tr>
+            <td><code>${id}</code></td>
+            <td>${fmt(ev.consNorm?.get?.(id))}</td>
+            <td>${fmt(ev.rawlsNorm?.get?.(id))}</td>
+            <td>${fmt(ev.virtueNorm?.get?.(id))}</td>
+            <td>${fmt(ev.aggregate?.get?.(id))}</td>
+          </tr>`;
+        tables.push(`
+          <div class="table-wrap sp-2">
+            <table class="table-results">
+              <thead>
+                <tr><th colspan="5">${scn.id ? `<code>${scn.id}</code>` : 'Scenario'}</th></tr>
+                <tr><th>Action</th><th>Cons</th><th>Rawls</th><th>Virtue</th><th>Aggregate</th></tr>
+              </thead>
+              <tbody>${acts.length ? acts.map(row).join('') : `<tr><td colspan="5" class="muted">No actions defined.</td></tr>`}</tbody>
+            </table>
+          </div>
+        `);
+      }
+      scoresDiv.innerHTML = tables.join('');
+    }
+
+    // ---------- Export current run ----------
+    function download(filename, obj) {
+      const blob = new Blob([JSON.stringify(obj, null, 2)], {type: 'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+      URL.revokeObjectURL(url);
+    }
+    function runAll() {
+      const results = [];
+      for (const scn of scenarios) {
+        const ev = safeEvaluateScenario(scn, state);
+        if (!ev) { results.push({ scenarioId: scn.id, error: 'evaluation_failed' }); continue; }
+        results.push({
+          scenarioId: scn.id,
+          ranking: ev.ranking,
+          admissibility: Array.from(ev.admissibility?.entries?.() ?? []),
+          explanations: ev.explanations ?? []
+        });
+      }
+      return {
+        timestamp: new Date().toISOString(),
+        ledger_version: "0.1",
+        settings: JSON.parse(JSON.stringify(state)),
+        scenarios: scenarios.map(s => s.id),
+        results
+      };
+    }
+    document.getElementById('exportRun').addEventListener('click', () => {
+      const bundle = runAll();
+      download(`ethics-testbed-run-${new Date().toISOString().slice(0,10)}.json`, bundle);
+    });
+
+    // ---------- Bind UI ----------
+    ['p_cons','p_rawls','p_virtue'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => { renormCredences(); renderSensitivity(); });
+    });
+    document.getElementById('promise_enabled').addEventListener('change', () => { syncPromise(); renderSensitivity(); });
+    document.getElementById('theta_lives').addEventListener('input', () => { syncPromise(); renderSensitivity(); });
+    ['w_honesty','w_compassion','w_fairness'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => { syncVirtueWeights(); renderSensitivity(); });
+    });
+
+    // ---------- Boot ----------
+    (async function main(){
+      renormCredences(); syncPromise(); syncVirtueWeights();
+      await loadScenarios();
+      renderSensitivity();
+    })();
+  </script>
+
+  <!-- Optional site-wide entry (safe no-op if page lacks interactive root) -->
+  <script type="module" src="/src/js/index.js"></script>
 </body>
 </html>

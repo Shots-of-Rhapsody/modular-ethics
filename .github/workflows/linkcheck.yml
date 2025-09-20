@@ -1,0 +1,57 @@
+name: Link check
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  lychee:
+    name: Link check (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # Install Rust toolchain (needed to cargo-install lychee) — cross-platform
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      # (Optional) Cache Cargo to speed up subsequent runs
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-lychee
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      - name: Install lychee
+        run: cargo install lychee
+
+      # Run lychee against all HTML files under public/.
+      # Use bash so the ** glob expands consistently on all OSes.
+      - name: Link check (public/)
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          shopt -s globstar nullglob
+          files=(public/**/*.html)
+          # If nothing matched, exit cleanly (no HTML pages to check)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No HTML files found under public/ — skipping."
+            exit 0
+          fi
+          lychee --no-progress --verbose --base public "${files[@]}"

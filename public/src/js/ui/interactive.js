@@ -1,11 +1,15 @@
 /* =============================================================================
    Ethics Testbed — UI glue for interactive pages (ESM)
-   Works with src/js/engine/core.js and a minimal, attribute-driven DOM.
-   - Auto-loads scenarios from /src/data/scenarios.json (with path fallback)
-   - Binds sliders/toggles for credences, virtue weights, and promise gate
-   - Normalizes credences live
-   - Renders admissibility, module scores, aggregate ranking, and explanations
-   - Gracefully no-ops when elements are missing (safe to include on all pages)
+   Safe to include on ALL pages:
+   - It only initializes when a mount node exists:
+       <div id="interactive-root"></div>
+       or any element with [data-interactive-root]
+   - On non-interactive pages (e.g., contact.html) it quietly no-ops.
+   - On interactive pages it:
+       • loads /src/data/scenarios.json (with path fallbacks)
+       • binds controls for credences, virtue, and promise gates
+       • normalizes credences live
+       • renders admissibility, module scores, aggregate ranking, explanations
    ============================================================================= */
 
 "use strict";
@@ -74,7 +78,6 @@ async function loadScenarios() {
 }
 
 /* ------------------------------ UI Bindings ------------------------------ */
-// Accepts multiple markup patterns so you don’t have to rename your HTML.
 // Supported controls (all optional):
 // - Scenario chooser:   <select data-scn-select> … </select>
 // - Credences sliders:  <input data-credence="p_cons">, p_rawls, p_virtue
@@ -249,7 +252,7 @@ function renderAggregateChart(res) {
   if (!host) return;
 
   host.innerHTML = "";
-  host.classList.add("agg-chart"); // style in CSS if you want
+  host.classList.add("agg-chart");
 
   const entries = [...res.aggregate.entries()].sort((a,b)=>b[1]-a[1]);
   const maxVal = entries.reduce((m, [,v]) => Math.max(m, v), 0) || 1;
@@ -286,7 +289,6 @@ function renderRanking(res, scn) {
   for (const [actionId, score] of res.ranking) {
     const li = document.createElement("li");
     li.innerHTML = `<strong>${actionLabel(actionId)}</strong> — ${fmt(score)}`;
-    // Tooltip of modules if tables are hidden
     li.title = [
       `Cons=${fmt(res.consNorm.get(actionId) ?? NaN)}`,
       `Rawls=${fmt(res.rawlsNorm.get(actionId) ?? NaN)}`,
@@ -345,7 +347,6 @@ function renderExplanations(res) {
 
 /* ------------------------------ Actions/Labels --------------------------- */
 function actionLabel(actionId) {
-  // Friendly labels for the seed scenarios; fall back to id
   const map = {
     // triage
     a1_allocate_A: "Allocate ventilator to A",
@@ -384,7 +385,20 @@ function resetAllToDefaults() {
 }
 
 /* ------------------------------ Init ------------------------------------- */
+/**
+ * Only boot when the page declares an interactive root:
+ *   <div id="interactive-root"></div>
+ *   or any element with [data-interactive-root]
+ * This prevents errors on non-interactive pages (e.g., contact.html).
+ */
 async function initInteractive() {
+  const mount = document.querySelector("#interactive-root, [data-interactive-root]");
+  if (!mount) {
+    // Not an interactive page — do nothing.
+    console.debug("[interactive] No mount node; skipping init.");
+    return;
+  }
+
   try {
     await loadScenarios();
     populateScenarioSelect();
@@ -398,7 +412,7 @@ async function initInteractive() {
     evaluateAndRender();
   } catch (err) {
     console.error("[interactive] init failed:", err);
-    const box = $("#explanations") || document.body;
+    const box = $("#explanations") || mount || document.body;
     const p = document.createElement("p");
     p.style.color = "crimson";
     p.textContent = `Could not initialize interactive UI: ${err.message}`;
