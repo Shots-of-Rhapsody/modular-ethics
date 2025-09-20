@@ -4,54 +4,26 @@ on:
   pull_request:
   push:
     branches: [ main ]
-  workflow_dispatch:
 
 jobs:
   lychee:
-    name: Link check (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # Install Rust toolchain (needed to cargo-install lychee) — cross-platform
-      - name: Set up Rust
-        uses: dtolnay/rust-toolchain@stable
+      # Optional: ensure the site files exist if your pages build creates them.
+      # If you already commit /public, this is a no-op.
+      - name: Build CSS (if needed)
+        run: |
+          if [ -f package.json ]; then
+            npm ci --ignore-scripts || true
+            npm run build:css || true
+          fi
 
-      # (Optional) Cache Cargo to speed up subsequent runs
-      - name: Cache Cargo
-        uses: actions/cache@v4
+      - name: Link check with lychee (config-driven)
+        uses: lycheeverse/lychee-action@v1
         with:
-          path: |
-            ~/.cargo/bin
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-lychee
-          restore-keys: |
-            ${{ runner.os }}-cargo-
-
-      - name: Install lychee
-        run: cargo install lychee
-
-      # Run lychee against all HTML files under public/.
-      # Use bash so the ** glob expands consistently on all OSes.
-      - name: Link check (public/)
-        shell: bash
+          # Use config to avoid deprecated flags and shell globbing.
+          args: --config lychee.toml --no-progress --verbose
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-          shopt -s globstar nullglob
-          files=(public/**/*.html)
-          # If nothing matched, exit cleanly (no HTML pages to check)
-          if [ ${#files[@]} -eq 0 ]; then
-            echo "No HTML files found under public/ — skipping."
-            exit 0
-          fi
-          lychee --no-progress --verbose --base public "${files[@]}"

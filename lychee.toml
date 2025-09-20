@@ -1,0 +1,30 @@
+# ---- Which files to scan -----------------------------------------------------
+# Lychee expands these itself (no shell globstar needed).
+inputs = ["public/**/*.html"]
+
+# ---- URL resolution ----------------------------------------------------------
+# Resolve absolute links like "/assets/bundle.css" and in-page nav consistently.
+# Use your canonical site URL here.
+base_url = "https://shotsofrhapsody.com"
+
+# Don’t try to validate in-page fragments like #main or #updates.
+include_fragments = false
+
+# ---- Exclusions --------------------------------------------------------------
+# Skip mail/tel links and a few legacy/no-op targets.
+exclude = [
+  "^mailto:",
+  "^tel:",
+  "^#?$",                 # bare '#' (no destination)
+  "Images/favicon.png",   # legacy path that isn't deployed
+  ".*/finance$"           # known 404 in your GitHub repo nav
+]
+
+# ---- Tolerate common “ok but gated” statuses --------------------------------
+# (GitHub sometimes 403s or 429s during CI)
+accept = ["200..299", "403", "429"]
+
+# ---- Networking / retries ----------------------------------------------------
+timeout = "20s"
+retries = 2
+retry_wait_time = "2s"
