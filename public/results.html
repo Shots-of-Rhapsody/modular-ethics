@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Results — Table View | Ethics Testbed</title>
+  <link rel="stylesheet" href="/assets/bundle.css">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,25 +25,8 @@
         <span class="brand-name">Ethics Testbed</span>
       </a>
 
-      <!-- Navigation -->
-      <nav class="site-nav">
-        <!-- Mobile toggle -->
-        <button class="menu" aria-label="Menu" onclick="
-          const list = this.nextElementSibling;
-          list.classList.toggle('is-open');
-        ">☰</button>
-        <ul>
-          <li><a href="/index.html">Home</a></li>
-          <li><a href="/contribute.html">Contribute</a></li>
-          <li><a href="/interactive.html">Interactive</a></li>
-          <li><a href="/language-math.html">Language &amp; Math</a></li>
-          <li><a href="/paper.html">Paper</a></li>
-          <li><a href="/research.html">Research</a></li>
-          <li><a href="/results.html" aria-current="page">Results</a></li>
-          <li><a href="/stories.html">Stories</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-        </ul>
-      </nav>
+<div id="site-header"></div>
+<script type="module" src="/src/js/header.js"></script>
 
       <!-- Right CTA: Repo link -->
       <div class="nav-cta">
