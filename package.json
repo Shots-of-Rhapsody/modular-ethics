@@ -16,8 +16,8 @@
   "scripts": {
     "sync": "node scripts/sync-assets.mjs",
     "validate:scenarios": "node scripts/validate-scenarios.mjs",
-    "build:css": "powershell -NoProfile -Command \"New-Item -ItemType Directory -Force public/assets | Out-Null\" && postcss src/styles/main.css -o public/assets/bundle.css",
-    "watch:css": "powershell -NoProfile -Command \"New-Item -ItemType Directory -Force public/assets | Out-Null\" && postcss src/styles/main.css -o public/assets/bundle.css -w",
+    "build:css": "node -e \"require('fs').mkdirSync('public/assets',{recursive:true})\" && postcss src/styles/main.css -o public/assets/bundle.css",
+    "watch:css": "node -e \"require('fs').mkdirSync('public/assets',{recursive:true})\" && postcss src/styles/main.css -o public/assets/bundle.css -w",
     "build": "npm run build:css && npm run sync"
   },
   "browserslist": [
