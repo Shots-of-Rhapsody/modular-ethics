@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Results — Table View | Ethics Testbed</title>
-  <link rel="stylesheet" href="/assets/bundle.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Live table of module scores and recommendations for all scenarios in Ethics Testbed. Adjust credences, promise settings, and virtue weights to see results update." />
+  <meta name="theme-color" content="#00A86B" />
+  <link rel="canonical" href="https://xartaiusx.github.io/ethics.testbed/results.html" />
+
+  <!-- Social -->
+  <meta property="og:title" content="Results — Table View | Ethics Testbed" />
+  <meta property="og:description" content="Explore live scenario results. Tune credences and constraints; export a reproducible run bundle." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://xartaiusx.github.io/ethics.testbed/results.html" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,9 +21,10 @@
   <!-- CSS bundle -->
   <link rel="preload" href="/assets/bundle.css" as="style" />
   <link rel="stylesheet" href="/assets/bundle.css" />
-  <meta name="theme-color" content="#00A86B" />
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
+
   <!-- Header -->
   <header>
     <div class="nav-container">
@@ -25,8 +34,8 @@
         <span class="brand-name">Ethics Testbed</span>
       </a>
 
-<div id="site-header"></div>
-<script type="module" src="/src/js/header.js"></script>
+      <div id="site-header"></div>
+      <script type="module" src="/src/js/header.js"></script>
 
       <!-- Right CTA: Repo link -->
       <div class="nav-cta">
@@ -40,10 +49,10 @@
     </div>
   </header>
 
-  <main class="wrap">
+  <main class="wrap" id="main">
     <h1 class="page-title">Results — Table View</h1>
     <p class="muted">
-      Adjust credences, promise settings, and virtue-trait weights. Scores and recommendations update live for <em>all</em> scenarios.
+      Adjust credences, promise settings, and virtue-trait weights. Scores and recommendations update live for <em>all</em> scenarios, and you can export a reproducible run bundle.
     </p>
 
     <div class="grid grid-results">
