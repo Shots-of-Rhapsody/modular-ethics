@@ -1,0 +1,43 @@
+# =============================================================================
+# Ethics Testbed — .gitignore
+# =============================================================================
+
+# Node & build
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build caches
+.cache/
+.tmp/
+dist/
+
+# Keep public/assets/bundle.css tracked (don’t ignore it!)
+!public/assets/bundle.css
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+logs/
+*.pid
+*.seed
+*.tgz
+
+# Coverage / test output
+coverage/
+.nyc_output/
+
+# Optional lockfiles — keep the one you use
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
