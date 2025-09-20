@@ -1,0 +1,35 @@
+{
+  "name": "ethics-testbed",
+  "version": "1.0.0",
+  "description": "Ethics Testbed — interactive scenarios and experiments in moral reasoning.",
+  "license": "MIT",
+  "author": "Ethics Testbed Contributors",
+  "homepage": "https://github.com/xartaiusx/ethics.testbed#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xartaiusx/ethics.testbed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xartaiusx/ethics.testbed/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-assets.mjs",
+    "validate:scenarios": "node scripts/validate-scenarios.mjs",
+    "build:css": "powershell -NoProfile -Command \"New-Item -ItemType Directory -Force public/assets | Out-Null\" && postcss src/styles/main.css -o public/assets/bundle.css",
+    "watch:css": "powershell -NoProfile -Command \"New-Item -ItemType Directory -Force public/assets | Out-Null\" && postcss src/styles/main.css -o public/assets/bundle.css -w",
+    "build": "npm run build:css && npm run sync"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11"
+  ],
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "autoprefixer": "^10.4.21",
+    "cssnano": "^7.1.1",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^16.1.1"
+  }
+}

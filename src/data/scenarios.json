@@ -1,0 +1,54 @@
+[
+  {
+    "id": "triage-vent-v1",
+    "title": "Ventilator Triage",
+    "params": { "priority_fn": "sqrt" },
+    "agents": [
+      {
+        "id": "A",
+        "baseline": { "years_left": 35 },
+        "survival": { "vent": 0.8, "no_vent": 0.1 }
+      },
+      {
+        "id": "B",
+        "baseline": { "years_left": 35 },
+        "survival": { "vent": 0.6, "no_vent": 0.55 }
+      }
+    ],
+    "actions": [
+      { "id": "a1_allocate_A" },
+      { "id": "a2_allocate_B" },
+      { "id": "a3_lottery" }
+    ]
+  },
+  {
+    "id": "evac-promise-v1",
+    "title": "Evacuation with a Promise",
+    "params": { "priority_fn": "sqrt" },
+    "prob_survive_if_rescued": 0.95,
+    "prob_if_delayed": { "east": 0.6, "west": 0.2 },
+    "constraints": {
+      "keep_credible_promises": { "enabled": true, "theta_lives": 1.5 }
+    },
+    "actions": [
+      { "id": "b1_east_now" },
+      { "id": "b2_west_plus_one_east" },
+      { "id": "b3_mixed_break_promise" }
+    ]
+  },
+  {
+    "id": "vax-allocation-v1",
+    "title": "Vaccine Allocation",
+    "params": { "priority_fn": "sqrt" },
+    "groups": [
+      { "id": "H", "population": 1200, "p_infect": 0.1, "ifr": 0.08, "years_left": 12 },
+      { "id": "E", "population": 1800, "p_infect": 0.2, "ifr": 0.01, "years_left": 40 }
+    ],
+    "vaccine": { "doses": 1000, "ve_death": 0.9 },
+    "actions": [
+      { "id": "c1_prioritize_high_risk" },
+      { "id": "c2_prioritize_essential" },
+      { "id": "c3_split_even" }
+    ]
+  }
+]

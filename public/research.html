@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/assets/bundle.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mathematics & the Structure of Reality - Ethics Testbed</title>
+  <meta name="description" content="A research-style investigation into the pervasive role of mathematics in describing the universe and its philosophical and cognitive implications.">
+  <meta name="theme-color" content="#00A86B">
+  <link rel="stylesheet" href="assets/site.css?v=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Page-specific visuals (content wording preserved; only presentation enhanced) */
+    .hero { padding: 60px 0 28px; }
+    .sub { color: var(--muted); max-width: 880px; }
+    .fig { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:12px; }
+    .two-col { display:grid; gap:16px; grid-template-columns:1fr; align-items:start; }
+    @media (min-width: 980px){ .two-col { grid-template-columns: 1.2fr .8fr; } }
+    .caption { font-size:13px; color:var(--muted); margin-top:8px; }
+    .pull { background:#ecfdf5; border:1px solid #bbf7d0; border-radius:12px; padding:12px 14px; }
+    .chip { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-weight:700; }
+    .chip.phys { background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; }
+    .chip.math { background:#ecfdf5; color:#047857; border:1px solid #bbf7d0; }
+    .chip.log { background:#fef3c7; color:#92400e; border:1px solid #fde68a; }
+    .mini { font-size:12px; }
+    .legend-row { display:flex; gap:8px; flex-wrap:wrap; }
+    .grid-tiles { display:grid; gap:12px; grid-template-columns: repeat(2,minmax(0,1fr)); }
+    @media (min-width: 980px){ .grid-tiles { grid-template-columns: repeat(4,minmax(0,1fr)); } }
+    .tile { background:#f8fafc; border:1px dashed #e5e7eb; border-radius:12px; padding:10px; text-align:center; }
+    .small { font-size:12px; }
+    .svg-label { font-size:12px; fill:#6b7280; }
+    .center { text-align:center; }
+    /* keep long tokens inside cards */
+    .card code { white-space: normal; word-break: break-word; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <!-- Header -->
+<header>
+  <div class="nav-container">
+    <!-- Brand -->
+    <a class="brand" href="/">
+      <span class="brand-logo" aria-hidden="true"></span>
+      <span class="brand-name">Ethics Testbed</span>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+      <!-- Mobile toggle -->
+      <button class="menu" aria-label="Menu" onclick="
+        const list = this.nextElementSibling;
+        list.classList.toggle('is-open');
+      ">☰</button>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/contribute.html">Contribute</a></li>
+        <li><a href="/interactive.html">Interactive</a></li>
+        <li><a href="/language-math.html">Language &amp; Math</a></li>
+        <li><a href="/paper.html">Paper</a></li>
+        <li><a href="/research.html">Research</a></li>
+        <li><a href="/results.html">Results</a></li>
+        <li><a href="/stories.html">Stories</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Right CTA: Repo link -->
+    <div class="nav-cta">
+      <a class="btn outline icon" href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true">
+          <path fill="currentColor" d="M8 0a8 8 0 0 0-2.53 15.6c.4.07.55-.17.55-.38v-1.33c-2.23.49-2.7-1.07-2.7-1.07-.36-.9-.9-1.14-.9-1.14-.73-.49.06-.48.06-.48.8.06 1.22.83 1.22.83.72 1.22 1.88.86 2.34.66.07-.52.28-.86.5-1.05-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.58.82-2.13-.08-.2-.36-1.01.08-2.11 0 0 .67-.21 2.2.81a7.6 7.6 0 0 1 2-.27 7.6 7.6 0 0 1 2 .27c1.53-1.02 2.2-.81 2.2-.81.44 1.1.16 1.9.08 2.11.51.55.82 1.26.82 2.13 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.47v2.18c0 .21.15.46.55.38A8 8 0 0 0 8 0z"/>
+        </svg>
+        <span class="sr-only">View Repo</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+  <main id="content" class="wrap">
+    <section class="hero">
+      <h1>Mathematics & the Structure of Reality</h1>
+      <p class="sub">A research style exploration of how mathematics underlies everything from particle physics to cognition & philosophical theology.</p>
+
+      <!-- Visual legend -->
+      <div class="legend-row" aria-label="Legend">
+        <span class="chip math">Mathematics</span>
+        <span class="chip phys">Physics/Cosmos</span>
+        <span class="chip log">Logic & Metaphysics</span>
+      </div>
+
+      <!-- Opening visual: “structure triangle” -->
+      <figure class="fig" style="margin-top:14px;">
+        <svg viewBox="0 0 820 220" role="img" aria-label="Triangle linking Math, Physics, and Logic">
+          <defs>
+            <linearGradient id="gradTri" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ecfdf5"/>
+              <stop offset="100%" stop-color="#eff6ff"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="820" height="220" rx="12" fill="url(#gradTri)" />
+          <!-- Triangle -->
+          <polygon points="410,30 90,190 730,190" fill="none" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="410" cy="30"  r="7" fill="#059669"/>
+          <circle cx="90"  cy="190" r="7" fill="#1d4ed8"/>
+          <circle cx="730" cy="190" r="7" fill="#f59e0b"/>
+          <text x="410" y="20" text-anchor="middle" fill="#047857" font-weight="700">Mathematics</text>
+          <text x="90"  y="210" text-anchor="middle" fill="#1d4ed8" font-weight="700">Physics</text>
+          <text x="730" y="210" text-anchor="middle" fill="#92400e" font-weight="700">Logic & Metaphysics</text>
+          <text class="svg-label" x="250" y="110">models</text>
+          <text class="svg-label" x="560" y="110">constraints</text>
+          <text class="svg-label" x="410" y="185" text-anchor="middle">interpretation</text>
+        </svg>
+        <figcaption class="caption">Three corners of the same problem: description, structure & meaning.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 1 -->
+    <section class="two-col card">
+      <div>
+        <h2>1. The “Unreasonable Effectiveness” Thesis</h2>
+        <p>Eugene Wigner observed that mathematics, often developed for its own sake, repeatedly anticipates structures later found in nature, an alignment that seems disproportionate to simple convenience. His puzzle frames our inquiry: why do formal symmetries map so tightly onto physical law? This claim unsettles the boundary between invention & discovery. Complex numbers, devised to solve algebraic equations, became the natural idiom of quantum mechanics; group theory, once abstract, now encodes the symmetries of fundamental particles. The success seems to surpass utility: mathematics not only describes the world but frequently predicts phenomena prior to empirical observation.</p>
+
+<p>The philosophical challenge is to explain this resonance. Some interpret it as evidence of a Platonic realm of forms, mathematics existing independently & simply unveiled by human cognition. Others adopt a pragmatic or evolutionary stance: our minds evolved to detect patterns & mathematics is the most compressed expression of those patterns. The ongoing tension is whether effectiveness signals an ontological identity between math & reality, or whether it reflects a contingent but astonishingly fruitful match between human symbol systems & the world’s order.</p>
+      </div>
+      <figure class="fig">
+        <svg viewBox="0 0 420 220" role="img" aria-label="Abstract space mapped to physical space">
+          <rect x="0" y="0" width="420" height="220" rx="12" fill="#ffffff"/>
+          <rect x="20" y="20" width="160" height="160" rx="12" fill="#ecfdf5" stroke="#bbf7d0"/>
+          <text x="100" y="40" text-anchor="middle" fill="#047857" font-weight="700">Abstract</text>
+          <g stroke="#34d399">
+            <path d="M60,150 Q100,80 140,120" fill="none" stroke-width="2"/>
+            <circle cx="60" cy="150" r="3" fill="#34d399"/>
+            <circle cx="100" cy="80" r="3" fill="#34d399"/>
+            <circle cx="140" cy="120" r="3" fill="#34d399"/>
+          </g>
+          <rect x="240" y="40" width="160" height="140" rx="12" fill="#eff6ff" stroke="#bfdbfe"/>
+          <text x="320" y="60" text-anchor="middle" fill="#1d4ed8" font-weight="700">Physical</text>
+          <path d="M180,100 L240,100" stroke="#9ca3af" stroke-width="2" marker-end="url(#arr)"/>
+          <defs>
+            <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" fill="#9ca3af"/>
+            </marker>
+          </defs>
+          <text class="svg-label" x="210" y="92" text-anchor="middle">model → world</text>
+        </svg>
+        <figcaption class="caption">Formal patterns “travel” from math to physics with surprising fidelity.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 2 -->
+    <section class="two-col card">
+      <div>
+        <h2>2. Symmetry as a Unifier</h2>
+        <p>One answer grounds the fit in symmetry: conservation laws & invariants in physics correspond to mathematical invariances. This view predicts that as we refine symmetry principles we refine the mathematics & vice versa. Noether’s theorem exemplifies this linkage: every differentiable symmetry yields a conserved quantity, embedding mathematical elegance into physical law. In particle physics, gauge symmetries dictate interactions; in relativity, Lorentz invariance defines spacetime itself. Mathematics does not just record these symmetries; it enforces them, providing the conceptual space where consistency & necessity converge.</p>
+
+<p>Yet the unifying appeal of symmetry invites scrutiny. Some philosophers argue that privileging symmetry may obscure the importance of asymmetry, contingency & broken symmetries, which are equally responsible for the richness of the physical universe. The dialectic here is between structure & rupture: mathematics reveals invariant scaffolding, but the universe may derive much of its character from deviations. To describe reality fully, one must capture both the pristine ideal of symmetry & the generative creativity of its breaking.</p>
+      </div>
+      <figure class="fig">
+        <svg viewBox="0 0 420 220" role="img" aria-label="Noether-style symmetry to conservation mapping">
+          <rect x="0" y="0" width="420" height="220" rx="12" fill="#ffffff"/>
+          <text x="110" y="36" text-anchor="middle" fill="#047857" font-weight="700">Symmetry</text>
+          <circle cx="110" cy="110" r="70" fill="#ecfdf5" stroke="#bbf7d0"/>
+          <text x="110" y="112" text-anchor="middle">Group G</text>
+          <text x="310" y="36" text-anchor="middle" fill="#1d4ed8" font-weight="700">Conservation</text>
+          <rect x="240" y="70" width="140" height="80" rx="10" fill="#eff6ff" stroke="#bfdbfe"/>
+          <text x="310" y="115" text-anchor="middle">Quantity Q</text>
+          <path d="M180,110 L240,110" stroke="#9ca3af" stroke-width="2" marker-end="url(#arr2)"/>
+          <defs>
+            <marker id="arr2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" fill="#9ca3af"/>
+            </marker>
+          </defs>
+          <text class="svg-label" x="210" y="100" text-anchor="middle">Noether map</text>
+        </svg>
+        <figcaption class="caption">As invariance grows, so do conserved quantities & new mathematics.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 3 -->
+    <section class="two-col card">
+      <div>
+        <h2>3. Ontology of Mathematics</h2>
+        <p>Debate persists over what mathematical entities are. Platonists posit abstracta that exist independently of minds; nominalists deny such objects; intermediate views proliferate. Our interpretations of “what math is” shape how we read its success in science. If numbers & sets exist outside space & time, then physics’ reliance on them is an epistemic bridge across ontological categories. If instead mathematics is a human construction, then its effectiveness demands a different explanation: perhaps the mind’s categories are tuned to environmental regularities & mathematics externalizes those categories in formal systems.</p>
+
+<p>Recent philosophy of mathematics complicates the binary. Immanent realism claims that mathematical properties are instantiated in the world itself, neither transcendent nor invented. Structuralism sees mathematics as the study of positions within systems rather than entities themselves. Each approach attempts to reconcile mathematics’ abstract feel with its worldly grip. The metaphysical stakes are high: whether we regard mathematics as discovered or constructed frames not only philosophy of science but our conception of reality’s deepest architecture.</p>
+      </div>
+      <figure class="fig">
+        <svg viewBox="0 0 420 220" role="img" aria-label="Space of positions in philosophy of mathematics">
+          <rect x="0" y="0" width="420" height="220" rx="12" fill="#ffffff"/>
+          <text x="210" y="24" text-anchor="middle" fill="#92400e" font-weight="700">Positions</text>
+          <line x1="40" y1="180" x2="380" y2="180" stroke="#e5e7eb"/>
+          <text class="svg-label" x="40" y="195">Nominalism</text>
+          <text class="svg-label" x="190" y="195">Immanent Realism</text>
+          <text class="svg-label" x="340" y="195">Platonism</text>
+          <circle cx="70"  cy="160" r="8" fill="#fde68a" stroke="#f59e0b"/>
+          <circle cx="210" cy="120" r="8" fill="#bbf7d0" stroke="#34d399"/>
+          <circle cx="350" cy="80"  r="8" fill="#bae6fd" stroke="#60a5fa"/>
+        </svg>
+        <figcaption class="caption">Ontological stance shifts how we interpret mathematics’ reach.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 4 -->
+    <section class="two-col card">
+      <div>
+        <h2>4. The Mathematical Universe Hypothesis</h2>
+        <p>Tegmark’s MUH proposes that physical reality just is a mathematical structure. The view is programmatic & controversial, but it sharpens the explanandum: if physics reduces to structure, perhaps structure is all there is. This radical extension of Platonism dissolves the distinction between ontology & formalism. On MUH, equations do not describe the universe, they constitute it. The laws of physics become tautologies of structure & existence itself is equated with mathematical consistency.</p>
+
+<p>Critics charge that the MUH overreaches. Its unfalsifiability threatens scientific demarcation & its ontology risks erasing contingency, materiality & emergence. Defenders reply that physics has increasingly stripped away substance in favor of relational form, from quantum fields to general relativity. MUH may therefore be less an extravagance than a natural extrapolation of physics’ trajectory. The debate exemplifies how the unreasonable effectiveness puzzle can be radicalized into metaphysical speculation, turning methodological success into ontological claim.</p>
+      </div>
+      <figure class="fig">
+        <svg viewBox="0 0 420 220" role="img" aria-label="Set inclusion: world as structure">
+          <rect x="0" y="0" width="420" height="220" rx="12" fill="#ffffff"/>
+          <ellipse cx="210" cy="110" rx="180" ry="90" fill="#ecfeff" stroke="#bae6fd"/>
+          <text x="210" y="35" text-anchor="middle" fill="#0369a1" font-weight="700">All Mathematical Structures</text>
+          <ellipse cx="210" cy="120" rx="110" ry="55" fill="#ecfdf5" stroke="#bbf7d0"/>
+          <text x="210" y="125" text-anchor="middle" fill="#047857">Our Universe</text>
+        </svg>
+        <figcaption class="caption">MUH places reality inside mathematics rather than vice versa.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 5 -->
+    <section class="two-col card">
+      <div>
+        <h2>5. Physics Driving New Mathematics</h2>
+        <p>Historically, physics has catalyzed new mathematics, from calculus to group theory & differential geometry & the flow continues in contemporary fields. The bidirectionality suggests a deep structural coupling rather than one-way description. Newton’s laws gave birth to analysis; Maxwell’s electromagnetism nourished vector calculus; quantum mechanics demanded Hilbert spaces; relativity expanded differential geometry. The trajectory of physics seems to pull mathematical imagination forward, forcing abstraction to adapt.</p>
+
+<p>But this coevolution complicates Wigner’s puzzle. If mathematics often anticipates physics, physics just as often shapes mathematics. The dialectic is circular: theoretical puzzles in one domain motivate advances in the other. Philosophically, this may weaken Platonist readings by showing mathematics not as a preexisting realm but as an evolving language forged in dialogue with empirical demands. Alternatively, it may strengthen structural realist accounts: the fact that mathematics is always waiting to be developed is precisely what allows physics to uncover it when needed.</p>
+      </div>
+      <figure class="fig">
+        <svg viewBox="0 0 420 220" role="img" aria-label="Timeline of physics → math innovations">
+          <rect x="0" y="0" width="420" height="220" rx="12" fill="#ffffff"/>
+          <line x1="30" y1="110" x2="390" y2="110" stroke="#e5e7eb" stroke-width="2"/>
+          <circle cx="70"  cy="110" r="6" fill="#1d4ed8"/><text class="svg-label" x="70"  y="95" text-anchor="middle">Calculus</text>
+          <circle cx="150" cy="110" r="6" fill="#1d4ed8"/><text class="svg-label" x="150" y="95" text-anchor="middle">EM → Vector Calc</text>
+          <circle cx="240" cy="110" r="6" fill="#1d4ed8"/><text class="svg-label" x="240" y="95" text-anchor="middle">QM → Hilbert</text>
+          <circle cx="330" cy="110" r="6" fill="#1d4ed8"/><text class="svg-label" x="330" y="95" text-anchor="middle">GR → DiffGeo</text>
+        </svg>
+        <figcaption class="caption">Physical theory repeatedly opens mathematical frontiers.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 6 -->
+    <section class="two-col card">
+      <div>
+        <h2>6. Limits & Shadows</h2>
+        <p>Even if mathematics is pervasive, its reach may be bounded. Incompleteness theorems signal internal limits on formal systems, while some argue that consciousness or emergent complexity resist total capture by equations. Our stance here is modest realism: models explain, they do not exhaust. Gödel demonstrated that no single axiomatic system can capture all mathematical truths, a result that undermines the dream of complete formalization. If mathematics cannot fully describe itself, how confident can we be that it can fully describe reality?</p>
+
+<p>At the same time, limits are not failures but productive boundaries. They force philosophy & science to remain humble about mathematics’ domain of applicability. Subjective phenomena such as qualia, or the unpredictable dynamics of complex systems, may elude strict formalization without negating mathematics’ power elsewhere. The question becomes not whether mathematics can explain everything, but which features of reality are formalizable & which must be approached with complementary modes of inquiry.</p>
+      </div>
+      <figure class="fig">
+        <svg viewBox="0 0 420 220" role="img" aria-label="Formal island in a larger sea">
+          <rect x="0" y="0" width="420" height="220" rx="12" fill="#ffffff"/>
+          <rect x="10" y="10" width="400" height="200" rx="12" fill="#eff6ff" stroke="#bfdbfe"/>
+          <rect x="110" y="60" width="200" height="100" rx="12" fill="#ecfdf5" stroke="#bbf7d0"/>
+          <text x="210" y="115" text-anchor="middle" fill="#047857">Formalizable</text>
+          <text x="210" y="30"  text-anchor="middle" fill="#1d4ed8">Reality (some parts beyond capture)</text>
+        </svg>
+        <figcaption class="caption">Formal islands may sit within seas of complexity or subjectivity.</figcaption>
+      </figure>
+    </section>
+
+    <!-- NEW SECTION: Mathematical Theology -->
+    <section class="two-col card">
+      <div>
+        <h2>7. Mathematical Theology: Number, Law & the Divine</h2>
+        <p>Early modern science often cast nature as a book written in mathematics; Galileo’s formulation, “the language of mathematics” as the script of natural philosophy became a cultural anchor for the unity of law & number. Within analytic theology, a central question is how the existence (or non-existence) of abstract objects relates to divine aseity (God’s self-existence). Options include: (i) theistic platonism (some necessary abstracta exist independently of God), (ii) nominalism (no abstracta) & (iii) theistic activism (abstracta depend on the divine intellect or will).</p>
+
+<p>These positions illuminate tensions between metaphysical parsimony & doctrinal commitments. If mathematical entities are eternal, God’s sovereignty is challenged. If no such entities exist, the uncanny success of mathematics requires another explanation. Theistic activism offers a synthesis but at the cost of controversial divine voluntarism. Here mathematics functions as a theological crucible: the ontology of numbers forces reflection on the ontology of divinity. Rather than choosing sides, we treat mathematical theology as a model-comparison exercise, evaluating explanatory power across metaphysical packages.</p>
+      </div>
+      <figure class="fig">
+        <svg viewBox="0 0 420 260" role="img" aria-label="Concept map of mathematical theology positions">
+          <rect x="0" y="0" width="420" height="260" rx="12" fill="#ffffff"/>
+          <rect x="30" y="30" width="160" height="44" rx="10" fill="#fef3c7" stroke="#fde68a"/>
+          <text x="110" y="56" text-anchor="middle" fill="#92400e" font-weight="700">Divine Aseity</text>
+
+          <rect x="230" y="30" width="160" height="44" rx="10" fill="#ecfeff" stroke="#bae6fd"/>
+          <text x="310" y="56" text-anchor="middle" fill="#0369a1" font-weight="700">Abstract Objects</text>
+
+          <line x1="110" y1="74" x2="110" y2="110" stroke="#9ca3af"/>
+          <line x1="310" y1="74" x2="310" y2="110" stroke="#9ca3af"/>
+
+          <rect x="30" y="110" width="160" height="36" rx="8" fill="#ecfdf5" stroke="#bbf7d0"/>
+          <text x="110" y="132" text-anchor="middle">Nominalism</text>
+          <rect x="230" y="110" width="160" height="36" rx="8" fill="#ecfdf5" stroke="#bbf7d0"/>
+          <text x="310" y="132" text-anchor="middle">Theistic Platonism</text>
+
+          <rect x="130" y="170" width="160" height="36" rx="8" fill="#ecfdf5" stroke="#bbf7d0"/>
+          <text x="210" y="192" text-anchor="middle">Theistic Activism</text>
+        </svg>
+        <figcaption class="caption">Different metaphysical packages trade off simplicity, dependence & explanatory scope.</figcaption>
+      </figure>
+    </section>
+
+    <!-- NEW SECTION: Cognitive Science -->
+    <section class="two-col card">
+      <div>
+        <h2>8. Cognitive Science: The Mathematical Mind</h2>
+        <p>Marr’s three levels, computational (what problem is solved), algorithmic (how it is represented) & implementational (how it is physically realized), provide a rigorous scaffold for modeling minds. Mathematics enters at each level: objective functions define tasks, representational schemes define algorithms & dynamical equations model neural activity. This layered perspective treats cognition as fundamentally a problem of formal structure, with mathematics not as metaphor but as operative mechanism.</p>
+
+<p>In contemporary theory, the brain is often modeled as a prediction machine: it minimizes error between expected & observed input. The free energy principle & predictive processing formalize this as approximate Bayesian inference, unifying perception, action & learning under optimization. Concept learning likewise appears as statistical inference: learners induce latent structures from sparse data, akin to program induction. Yet debate remains: are these models genuine explanations, or elegant curve-fitting exercises? Mathematics here is both powerful & precarious, able to capture cognition’s regularities, but at risk of oversimplifying its lived complexity.</p>
+      </div>
+      <figure class="fig">
+        <svg viewBox="0 0 420 260" role="img" aria-label="Predictive processing loop">
+          <rect x="0" y="0" width="420" height="260" rx="12" fill="#ffffff"/>
+          <rect x="40" y="40" width="340" height="180" rx="12" fill="#f8fafc" stroke="#e5e7eb"/>
+          <text x="210" y="60" text-anchor="middle" fill="#111827" font-weight="700">Predictive Processing</text>
+
+          <rect x="70" y="90" width="120" height="36" rx="8" fill="#ecfdf5" stroke="#bbf7d0"/>
+          <text x="130" y="112" text-anchor="middle">Generative Model</text>
+
+          <rect x="230" y="90" width="120" height="36" rx="8" fill="#ecfeff" stroke="#bae6fd"/>
+          <text x="290" y="112" text-anchor="middle">Prediction</text>
+
+          <rect x="230" y="160" width="120" height="36" rx="8" fill="#fef3c7" stroke="#fde68a"/>
+          <text x="290" y="182" text-anchor="middle">Prediction Error</text>
+
+          <rect x="70" y="160" width="120" height="36" rx="8" fill="#ede9fe" stroke="#ddd6fe"/>
+          <text x="130" y="182" text-anchor="middle">Update</text>
+
+          <path d="M190,108 L230,108" stroke="#9ca3af" marker-end="url(#arrA)"/>
+          <path d="M290,126 L290,160" stroke="#9ca3af" marker-end="url(#arrA)"/>
+          <path d="M230,178 L190,178" stroke="#9ca3af" marker-end="url(#arrA)"/>
+          <path d="M130,160 L130,126" stroke="#9ca3af" marker-end="url(#arrA)"/>
+
+          <defs>
+            <marker id="arrA" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" fill="#9ca3af"/>
+            </marker>
+          </defs>
+        </svg>
+        <figcaption class="caption">A loop of prediction, error & update implements approximate Bayesian inference.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Conclusion -->
+    <section class="card">
+      <h2>9. Conclusion</h2>
+      <p>Across physics, theology & cognitive science, mathematics functions as a grammar of structure: a way to compress invariants, propagate constraints & expose explanatory trade-offs. We do not infer that reality is nothing but mathematics; rather, we claim that mathematical structure is the most reliable handle we have for comparing models of worlds, minds & the ultimate. The power of mathematics is diagnostic: where it works, it reveals hidden symmetries; where it fails, it marks the contours of mystery.</p>
+
+<p>The enduring puzzle is whether this diagnostic role reveals mathematics’ ontology or simply our cognitive limitations. Are we glimpsing the universe’s blueprint, or are we projecting symbolic order onto chaos? Wigner’s thesis, Tegmark’s speculation, Gödel’s shadow & theology’s struggles each gesture toward the same horizon: mathematics as both an indispensable lantern & an enigmatic mirror, illuminating reality while reflecting back our own assumptions.</p>
+    </section>
+
+    <!-- References (as you drafted them; wording preserved) -->
+    <section>
+      <h2>References</h2>
+      <ul class="muted small">
+        <li>Wigner, E. P. (1960). “The Unreasonable Effectiveness of Mathematics in the Natural Sciences.” <em>Communications in Pure & Applied Mathematics</em>.</li>
+        <li>Tegmark, M. (2007). “The Mathematical Universe.” arXiv:0704.0646.</li>
+        <li>Stanford Encyclopedia of Philosophy (SEPs): Platonism in Mathematics; Abstract Objects; God & Other Necessary Beings; Divine Simplicity; Philosophy of Religion; Descartes’ Ontological Argument; Ontological Arguments.</li>
+        <li>Galileo’s “Book of Nature” metaphor (overview & sources).</li>
+        <li>Marr, D. (1982). <em>Vision</em>. MIT Press.</li>
+        <li>Friston, K. (2010). “The free energy principle: a unified brain theory?” <em>Nature Reviews Neuroscience</em>.</li>
+        <li>Tenenbaum, J. B., Kemp, C., Griffiths, T. L., & Goodman, N. D. (2011). “How to Grow a Mind.” <em>Science</em>.</li>
+        <li>Aitchison, L., & Lengyel, M. (2017). “With or without you: predictive coding & Bayesian inference in the brain.” (review)</li>
+        <li>Critical perspectives on Bayesian/predictive programs in cognitive science.</li>
+      </ul>
+    </section>
+
+    <p class="center"><a class="btn" href="index.html">Back to Home</a></p>
+  </main>
+
+  <footer class="wrap">
+    © <span id="y"></span> Ethics Testbed · MIT License
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = (new Date()).getFullYear();
+  </script>
+  <script src="/src/js/index.js"></script>
+</body>
+</html>

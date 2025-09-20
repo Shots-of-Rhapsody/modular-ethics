@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethics.testbed/schema/scenario.schema.json",
+  "title": "Ethics Testbed Scenarios",
+  "description": "Schema for the scenarios.json array used by the Ethics Testbed engine.",
+  "type": "array",
+  "minItems": 1,
+  "items": { "$ref": "#/$defs/Scenario" },
+
+  "$defs": {
+    "Probability": { "type": "number", "minimum": 0, "maximum": 1 },
+    "PositiveNumber": { "type": "number", "exclusiveMinimum": 0 },
+    "NonNegativeInteger": { "type": "integer", "minimum": 0 },
+    "PriorityFn": { "type": "string", "enum": ["sqrt", "linear"] },
+
+    "Action": {
+      "type": "object",
+      "required": ["id"],
+      "additionalProperties": false,
+      "properties": { "id": { "type": "string", "minLength": 1 } }
+    },
+
+    "Params": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "priority_fn": { "$ref": "#/$defs/PriorityFn" } }
+    },
+
+    "KeepCrediblePromises": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean", "default": true },
+        "theta_lives": { "type": "number" }
+      }
+    },
+
+    "Constraints": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "keep_credible_promises": { "$ref": "#/$defs/KeepCrediblePromises" }
+      }
+    },
+
+    "Agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "baseline", "survival"],
+      "properties": {
+        "id": { "type": "string", "enum": ["A", "B"] },
+        "baseline": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["years_left"],
+          "properties": { "years_left": { "$ref": "#/$defs/PositiveNumber" } }
+        },
+        "survival": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["vent", "no_vent"],
+          "properties": {
+            "vent": { "$ref": "#/$defs/Probability" },
+            "no_vent": { "$ref": "#/$defs/Probability" }
+          }
+        }
+      }
+    },
+
+    "Group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "population", "p_infect", "ifr", "years_left"],
+      "properties": {
+        "id": { "type": "string", "enum": ["H", "E"] },
+        "population": { "$ref": "#/$defs/NonNegativeInteger" },
+        "p_infect": { "$ref": "#/$defs/Probability" },
+        "ifr": { "$ref": "#/$defs/Probability" },
+        "years_left": { "$ref": "#/$defs/PositiveNumber" }
+      }
+    },
+
+    "Vaccine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["doses", "ve_death"],
+      "properties": {
+        "doses": { "$ref": "#/$defs/NonNegativeInteger" },
+        "ve_death": { "$ref": "#/$defs/Probability" }
+      }
+    },
+
+    "Scenario": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "actions"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "params": { "$ref": "#/$defs/Params" },
+        "constraints": { "$ref": "#/$defs/Constraints" },
+        "actions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Action" },
+          "minItems": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "id": { "const": "triage-vent-v1" } } },
+          "then": {
+            "required": ["agents"],
+            "properties": {
+              "agents": {
+                "type": "array",
+                "items": { "$ref": "#/$defs/Agent" },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "actions": {
+                "items": {
+                  "type": "object",
+                  "required": ["id"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "enum": ["a1_allocate_A", "a2_allocate_B", "a3_lottery"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "id": { "const": "evac-promise-v1" } } },
+          "then": {
+            "required": ["prob_survive_if_rescued", "prob_if_delayed"],
+            "properties": {
+              "prob_survive_if_rescued": { "$ref": "#/$defs/Probability" },
+              "prob_if_delayed": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["east", "west"],
+                "properties": {
+                  "east": { "$ref": "#/$defs/Probability" },
+                  "west": { "$ref": "#/$defs/Probability" }
+                }
+              },
+              "constraints": { "$ref": "#/$defs/Constraints" },
+              "actions": {
+                "items": {
+                  "type": "object",
+                  "required": ["id"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "enum": [
+                        "b1_east_now",
+                        "b2_west_plus_one_east",
+                        "b3_mixed_break_promise"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "id": { "const": "vax-allocation-v1" } } },
+          "then": {
+            "required": ["groups", "vaccine"],
+            "properties": {
+              "groups": {
+                "type": "array",
+                "items": { "$ref": "#/$defs/Group" },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "vaccine": { "$ref": "#/$defs/Vaccine" },
+              "actions": {
+                "items": {
+                  "type": "object",
+                  "required": ["id"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "enum": [
+                        "c1_prioritize_high_risk",
+                        "c2_prioritize_essential",
+                        "c3_split_even"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}

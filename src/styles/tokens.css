@@ -1,0 +1,69 @@
+/* ==========================================================================
+   Ethics Testbed — Design Tokens
+   Loaded BEFORE base.css and site.css
+   These mirror and centralize the custom properties used in site.css so
+   you can reuse them across components and scripts.
+   ========================================================================== */
+
+:root {
+  /* Brand & core colors */
+  --jade: #00A86B;
+  --ink: #0b1220;
+  --ink-2: #1f2637;
+  --fog: #f6f7fb;
+  --muted: #6b7280;
+
+  /* Focus ring / elevation */
+  --ring: rgba(0,168,107,0.25);
+
+  /* Radii / layout */
+  --radius: 14px;
+  --maxw: 1080px;
+
+  /* Text + surfaces (light) */
+  --fg: #111827;
+  --bg: #ffffff;
+  --bg-2: #fafcff;
+  --border: rgba(107, 114, 128, 0.20);
+  --shadow: 0 12px 34px -24px rgba(0,0,0,.25);
+
+  /* Typography scale (optional helpers) */
+  --fs-12: 0.75rem;   /* 12px */
+  --fs-14: 0.875rem;  /* 14px */
+  --fs-16: 1rem;      /* 16px */
+  --fs-18: 1.125rem;  /* 18px */
+  --fs-20: 1.25rem;   /* 20px */
+  --fs-24: 1.5rem;    /* 24px */
+  --fs-30: 1.875rem;  /* 30px */
+  --fs-36: 2.25rem;   /* 36px */
+
+  /* Spacing scale (rem) */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Brand shades map for dark surfaces */
+    --ink: #0b0f14;
+    --ink-2: #111827;
+    --fog: #0b0f14;
+    --muted: #9aa4b2;
+
+    /* Text + surfaces (dark) */
+    --fg: #e5e7eb;
+    --bg: #0b0f14;
+    --bg-2: #0c1720;
+    --border: rgba(154, 164, 178, 0.20);
+    --shadow: 0 10px 28px -22px rgba(0,0,0,.5);
+  }
+
+  body { color-scheme: dark; }
+}
