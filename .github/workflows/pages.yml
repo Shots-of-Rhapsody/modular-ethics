@@ -2,9 +2,9 @@ name: Deploy Ethics Testbed to GitHub Pages
 
 on:
   push:
-    branches: [ main ]           # adjust if your default branch differs
-  pull_request:                  # gives you preview deployments on PRs
-  workflow_dispatch:             # manual run
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -17,24 +17,38 @@ concurrency:
 
 jobs:
   build:
-    name: Prepare static artifact
+    name: Build & prepare artifact
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Static (HTML/CSS/JS). Just stage the files.
-      # Exclude .github to avoid publishing workflows.
-      - name: Stage site files
+      # If you commit bundle.css already, you can skip Node setup + build.
+      # Keeping it here ensures consistent artifacts and catches schema errors.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build CSS bundle
+        run: npm run build:css
+
+      - name: Validate scenarios.json
+        run: npm run validate:scenarios
+
+      # If you have an asset sync step that populates /public (HTML, JS, data)
+      - name: Sync site assets to /public
+        run: npm run sync
+
+      # Ensure Pages artifact has domain + nojekyll markers INSIDE /public
+      - name: Ensure CNAME and .nojekyll in artifact
         run: |
           mkdir -p public
-          rsync -a \
-            --exclude '.git*' \
-            --exclude '.github' \
-            ./ public/
-
-          # Ensure .nojekyll is present so underscore-prefixed paths are not stripped.
-          # (Safe even if it already exists.)
+          if [ -f CNAME ]; then cp -f CNAME public/CNAME; fi
           touch public/.nojekyll
 
       - name: Upload Pages artifact
@@ -43,7 +57,7 @@ jobs:
           path: public
 
   deploy:
-    if: github.event_name != 'pull_request'   # PRs get preview deployments automatically
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:
