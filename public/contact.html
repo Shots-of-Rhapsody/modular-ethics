@@ -1,23 +1,27 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact — Ethics Testbed</title>
-  <meta name="description" content="Get in touch with the Ethics Testbed project team. Reach out for collaboration, feedback, or inquiries.">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <!-- NOTE: relative path (no leading slash) to work on GitHub Pages project sites -->
-  <link rel="stylesheet" href="/assets/bundle.css">
+  <meta name="description" content="Get in touch with the Ethics Testbed project team. Reach out for collaboration, feedback, or inquiries." />
+
+  <!-- Fonts (same stack used sitewide) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- CSS bundle (root-absolute to work from any page) -->
+  <link rel="preload" href="/assets/bundle.css" as="style" />
+  <link rel="stylesheet" href="/assets/bundle.css" />
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <!-- Header (unified across site) -->
+  <!-- Header -->
   <header>
     <div class="nav-container">
       <!-- Brand -->
-      <a class="brand" href="index.html">
+      <a class="brand" href="/index.html">
         <span class="brand-logo" aria-hidden="true"></span>
         <span class="brand-name">Ethics Testbed</span>
       </a>
@@ -26,11 +30,12 @@
       <nav class="site-nav">
         <!-- Mobile toggle -->
         <button class="menu" aria-label="Menu" onclick="
-          const list = this.nextElementSibling;
+          const list = this.parentElement.querySelector('ul');
           list.classList.toggle('is-open');
         ">☰</button>
+
         <ul>
-          <li><a href="/">Home</a></li>
+          <li><a href="/index.html">Home</a></li>
           <li><a href="/contribute.html">Contribute</a></li>
           <li><a href="/interactive.html">Interactive</a></li>
           <li><a href="/language-math.html">Language &amp; Math</a></li>
@@ -38,7 +43,7 @@
           <li><a href="/research.html">Research</a></li>
           <li><a href="/results.html">Results</a></li>
           <li><a href="/stories.html">Stories</a></li>
-          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/contact.html" aria-current="page">Contact</a></li>
         </ul>
       </nav>
 
@@ -70,28 +75,28 @@
       <p>Whether you are interested in research, collaboration, or feedback, you can reach us through the channels below:</p>
 
       <address class="lead" style="font-style: normal;">
-        <strong>Ethics Testbed Project</strong><br>
-        <strong>Shots of Rhapsody LLC</strong><br>
-        1001 Bishop St. STE 2685A, Honolulu, HI 96813 USA<br>
-        Email: <a href="mailto:Artaius@ShotsOfRhapsody.com">Artaius@ShotsOfRhapsody.com</a><br>
+        <strong>Ethics Testbed Project</strong><br />
+        <strong>Shots of Rhapsody LLC</strong><br />
+        1001 Bishop St. STE 2685A, Honolulu, HI 96813 USA<br />
+        Email: <a href="mailto:Artaius@ShotsOfRhapsody.com">Artaius@ShotsOfRhapsody.com</a><br />
         GitHub: <a href="https://github.com/xartaiusx/ethics.testbed" target="_blank" rel="noopener">xartaiusx/ethics.testbed</a>
       </address>
 
       <div class="sp-3"></div>
 
-<details>
-  <summary>Prefer Discord or issues?</summary>
-  <p class="sp-2">
-    You can open a GitHub
-    <a href="https://github.com/xartaiusx/ethics.testbed/issues" target="_blank" rel="noopener">Issue</a>
-    for bugs or proposals, or join community discussion via our community
-    <a href="https://discord.gg/XU5xaajkEv" target="_blank" rel="noopener">Discord server</a>
-    or check the repository
-    <a href="https://github.com/xartaiusx/ethics.testbed/blob/main/README.md" target="_blank" rel="noopener">README</a>.
-  </p>
-</details>
-</section>
-</main>
+      <details>
+        <summary>Prefer Discord or issues?</summary>
+        <p class="sp-2">
+          You can open a GitHub
+          <a href="https://github.com/xartaiusx/ethics.testbed/issues" target="_blank" rel="noopener">Issue</a>
+          for bugs or proposals, join our
+          <a href="https://discord.gg/XU5xaajkEv" target="_blank" rel="noopener">Discord server</a>,
+          or check the
+          <a href="https://github.com/xartaiusx/ethics.testbed/blob/main/README.md" target="_blank" rel="noopener">README</a>.
+        </p>
+      </details>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer>
@@ -102,15 +107,14 @@
       </div>
       <div class="cta-row">
         <a class="btn outline" href="mailto:Artaius@ShotsOfRhapsody.com">Email Us</a>
-        <a class="btn" href="index.html">Back to Home</a>
+        <a class="btn" href="/index.html">Back to Home</a>
       </div>
     </div>
   </footer>
 
-  <!-- NOTE: relative path -->
-  <script src="/src/js/index.js"></script>
+  <!-- JS entry (ES module, root-absolute path like other pages) -->
+  <script type="module" src="/src/js/index.js"></script>
   <script>
-    // simple year stamp
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
