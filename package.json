@@ -23,7 +23,6 @@
     "build": "npm run build:css && npm run sync",
     "sync": "node scripts/sync-assets.mjs",
     "validate:scenarios": "node scripts/validate-scenarios.mjs",
-
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier -w .",
@@ -75,7 +74,7 @@
       "sourceType": "module"
     },
     "ignorePatterns": [
-      "public/assets/",
+      "public/**",
       "coverage/",
       "dist/",
       "node_modules/"
@@ -87,7 +86,20 @@
           "argsIgnorePattern": "^_",
           "varsIgnorePattern": "^_"
         }
-      ]
+      ],
+      "camelcase": [
+        "warn",
+        {
+          "properties": "never",
+          "ignoreDestructuring": true,
+          "allow": [
+            "^p_cons$",
+            "^p_rawls$",
+            "^p_virtue$"
+          ]
+        }
+      ],
+      "no-unmodified-loop-condition": "error"
     }
   },
   "lint-staged": {
@@ -106,13 +118,14 @@
     "ajv": "^8.17.1",
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.1.1",
-    "eslint": "^9.11.1",
+    "eslint": "^8.57.0",
     "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-n": "^17.10.3",
-    "eslint-plugin-promise": "^7.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.4.0",
+    "eslint-plugin-promise": "^6.1.1",
     "husky": "^9.1.6",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^24.1.0",
     "lint-staged": "^15.2.10",
     "postcss": "^8.5.6",

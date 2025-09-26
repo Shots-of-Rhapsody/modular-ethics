@@ -1,12 +1,12 @@
-name: Auto Stamp README
+name: Auto Stamp README (Windows)
 
 on:
   schedule:
-    # Runs daily around 01:05 Pacific (≈ 09:05 UTC, handles DST automatically)
+    # Daily around 01:05 PT (~09:05 UTC)
     - cron: "5 9 * * *"
   push:
-    branches: [ "main" ]   # also update on merges to main
-  workflow_dispatch:        # manual run
+    branches: [ "main" ]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   stamp:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
@@ -31,47 +31,45 @@ jobs:
         with:
           node-version: 20
 
-      - name: Update README date stamp
+      - name: Update README date stamp (Windows)
         id: stamp
-        shell: bash
-        run: |
-          set -euo pipefail
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = 'README.md';
 
-          FILE="README.md"
-          if [[ ! -f "$FILE" ]]; then
-            echo "README.md not found; skipping."
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
+            if (!fs.existsSync(path)) {
+              core.info('README.md not found; skipping.');
+              core.setOutput('changed', 'false');
+              return;
+            }
 
-          # Produce a Pacific Time date like "September 25, 2025"
-          node -e 'const fs=require("fs");
-            const file="README.md";
-            let s=fs.readFileSync(file,"utf8");
-            const fmt=new Intl.DateTimeFormat("en-US",{timeZone:"America/Los_Angeles",year:"numeric",month:"long",day:"2-digit"});
-            const date=fmt.format(new Date());
-            const updated=s.replace(/<!--AUTO-DATE-->/g, date);
-            if (updated !== s) {
-              fs.writeFileSync(file, updated);
-              console.log("README updated to:", date);
-              process.exitCode = 10; // signal change
+            const source = fs.readFileSync(path, 'utf8');
+
+            // Format like "September 25, 2025" in America/Los_Angeles
+            const fmt = new Intl.DateTimeFormat('en-US', {
+              timeZone: 'America/Los_Angeles',
+              year: 'numeric',
+              month: 'long',
+              day: '2-digit'
+            });
+            const date = fmt.format(new Date());
+
+            const updated = source.replace(/<!--AUTO-DATE-->/g, date);
+
+            if (updated !== source) {
+              fs.writeFileSync(path, updated, 'utf8');
+              core.info(`README updated to: ${date}`);
+              core.setOutput('changed', 'true');
             } else {
-              console.log("No AUTO-DATE placeholder found or already up to date.");
-            }'
-
-          # Capture whether Node signaled a change (exit code 10)
-          rc=$?
-          if [[ $rc -eq 10 ]]; then
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          fi
+              core.info('No AUTO-DATE placeholder changed.');
+              core.setOutput('changed', 'false');
+            }
 
       - name: Commit and push (if changed)
         if: steps.stamp.outputs.changed == 'true'
-        run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "chore: auto-stamp README [skip ci]"
-          git push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-stamp README [skip ci]"
+          file_pattern: README.md

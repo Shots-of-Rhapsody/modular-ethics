@@ -30,18 +30,18 @@ Ethical debates often get stuck in rhetoric. This project aims to:
 
 ## 📂 Repository Structure
 
-├── public/ ← static front-end assets (HTML, CSS, JS)
-├── src/ ← source code (interactive logic, UI, engine)
+```text
+├── public/                  ← static front-end assets (HTML, CSS, JS)
+├── src/                     ← source code (interactive logic, UI, engine)
 ├── data/
-│ └── scenarios.json ← seed moral dilemmas and case definitions
-├── assets/ ← site-wide styles, shared scripts
-├── scripts/ ← build / deployment or utility scripts
+│   └── scenarios.json       ← seed moral dilemmas and case definitions
+├── assets/                  ← site-wide styles, shared scripts
+├── scripts/                 ← build / deployment or utility scripts
 ├── ROADMAP.md
 ├── SECURITY.md
 ├── LICENSE.md
 ├── package.json / lock
-└── lychee.toml ← static-site / link-checker config
-
+└── lychee.toml              ← static-site / link-checker config
 
 Key pages and modules:
 
