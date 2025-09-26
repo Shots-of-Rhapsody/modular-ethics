@@ -17,7 +17,16 @@ const createEl = (name, attrs = {}) => {
   return el
 }
 
-const clear = el => { while (el && el.firstChild) el.removeChild(el.firstChild) }
+const clear = el => {
+  if (!el) return
+  let node = el.firstChild
+  while (node) {
+    const next = node.nextSibling
+    el.removeChild(node)
+    node = next
+  }
+}
+
 const clamp01 = x => Math.max(0, Math.min(1, x))
 const fmt = n => (typeof n === 'number' ? (Math.abs(n) >= 100 ? n.toFixed(0) : n.toFixed(3)).replace(/\.?0+$/, '') : String(n))
 
