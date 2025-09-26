@@ -6,7 +6,7 @@
 
 'use strict'
 
-const EPS = 1e-9
+const _EPS = 1e-9 // reserved for potential numeric stability tweaks
 
 // Concavity helper: optionally apply sqrt concavity to utilities
 const sqrt = x => Math.sqrt(Math.max(0, x))
@@ -53,6 +53,7 @@ export function evacExpectedLives (scn) {
   const pW = scn.prob_if_delayed.west
   const v = concaveFn(scn)
 
+  // Sum of survival probabilities across D1..D5 per action
   const actions = {
     b1_east_now: () => v(3 * pNow + 2 * pW),
     b2_west_plus_one_east: () => v(3 * pNow + 2 * pE),
@@ -118,7 +119,7 @@ export function consRawScores (scn) {
   switch (scn?.id) {
     case 'triage-vent-v1': return triageExpectedYears(scn)
     case 'evac-promise-v1': return evacExpectedLives(scn)
-    case 'vax-allocation-v1':return vaxExpectedLifeYearsSaved(scn)
+    case 'vax-allocation-v1': return vaxExpectedLifeYearsSaved(scn)
     default:
       throw new Error('Unknown scenario id (cons): ' + scn?.id)
   }
