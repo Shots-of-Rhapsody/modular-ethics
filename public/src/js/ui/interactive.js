@@ -21,7 +21,8 @@ const $ = (sel, root = document) => root.querySelector(sel)
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel))
 
 const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts)
-const val = el => (el?.type === 'checkbox' ? !!el.checked : Number.isNaN(+el?.value) ? el?.value : +el.value)
+// Unused today but handy for future form handling; underscore silences ESLint.
+const _val = el => (el?.type === 'checkbox' ? !!el.checked : Number.isNaN(+el?.value) ? el?.value : +el.value)
 const setVal = (el, v) => {
   if (!el) return
   if (el.type === 'checkbox') el.checked = !!v; else el.value = v
@@ -61,8 +62,8 @@ async function loadScenarios () {
   if (!Array.isArray(data)) throw new Error('scenarios.json must be an array')
 
   // Ensure IDs exist for the three seed scenarios; keep original order
-  const have = new Set(data.map(d => d.id));
-  ['triage-vent-v1', 'evac-promise-v1', 'vax-allocation-v1'].forEach(id => {
+  const have = new Set(data.map(d => d.id))
+  ;['triage-vent-v1', 'evac-promise-v1', 'vax-allocation-v1'].forEach(id => {
     if (!have.has(id)) console.warn(`[interactive] Expected scenario missing: ${id}`)
   })
 
@@ -281,7 +282,7 @@ function renderAggregateChart (res) {
   }
 }
 
-function renderRanking (res, scn) {
+function renderRanking (res, _scn) {
   const list = $('#ranking-list')
   if (!list) return
   list.innerHTML = ''
@@ -298,7 +299,7 @@ function renderRanking (res, scn) {
   }
 }
 
-function renderModuleTable (sel, title, map, scn) {
+function renderModuleTable (sel, title, map, _scn) {
   const host = $(sel)
   if (!host) return
   const rows = [...map.entries()].sort((a, b) => b[1] - a[1])

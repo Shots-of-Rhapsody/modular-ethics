@@ -164,7 +164,7 @@ export function renderBars (host, data, opts = {}) {
  * @param {object} opts
  *   - {number}  [pad=12]
  *   - {number}  [barW=16]
- *   - {number}  [gap=8]     // gap between series within a group
+ *   - {number}  [gap=8]     // gap between series within a group (reserved)
  *   - {number}  [axis=48]   // left axis width
  *   - {string}  [title]
  *   - {boolean} [normalized=true] // assume 0..1
@@ -173,7 +173,7 @@ export function renderBars (host, data, opts = {}) {
 export function renderGroupedBars (host, groups, opts = {}) {
   if (!host) return
   const {
-    pad = 12, barW = 16, gap = 8, axis = 48,
+    pad = 12, barW = 16, gap: _gap = 8, axis = 48,
     title, normalized = true, seriesOrder
   } = opts
   const { seq, ink, muted, fog } = colors()
@@ -230,13 +230,12 @@ export function renderGroupedBars (host, groups, opts = {}) {
       tl.textContent = g.label
       svg.appendChild(tl)
 
-      // Series bars
+      // Series bars (encode series by color; single row per group)
       const map = new Map(g.series)
       keys.forEach((k, si) => {
         const v = map.get(k) ?? 0
         const x = axis + pad
         const w = innerW * (normalized ? clamp01(v) : v)
-        const y = y0(gi) + si * 0 // single row; color encodes series
         const r = createEl('rect', { x, y: y0(gi), width: Math.max(1, w), height: barW, rx: barW / 2, fill: seq[si % seq.length], opacity: 0.95 })
         svg.appendChild(r)
       })
@@ -246,7 +245,7 @@ export function renderGroupedBars (host, groups, opts = {}) {
     const legY = hTitle + 4
     let legX = width - pad - 8
     keys.slice().reverse().forEach((k) => {
-      const label = k // action id; you may pass mapped labels from caller
+      const label = k
       const size = textSize(label, '11px Inter, system-ui, sans-serif')
       legX -= size.w + 18
       const swatch = createEl('rect', { x: legX, y: legY - 10, width: 10, height: 10, rx: 2, fill: seq[(keys.indexOf(k)) % seq.length] })
@@ -277,7 +276,7 @@ export function renderGroupedBars (host, groups, opts = {}) {
 export function renderRadar (host, axes, valueMap, opts = {}) {
   if (!host) return
   const { levels = 4, margin = 10, title, filled = true } = opts
-  const { jade, seq, muted, ink, fog } = colors()
+  const { seq, muted, ink, fog } = colors()
 
   host.classList.add('chart-radar')
   if (!host.__observed) { ro.observe(host); host.__observed = true }

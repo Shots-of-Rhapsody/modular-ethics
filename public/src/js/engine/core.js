@@ -19,7 +19,8 @@ const EPS = 1e-9
 const sqrt = x => Math.sqrt(Math.max(0, x))
 const lin = x => x
 
-function concaveFn (scn) {
+// Currently unused by the public flow; keep for future priority functions.
+function _concaveFn (scn) {
   return scn?.params?.priority_fn === 'sqrt' ? sqrt : lin
 }
 
@@ -154,7 +155,9 @@ function rawlsRawScores (scn) {
 // ===================================================================
 // Deontic admissibility (gates)
 // ===================================================================
-function deonticAdmissible (scn, actionId) {
+// Currently unused because the engine uses admissibilityMap() from deontology.js.
+// Kept for future inline gating experiments.
+function _deonticAdmissible (scn, actionId) {
   if (scn.id === 'triage-vent-v1') {
     return { admissible: true, reasons: [] }
   }
@@ -187,7 +190,8 @@ function deonticAdmissible (scn, actionId) {
 // Virtue (scalar proxy)
 // ===================================================================
 // Traits: honesty (promise-keeping), compassion (cons normalized over A*), fairness (lottery/split bonus when close)
-function virtueScore (scn, actionId, consRawMap, traitWts) {
+// Currently unused because virtueRawMap() supplies the virtue scores.
+function _virtueScore (scn, actionId, consRawMap, traitWts) {
   const { honesty: wh = 1, compassion: wc = 1, fairness: wf = 1 } = traitWts || {}
   let honesty = 1; let compassion = 0; let fairness = 0
 
