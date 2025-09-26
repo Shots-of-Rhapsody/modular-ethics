@@ -1,4 +1,13 @@
-# Ethics Testbed - Modular Moral Reasoning
+# Ethics Testbed — Modular Moral Reasoning
+
+![Build](https://img.shields.io/github/actions/workflow/status/Shots-of-Rhapsody/modular-ethics/ci.yml?branch=main)  
+![Coverage](https://img.shields.io/codecov/c/github/Shots-of-Rhapsody/modular-ethics/main)  
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)  
+![Version](https://img.shields.io/github/v/release/Shots-of-Rhapsody/modular-ethics)  
+![Last Commit](https://img.shields.io/github/last-commit/Shots-of-Rhapsody/modular-ethics/main)  
+![Contributors](https://img.shields.io/github/contributors/Shots-of-Rhapsody/modular-ethics)  
+![Open Issues](https://img.shields.io/github/issues/Shots-of-Rhapsody/modular-ethics)  
+![PRs](https://img.shields.io/github/issues-pr/Shots-of-Rhapsody/modular-ethics)  
 
 **Ethics Testbed** is an experimental framework that translates ethical theories into **composable mathematical programs**.  
 It is designed to make moral reasoning **transparent, auditable, and comparable** across different traditions of thought.  
@@ -21,16 +30,29 @@ Ethical debates often get stuck in rhetoric. This project aims to:
 
 ## 📂 Repository Structure
 
-- `index.html` — Home page & project overview  
-- `paper.html` — Methods paper (research-style, expanding the theoretical framework)  
-- `language-math.html` — Accessible page on how language & math align as rule-based systems  
-- `research.html` — Style exploration of math’s correlation with the universe  
-- `results.html` — Interactive results dashboard with live re-weighting of parameters  
-- `interactive.html` — Sensitivity analysis interface for exploring sliders & constraints  
-- `data/scenarios.json` — Seed scenarios for triage, evacuation, vaccine allocation, etc.  
-- `assets/` — Global site styles (`site.css`) and scripts (`site.js`)  
-- `js/engine.js` — Core evaluation engine (formalizes consequentialism, deontology, virtue modules)  
-- `ROADMAP.md` — Development roadmap & milestones  
+├── public/ ← static front-end assets (HTML, CSS, JS)
+├── src/ ← source code (interactive logic, UI, engine)
+├── data/
+│ └── scenarios.json ← seed moral dilemmas and case definitions
+├── assets/ ← site-wide styles, shared scripts
+├── scripts/ ← build / deployment or utility scripts
+├── ROADMAP.md
+├── SECURITY.md
+├── LICENSE.md
+├── package.json / lock
+└── lychee.toml ← static-site / link-checker config
+
+
+Key pages and modules:
+
+- `index.html` — Home / project overview  
+- `paper.html` — Expository / methods document  
+- `language-math.html` — On the correspondence between language and formal rules  
+- `research.html` — Explorations of math, philosophy, and world structure  
+- `results.html` — Interactive dashboard: compare evaluator outputs  
+- `interactive.html` — Slider & constraint interface for sensitivity analysis  
+- `js/engine.js` — Core engine: module definitions, aggregation logic, explanation derivation  
+- `data/scenarios.json` — Scenario definitions and metadata  
 
 ---
 
@@ -66,14 +88,16 @@ Ethical debates often get stuck in rhetoric. This project aims to:
 
 ## 📖 Contributing
 
-We encourage contributions in philosophy, programming, design & testing.  
-See [`contribute.html`](contribute.html) or open an [issue](https://github.com/xartaiusx/ethics.testbed/issues).  
+We welcome all kinds of contributions: philosophy, modeling, UI/visual design, code, testing, documentation.  
+See [`contribute.html`](contribute.html) or open an [issue](https://github.com/Shots-of-Rhapsody/modular-ethics/issues).  
 
 Ways to help:  
-- Add new scenarios in `data/scenarios.json`  
-- Extend the evaluation engine (`js/engine.js`)  
-- Improve accessibility, UI & visualizations  
-- Propose axioms or theoretical refinements  
+- Add or refine scenarios in `data/scenarios.json`  
+- Extend or propose new modules in `js/engine.js`  
+- Improve UI usability, mobile support, accessibility  
+- Suggest or test axioms, alternative aggregation schemes, explanation methods  
+- Report bugs, open issues, propose features  
+- See [CONTRIBUTING](./CONTRIBUTING.md) for full guidelines  
 
 ---
 
@@ -88,4 +112,20 @@ You are free to use, modify & distribute with attribution.
 
 - Inspired by **Eugene Wigner’s** question of math’s “unreasonable effectiveness.”  
 - Informed by traditions across **philosophy, cognitive science, and AI ethics**.  
-- Built to make reasoning processes as **auditable and reproducible** as scientific experiments.
+- Designed so moral reasoning is treated as a research subject — **auditable & reproducible** as scientific experiments.  
+
+---
+
+## 🌐 About
+
+- **Modular Ethics Project**  
+- Website: [shotsofrhapsody.com](https://shotsofrhapsody.com)  
+
+**Resources**  
+- Project homepage / live demo  
+- ROADMAP & development notes  
+- Security policy & code of conduct  
+
+---
+
+*Last updated: <!--AUTO-DATE-->*

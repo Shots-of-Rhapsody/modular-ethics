@@ -1,0 +1,77 @@
+name: Auto Stamp README
+
+on:
+  schedule:
+    # Runs daily around 01:05 Pacific (≈ 09:05 UTC, handles DST automatically)
+    - cron: "5 9 * * *"
+  push:
+    branches: [ "main" ]   # also update on merges to main
+  workflow_dispatch:        # manual run
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-stamp-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          ref: ${{ github.ref }}
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Update README date stamp
+        id: stamp
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          FILE="README.md"
+          if [[ ! -f "$FILE" ]]; then
+            echo "README.md not found; skipping."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Produce a Pacific Time date like "September 25, 2025"
+          node -e 'const fs=require("fs");
+            const file="README.md";
+            let s=fs.readFileSync(file,"utf8");
+            const fmt=new Intl.DateTimeFormat("en-US",{timeZone:"America/Los_Angeles",year:"numeric",month:"long",day:"2-digit"});
+            const date=fmt.format(new Date());
+            const updated=s.replace(/<!--AUTO-DATE-->/g, date);
+            if (updated !== s) {
+              fs.writeFileSync(file, updated);
+              console.log("README updated to:", date);
+              process.exitCode = 10; // signal change
+            } else {
+              console.log("No AUTO-DATE placeholder found or already up to date.");
+            }'
+
+          # Capture whether Node signaled a change (exit code 10)
+          rc=$?
+          if [[ $rc -eq 10 ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push (if changed)
+        if: steps.stamp.outputs.changed == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: auto-stamp README [skip ci]"
+          git push
