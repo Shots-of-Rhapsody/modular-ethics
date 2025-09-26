@@ -128,4 +128,4 @@ You are free to use, modify & distribute with attribution.
 
 ---
 
-*Last updated: <!--AUTO-DATE-->*
+*Last updated: September 26, 2025*
